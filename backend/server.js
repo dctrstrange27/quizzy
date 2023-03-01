@@ -3,9 +3,9 @@ const express = require('express')
 const connectDB = require('./config/db')
 require('dotenv').config()
 const colors = require('colors')
-// const {errorHandler} = require('./middleware/errorHandler')
+const {errorHandler} = require('./middleware/middleware')
 
-const port = process.env.PORT;
+const port = process.env.PORT || 6000;
 
 
 const app = express()
@@ -14,11 +14,15 @@ app.use(express.urlencoded({extended: true}))
 
 connectDB()
 
+app.use('/api/user', require('./routes/user'))
+//app.use('/api/newUser', require('./routes/user'))
 // app.use('/api/food', require('./routes/foodRoutes'))
-// app.use('/api/admin', require('./routes/adminRoutes'))
 // app.post('/api/food',(req,res)=>{res.status(200).json({message:"set Food"})})
-// app.use(errorHandler)
+//app.use(errorHandler)   
+
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`)
 })
+
+
 
