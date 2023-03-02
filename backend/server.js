@@ -18,7 +18,7 @@ app.use('/api', require('./routes/user'))
 //app.use('/api/newUser', require('./routes/user'))
 // app.use('/api/food', require('./routes/foodRoutes'))
 // app.post('/api/food',(req,res)=>{res.status(200).json({message:"set Food"})})
-//app.use(errorHandler)   
+//app.use(errorHandler) @  
 
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`)
