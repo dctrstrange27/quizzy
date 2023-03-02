@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}))
 
 connectDB()
 
-app.use('/api/user', require('./routes/user'))
+app.use('/api', require('./routes/user'))
 //app.use('/api/newUser', require('./routes/user'))
 // app.use('/api/food', require('./routes/foodRoutes'))
 // app.post('/api/food',(req,res)=>{res.status(200).json({message:"set Food"})})
