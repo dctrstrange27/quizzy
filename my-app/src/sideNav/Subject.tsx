@@ -3,7 +3,7 @@ import React from 'react'
 const Subject = () => {
   return (
     <>
-      <div className='subject relative mb-7 w-full font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-md  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200'>
+      <div className='subject relative mb-7 bg-b  font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-md  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200'>
           <header className='flex gap-2 py-2 border-r-Ofive border-[1px justify-start items-center'>
             <svg stroke-width="0" viewBox="0 0 24 24" className="text-sm text-two" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7 10h4v4H7zm0-6h4v4H7zm0 12h4v4H7zm6-6h4v4h-4zm0-6h4v4h-4zm0 12h4v4h-4z"></path></svg>
             <h1 className='Author font-extrabold text-[#434242] '>Author:</h1>

@@ -1,18 +1,16 @@
 module.exports = {
   content: ["./src/**/*.{html,js,tsx}"],
   theme: {
-    screens: {
-      "sss": '360px',
-      "ss": '578px',
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px',
-      '3xl': '1920px',
-    },
+   
     colors: {
-      //dark theme
+      //light theme
+      
+      b1:"#041B2D",
+      b2:"#004e9a",
+      b3:"428cd4",  
+      p1:"#ff9cda",
+      p2:"#ea4492",
+
 
       //gray
       five: "#18191a",
@@ -58,6 +56,7 @@ module.exports = {
         mulish: "'Mulish', sans-serif",
         pacifico: 'Pacifico',
         tilt: 'Tilt Warp',
+        grot: 'Darker Grotesque'
       },
       backgroundImage: {
         'dark-text-logo': "url('./img/dark-text-logo.png')",
