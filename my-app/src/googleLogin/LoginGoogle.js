@@ -1,13 +1,13 @@
 import React from 'react'
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
-const LoginGoogle = () => {
+const LoginGoogle = ({handleLogin}) => {
   return (
     <>
       <GoogleLogin theme="filled_black" size="large"
         onSuccess={credentialResponse => {
           const gAcountCredentials = jwt_Decode(credentialResponse.credential)
-              console.log(gAcountCredentials)
+              handleLogin(gAcountCredentials)
              //console.log(gAcountCredentials)
            // createGoogleAccount(googleAccountCredentials)
         }}
