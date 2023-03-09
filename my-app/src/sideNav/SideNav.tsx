@@ -22,7 +22,7 @@ const SideNav = () => {
           <FaPenNib className="sidenavicon"></FaPenNib>
           <Link to="yours" className="nav">
             {" "}
-            Yours
+            add Subject
           </Link>
         </div>
       </div>

@@ -5,7 +5,7 @@ const Profile = () => {
         <>
             <div className='absolute font-nuni bg-white5 rounded-2xl w-auto h-auto flex flex-col justify-start px-4 py-5
                             shadow-lg mt-52 duration-200 ease-in-out translate-x-10 md:-translate-x-0'>
-                <div className='flex gap-5 hover:bg-[#d3e1ee9b] px-3 rounded-lg py-2'>
+                <div className='profile gap-5 '>
                     <Link to="/" className="" >
                         Profile
                     </Link>
@@ -13,14 +13,13 @@ const Profile = () => {
                         Soon..
                     </Link>
                 </div>
-                <div className='flex gap-5 hover:bg-[#d3e1ee9b] px-3 rounded-lg py-2'>
+                <div className='profile'>
                     <Link to="/login"
                         onClick={() => {
                             localStorage.clear()
                         }} className="" >
                         Logout
-                    </Link>
-
+                    </Link> 
                 </div>
 
             </div>

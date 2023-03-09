@@ -2,7 +2,12 @@ import React from 'react'
 
 const Yours = () => {
   return (
-    <div>Yours nav</div>
+      <>
+        <div className=''>
+           
+
+        </div>
+      </>
   )
 }
 

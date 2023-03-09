@@ -7,12 +7,10 @@ const {errorHandler} = require('./middleware/middleware')
 const cors=require("cors");
 const corsOptions ={
    origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
+   credentials:true,        
    optionSuccessStatus:200,
 }
 const port = process.env.PORT || 6000;
-
-
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -25,9 +23,13 @@ app.use('/api', require('./routes/user'))
 // app.post('/api/food',(req,res)=>{res.status(200).json({message:"set Food"})})
 //app.use(errorHandler) @  
 
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`)
-})
+try {
+    app.listen(port,()=>{
+        console.log(`Server is running on port ${port}`)
+    })
+} catch (error) {
+    console.log(error)
+}
 
 
 

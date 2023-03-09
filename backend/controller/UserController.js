@@ -37,19 +37,19 @@ const createGoogleAccount = async (req, res) => {
 }
 
 const addSubject = async (req, res) => {
-    const {subj, question } = req.body
+    const {subjectCode, questions } = req.body
     try {
         if (!req.body) {
             res.status(400)
             throw new Error('please add a text field')
         }
-        const subject = await Subject.findOne({subjectCode:subj})
+        const subject = await Subject.findOne({subjectCode:subjectCode})
         if (subject) {
             return res.status(400).json({ messge: "Subject Already Exist!" })
         }
         const newSubject = await Subject.create({
-            subjectCode: `${subj}`,
-            questions: question,
+            subjectCode: `${subjectCode}`,
+            questions: questions,
         })
         res.status(200).json(newSubject)
 
@@ -58,8 +58,21 @@ const addSubject = async (req, res) => {
     }
 }
 
+const getSubject=async(req,res)=>{
+    const getSubject = await Subject.find({})
+    res.status(200).json(getSubject)
+}
+
+const getQuestion=async(req,res)=>{
+    const {id} = req.body
+    const getOneSubj = await Subject.findOne({_id:id})
+    res.status(200).json(getOneSubj.questions)
+}
+
 module.exports = {
     login,
     createGoogleAccount,
-    addSubject
+    addSubject,
+    getSubject,
+    getQuestion,
 }

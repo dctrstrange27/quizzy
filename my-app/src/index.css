@@ -43,5 +43,12 @@ code {
   .sidenavicon {
     @apply hidden md:block md:text-p2 
   }
-
+  .profile{
+    @apply text-sm flex gap-5 hover:bg-[#d3e1ee9b] px-3 rounded-lg py-2
+  }
+  
+  .subject{
+    @apply relative mb-7 border-[1px] font-nuni text-sm px-4 py-4 h-60  shadow-Light_shadow hover:shadow-lg  
+    border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200
+  }
 }

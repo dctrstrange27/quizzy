@@ -13,6 +13,7 @@ import Login from "./Login/Login";
 import { useNavigate } from "react-router-dom";
 import { API, saveUser } from "./utils/index";
 import Nav from "./Nav/Nav";
+import Question from "./sideNav/Question";
 
 function App() {
   return (
@@ -24,32 +25,23 @@ function App() {
 
 const MainApp = () => {
   const [userName, setUserName] = useState();
-  const [useLocal, setUseLocal] = useState(false);
-  const [useGoogle, setUseGoogle] = useState(false);
-  const [currentTab, setCurrentTab] = useState();
-  const [cartItems, setCartItems] = useState([]);
-  const [cartItemsCount, setCartCount] = useState(1);
-  const [showProfile,setShowProfile]=useState(false)
-
-
-  interface LoginData {
-    email: string;
-    name: string;
-    picture: string;
-    email_verified: boolean;
-  }
+  const [showProfile, setShowProfile] = useState(false)
 
   interface user {
     email: number;
     name: string;
     picture: string;
   }
+
   const [userData, setUserData] = useState<user[]>([]);
- const [hasUser,setHasUser] = useState(true)
-  const handleLogin = async (data: LoginData) => {
+  const [hasUser, setHasUser] = useState(true)
+  const [question,setQuestions] =useState([])
+
+
+  const handleLogin = async (data: user) => {
     const gCredentials = await API.post("/createG", {
       email_address: data.email,
-      customer_name: data.name,
+      name: data.name,
       picture: data.picture,
     });
     setUserData(gCredentials.data);
@@ -57,23 +49,27 @@ const MainApp = () => {
     Navigate("/shared");
   };
 
+  const clickMe=()=>{console.log("click me")}
   const Navigate = useNavigate();
 
-  const handleShowProfile=()=>{setShowProfile(!showProfile)}
+  const handleShowProfile = () => { setShowProfile(false) }
 
-  useEffect(()=>{
-    if(!hasUser){
+  const [id, getId] = useState()
+
+  useEffect(() => {
+    if (!hasUser) {
       Navigate('/')
     }
   })
-  console.log(showProfile)
+  console.log(id)
   return (
-    <div  className="App w-full h-full border-[20px border-r-b2">
+    <div className="App w-full h-full border-[20px border-r-b2">
       <div className=" border-[5px h-full border-r-b2">
         <Routes>
-          <Route path="/" element={<Home userData={userData} showProfile={showProfile} handleShowProfile={handleShowProfile}/>}>
+          <Route path="/" element={<Home  userData={userData} setShowProfile={setShowProfile} showProfile={showProfile} handleShowProfile={handleShowProfile} />}>
             <Route path="yours" element={<Yours />} />
-            <Route path="shared" element={<Shared />} />
+            <Route path="question" element={<Question id={id} clickMe={clickMe} />} />
+            <Route path="shared" element={<Shared getId={getId} question={question} setQuestions={setQuestions} handleShowProfile={handleShowProfile}  />} />
           </Route>
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
         </Routes>
