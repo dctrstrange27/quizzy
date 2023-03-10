@@ -35,21 +35,25 @@ const MainApp = () => {
 
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(true)
-  const [question,setQuestions] =useState([])
+  const [question, setQuestions] = useState([])
 
 
   const handleLogin = async (data: user) => {
-    const gCredentials = await API.post("/createG", {
-      email_address: data.email,
-      name: data.name,
-      picture: data.picture,
-    });
-    setUserData(gCredentials.data);
-    saveUser(gCredentials);
-    Navigate("/shared");
+    try {
+      const gCredentials = await API.post("/createG", {
+        email_address: data.email,
+        name: data.name,
+        picture: data.picture,
+      });
+      setUserData(gCredentials.data);
+      saveUser(gCredentials);
+      Navigate("/shared");
+    } catch (error) {
+      console.log(error)
+    }
   };
 
-  const clickMe=()=>{console.log("click me")}
+  const clickMe = () => { console.log("click me") }
   const Navigate = useNavigate();
 
   const handleShowProfile = () => { setShowProfile(false) }
@@ -61,15 +65,56 @@ const MainApp = () => {
       Navigate('/')
     }
   })
-  console.log(id)
+
+  const [answer, setAnswer] = useState()
+  const [currentQ, setCurrentQ] = useState(0)
+  const [current, setCurrent] = useState([])
+  const [questions, setQuestion] = useState([])
+
+  const handleQuestion = (id) => {
+    const pickQuestion = questions.find((q, idx) => idx === id)
+    setCurrent(pickQuestion)
+  }
+  const getSpecificQuestion = async () => {
+    try {
+      const data = await API.post("/getQuestion", {
+        id: id
+      })
+      setQuestion(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (!hasUser) {
+      Navigate('/')
+    }
+  })
+
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
       <div className=" border-[5px h-full border-r-b2">
         <Routes>
-          <Route path="/" element={<Home  userData={userData} setShowProfile={setShowProfile} showProfile={showProfile} handleShowProfile={handleShowProfile} />}>
+          <Route path="/" element={<Home userData={userData} setShowProfile={setShowProfile} showProfile={showProfile} handleShowProfile={handleShowProfile} />}>
             <Route path="yours" element={<Yours />} />
-            <Route path="question" element={<Question id={id} clickMe={clickMe} />} />
-            <Route path="shared" element={<Shared getId={getId} question={question} setQuestions={setQuestions} handleShowProfile={handleShowProfile}  />} />
+            <Route path="question" element={
+              <Question
+                getSpecificQuestion={getSpecificQuestion} 
+                currentQ={currentQ}
+                setCurrentQ={setCurrentQ}
+                current={current}
+                id={id}
+                handleQuestion={handleQuestion}
+              />} />
+
+            <Route path="shared" element={
+              <Shared
+                setQuestion={setQuestion}
+                id={id}
+                getId={getId}
+                handleShowProfile={handleShowProfile}
+              />} />
           </Route>
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
         </Routes>
