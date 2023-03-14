@@ -1,7 +1,6 @@
 import "./App.css";
 import {
   BrowserRouter as Router,
-  Outlet,
   Route,
   Routes,
 } from "react-router-dom";
@@ -11,8 +10,7 @@ import Home from "./Home/Home";
 import { useEffect, useState } from "react";
 import Login from "./Login/Login";
 import { useNavigate } from "react-router-dom";
-import { API, saveUser } from "./utils/index";
-import Nav from "./Nav/Nav";
+import { API, getCurrentQuestion, saveQuestion, saveUser } from "./utils/index";
 import Question from "./sideNav/Question";
 
 function App() {
@@ -22,9 +20,7 @@ function App() {
     </Router>
   );
 }
-
 const MainApp = () => {
-  const [userName, setUserName] = useState();
   const [showProfile, setShowProfile] = useState(false)
 
   interface user {
@@ -35,7 +31,6 @@ const MainApp = () => {
 
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(true)
-  const [question, setQuestions] = useState([])
 
 
   const handleLogin = async (data: user) => {
@@ -52,13 +47,8 @@ const MainApp = () => {
       console.log(error)
     }
   };
-
-  const clickMe = () => { console.log("click me") }
   const Navigate = useNavigate();
-
   const handleShowProfile = () => { setShowProfile(false) }
-
-  const [id, getId] = useState()
 
   useEffect(() => {
     if (!hasUser) {
@@ -66,26 +56,21 @@ const MainApp = () => {
     }
   })
 
-  const [answer, setAnswer] = useState()
-  const [currentQ, setCurrentQ] = useState(0)
-  const [current, setCurrent] = useState([])
   const [questions, setQuestion] = useState([])
 
-  const handleQuestion = (id) => {
-    const pickQuestion = questions.find((q, idx) => idx === id)
-    setCurrent(pickQuestion)
-  }
-  const getSpecificQuestion = async () => {
+ 
+  const getSubject = async (id) => {
     try {
       const data = await API.post("/getQuestion", {
         id: id
       })
       setQuestion(data.data)
+      saveQuestion(data.data)
+      Navigate('/question')
     } catch (error) {
       console.log(error)
     }
   }
-
   useEffect(() => {
     if (!hasUser) {
       Navigate('/')
@@ -100,21 +85,17 @@ const MainApp = () => {
             <Route path="yours" element={<Yours />} />
             <Route path="question" element={
               <Question
-                getSpecificQuestion={getSpecificQuestion} 
-                currentQ={currentQ}
-                setCurrentQ={setCurrentQ}
-                current={current}
-                id={id}
-                handleQuestion={handleQuestion}
+                questions={questions}
+                getSubject={getSubject}
+                setQuestion={setQuestion}
               />} />
-
             <Route path="shared" element={
               <Shared
                 setQuestion={setQuestion}
-                id={id}
-                getId={getId}
+                getSubject={getSubject}
                 handleShowProfile={handleShowProfile}
-              />} />
+              />} 
+              />
           </Route>
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
         </Routes>

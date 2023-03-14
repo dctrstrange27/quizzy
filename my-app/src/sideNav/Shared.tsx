@@ -3,7 +3,7 @@ import { BsFillJournalBookmarkFill } from 'react-icons/bs'
 import Subject from './Subject'
 import { useState } from 'react'
 import { API } from '../utils'
-const Shared = ({ handleShowProfile, id, getId,setQuestion }) => {
+const Shared = ({ handleShowProfile, setQuestion,getSubject }) => {
 
   const [showSub, setShowSub] = useState(true)
   const [questions, setQuestions] = useState([]);
@@ -18,9 +18,9 @@ const Shared = ({ handleShowProfile, id, getId,setQuestion }) => {
   }
 
   useEffect(() => {
-   
     getQuestion()
   }, [])
+
 
   return (
     <div onClick={() => {
@@ -39,8 +39,8 @@ const Shared = ({ handleShowProfile, id, getId,setQuestion }) => {
       </div>
       <div className='py-2 '>
         {
-          questions.map((quest, id) => (
-            <Subject key={id}  getId={getId} quest={quest} ></Subject>
+          questions?.map((quest, id) => (
+            <Subject key={id} getSubject={getSubject}  quest={quest} ></Subject>
           ))
         }
       </div>

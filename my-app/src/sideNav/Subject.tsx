@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Question from "./Question";
 import moment from 'moment';
-const Subject = ({ quest,getId }) => {
-
-  const clickMe=()=>{console.log("click Me!")}
+import { saveID } from "../utils";
+const Subject = ({ quest,getSubject}) => {
   return (
     <div className="subject relative mb-7 bg-b  font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200">
-      <Link to="/question"
-        onClick={()=>{getId(quest._id)}}
+      <div
+        onClick={()=>{
+          getSubject(quest._id)
+        }}
       >
         <header className="flex gap-2 py-2 border-r-Ofive border-[1px justify-start items-center">
           <svg
@@ -50,7 +51,7 @@ const Subject = ({ quest,getId }) => {
         <div className="Date text-sm text-[#5f5e5e] absolute bottom-2 right-3">
           Accessed by student 23x
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

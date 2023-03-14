@@ -67,7 +67,7 @@ const getSubject=async(req,res)=>{
 const getQuestion=async(req,res)=>{
     const {id} = req.body
     const getOneSubj = await Subject.findOne({_id:id})
-    res.status(200).json(getOneSubj.questions)
+    res.status(200).json(getOneSubj)
 }
 
 module.exports = {
