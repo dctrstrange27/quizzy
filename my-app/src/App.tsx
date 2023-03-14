@@ -71,6 +71,7 @@ const MainApp = () => {
       console.log(error)
     }
   }
+  
   useEffect(() => {
     if (!hasUser) {
       Navigate('/')
