@@ -1,9 +1,6 @@
 import React from 'react'
 
 const Options = ({opt}) => {
-
-    console.log(opt)
-
   return (
     <>
         <h1>{opt.a}</h1>

@@ -10,21 +10,21 @@ export const saveQuestion =(response)=>{
   localStorage.setItem("questions", JSON.stringify(response))
   return response
 }
-
-export const saveID =(response)=>{
-  localStorage.setItem("id", JSON.stringify(response))
-  return response
-}
-
-export const getID =(response)=>{
-  localStorage.setItem("id", JSON.stringify(response))
-  return response
-}
-
 export const getCurrentQuestion=()=>{
   const questions = JSON.parse(localStorage.getItem("questions"))
   return questions
 }
+
+export const saveQuestionOnly =(response)=>{
+  localStorage.setItem("questionsOnly", JSON.stringify(response))
+  return response
+}
+export const getCurrentQuestionOnly=()=>{
+  const questionsOnly = JSON.parse(localStorage.getItem("questionsOnly"))
+  return questionsOnly
+}
+
+
 
 export const updateUser = (userData) => {
   localStorage.setItem("userData", userData);
