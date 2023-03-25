@@ -1,49 +1,84 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { API, getCurrentQuestion, getCurrentQuestionOnly } from '../utils'
-import Options from './Options'
-import Qportal from './Qportal'
+import React, { useEffect, useState } from "react";
+import { getCurrentQ, getCurrentQuestion, getQuestionOnly, saveCurrentQ } from "../utils";
+import Qportal from "./Qportal";
+
+//const getCurrentQFLS = localStorage.getItem("currentQ") !== undefined ? JSON.parse(localStorage.getItem("currentQ")) : []
+
 const Question = ({
-  getSubject,
   questions,
   setQuestion,
-  questionOnly,
+  questionsOnly,
   setQuestionOnly,
+
 }) => {
+  const [currentQ, setCurrentQ] = useState([]);
+  const [disabled, setDisable] = useState(false);
+  const [random, setRandom] = useState(0);
+  const [arr, setArr] = useState([]);
 
-  const Navigate = useNavigate()
+  //random number generattor
+  const generateRandomNum = () => {
+    console.log(arr)
+    let x = true
+    if (Object.keys(arr).length == 10) {
+      setDisable(true);
+      console.log(disabled)
+      console.log("array length exceed!")
+      return
+    }
+    try {
+      while(x){
+        let randomNum = Math.floor(Math.random() * 10);
+        if(!arr.includes(randomNum)){
+          setRandom(randomNum)
+          arr.push(randomNum)
+          x = false
+          }
+        randomNum = Math.floor(Math.random() * 10);
+      }
+    } catch (error) {
+      console.log(error)
+    }
 
-  function getRandom(min, max) {
-    const randomNumber = Math.random();
-    const scaledNumber = Math.floor(randomNumber * (max - min + 1) + min);
-    return scaledNumber;
-  }
+  };
+  //handling questions every next
+  const handleQuestion = (rand = 0) => {
+    handleCurrentQ(rand);
+    generateRandomNum();
+  };
 
-  const handleQuestion=()=>{
-    const random = getRandom(0,9)
-    console.log(random)
-    setQuestionOnly(questionOnly.find((e,idx)=> random === idx))
-  
-  }
+  //filter specific questions
+  const handleCurrentQ = (id) => {
+    const currentQuestion = questionsOnly.find((e, idx) => idx == id);
+    setCurrentQ(currentQuestion);
+    saveCurrentQ(currentQuestion)
+  };
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
+    // console.log(currentQ)
+    handleQuestion(0)    
     setQuestion(getCurrentQuestion())
-    setQuestionOnly(getCurrentQuestionOnly())
-    handleQuestion()
-  },[])
+  }, []);
 
   return (
     <>
-      <div className="w-full h-fit mt-28 flex justify-center items-center border-[2px] border-[#700a0a]">
+      <div
+        className="h-fit mt-28 flex justify-center items-center border-[1px m-auto w-full border-[#700a0a]
+                       md:w-[50%]
+                      "
+      >
         <div className="">
-          <Qportal quest={questionOnly} questions={questions}></Qportal>
-          <button onClick={() => {handleQuestion() }} className="nav">Next</button>
+          <Qportal
+            disabled={disabled}
+            random={random}
+            handleQuestion={handleQuestion}
+            quest={currentQ}
+            questions={questions}
+          ></Qportal>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Question
+export default Question;

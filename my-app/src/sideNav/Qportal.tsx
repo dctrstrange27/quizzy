@@ -1,27 +1,43 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-import Options from './Options'
+import { useEffect, useState } from "react";
+import Options from "./Options";
 
-const Qportal = ({ questions, quest }) => {
-
-  console.log(quest.question)
+const Qportal = ({ questions, quest, random, handleQuestion, disabled }) => {
+  const [isSelected, setIsSelected] = useState(false);
+  const handleSelect = () => {
+    setIsSelected(true);
+  };
   return (
     <>
-      <h1 className='font-grot border-[1px text-2xl'>{questions?.subjectCode}</h1>
-      <h1>Hello Questions</h1>
-      <div>
-        {quest.question}
-      </div>
+      <h1 className="font-grot border-[1px py-3 text-2xl">
+        {questions?.subjectCode}
+      </h1>
       <ul>
-        {/* {quest?.map((entry, idx) => (
-          <div key={idx}>
-            {entry.question}
-            <Options opt={entry.options} ></Options>
+        {quest == undefined ? (
+          ""
+        ) : (
+          <div>
+            <div className="font-grot text-2xl px-4 text-[#2c2b2b] border-[1px">
+              {quest?.question}
+            </div>
+            <div className="mb-8 border-[1px">
+              <Options
+                disabled={disabled}
+                handleQuestion={handleQuestion}
+                random={random}
+                opt={quest}
+                isSelected={isSelected}
+                handleSelect={handleSelect}
+              ></Options>
+              {/* {options?.map((opt,idx)=>(
+                  <div key={idx}>
+                    <Options opt={opt} isSelected={isSelected} handleSelect={handleSelect}></Options>
+                  </div>  
+                ))} */}
+            </div>
           </div>
-        ))} */}
+        )}
       </ul>
     </>
-  )
-}
-
-export default Qportal
+  );
+};
+export default Qportal;

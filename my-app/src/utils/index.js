@@ -6,24 +6,33 @@ export const saveUser = (response) => {
   return response.data.userData;
 };
 
-export const saveQuestion =(response)=>{
-  localStorage.setItem("questions", JSON.stringify(response))
+export const saveCurrentQuestion = (response) => {
+  localStorage.setItem("questions", JSON.stringify(response));
+  return response;
+};
+export const getCurrentQuestion = () => {
+  const questions = JSON.parse(localStorage.getItem("questions"));
+  return questions;
+};
+
+export const saveQuestionOnly = (response) => {
+  localStorage.setItem("questionsOnly", JSON.stringify(response));
+  return response;
+};
+export const getQuestionOnly = () => {
+  const questionsOnly = JSON.parse(localStorage.getItem("questionsOnly"));
+  return questionsOnly;
+};
+
+export const saveCurrentQ=(response)=>{
+  localStorage.setItem("currentQ", JSON.stringify(response))
   return response
 }
-export const getCurrentQuestion=()=>{
-  const questions = JSON.parse(localStorage.getItem("questions"))
-  return questions
-}
 
-export const saveQuestionOnly =(response)=>{
-  localStorage.setItem("questionsOnly", JSON.stringify(response))
-  return response
+export const getCurrentQ=()=>{
+  const current = localStorage.getItem("currentQ") !== undefined ? JSON.parse(localStorage.getItem("currentQ")) : null
+  return current
 }
-export const getCurrentQuestionOnly=()=>{
-  const questionsOnly = JSON.parse(localStorage.getItem("questionsOnly"))
-  return questionsOnly
-}
-
 
 
 export const updateUser = (userData) => {

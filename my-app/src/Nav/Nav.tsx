@@ -39,7 +39,7 @@ const Nav = ({userData,setShowProfile,handleShowProfile,showProfile}) => {
           {getUser() ? (
             <>
               <img
-                onClick={() => {setShowProfile(!showProfile)}} className="w-8 h-8 rounded-full hover:scale-105" src={`${getUser() ? getUser().profile_picture : ""}`} />
+                onClick={() => {setShowProfile(!showProfile)}} className="w-10 h-10 rounded-full duration-150 ease-in-out hover:scale-105 hover:border-[1px] hover:border-[#818181a6] " src={`${getUser() ? getUser().profile_picture : ""}`} />
                {showProfile && <Profile/>}
             </>
           ) : (

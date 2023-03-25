@@ -1,28 +1,28 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Yours from "./sideNav/Yours";
 import Shared from "./sideNav/Shared";
 import Home from "./Home/Home";
 import { useEffect, useState } from "react";
 import Login from "./Login/Login";
 import { useNavigate } from "react-router-dom";
-import { API, getCurrentQuestion, saveQuestion, saveQuestionOnly, saveUser } from "./utils/index";
+import {
+  API,
+  saveCurrentQuestion,
+  saveQuestionOnly,
+  saveUser,
+} from "./utils/index";
 import Question from "./sideNav/Question";
 
 function App() {
   return (
-    
     <Router>
       <MainApp />
     </Router>
   );
 }
 const MainApp = () => {
-  const [showProfile, setShowProfile] = useState(false)
+  const [showProfile, setShowProfile] = useState(false);
 
   interface user {
     email: number;
@@ -31,8 +31,7 @@ const MainApp = () => {
   }
 
   const [userData, setUserData] = useState<user[]>([]);
-  const [hasUser, setHasUser] = useState(true)
-
+  const [hasUser, setHasUser] = useState(true);
 
   const handleLogin = async (data: user) => {
     try {
@@ -45,63 +44,80 @@ const MainApp = () => {
       saveUser(gCredentials);
       Navigate("/shared");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   const Navigate = useNavigate();
-  const handleShowProfile = () => { setShowProfile(false) }
+  const handleShowProfile = () => {
+    setShowProfile(false);
+  };
 
-  useEffect(() => {
-    if (!hasUser) {
-      Navigate('/')
-    }
-  })
+  const [questions, setQuestion] = useState([]);
+  const [questionsOnly, setQuestionOnly] = useState([]);
 
-  const [questions, setQuestion] = useState([])
-  const [questionsOnly,setQuestionOnly] =useState([])
- 
   const getSubject = async (id) => {
     try {
       const data = await API.post("/getQuestion", {
-        id: id
-      })
-      setQuestion(data.data)
-      setQuestionOnly(data.data.questions)
-      saveQuestionOnly(data.data.questions)
-      saveQuestion(data.data)
-      Navigate('/question')
+        id: id,
+      });
+      setQuestionOnly(data.data.questions);
+      saveQuestionOnly(data.data.questions);
+      saveCurrentQuestion(data.data);
+      Navigate("/question");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  
+  };
+
+
   useEffect(() => {
+    // console.log(questions)
+    // console.log(questionsOnly)
     if (!hasUser) {
-      Navigate('/')
+      Navigate("/");
     }
-  })
+  });
+ 
+
 
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
       <div className=" border-[5px h-full border-r-b2">
         <Routes>
-          <Route path="/" element={<Home userData={userData} setShowProfile={setShowProfile} showProfile={showProfile} handleShowProfile={handleShowProfile} />}>
-            <Route path="yours" element={<Yours />} />
-            <Route path="question" element={
-              <Question
-                setQuestionOnly={setQuestionOnly}
-                questions={questions}
-                getSubject={getSubject}
-                setQuestion={setQuestion}
-                questionOnly={questionsOnly}
-              />} />
-            <Route path="shared" element={
-              <Shared
-                setQuestion={setQuestion}
-                getSubject={getSubject}
+          <Route
+            path="/"
+            element={
+              <Home
+                userData={userData}
+                setShowProfile={setShowProfile}
+                showProfile={showProfile}
                 handleShowProfile={handleShowProfile}
-              />} 
               />
+            }
+          >
+            <Route path="yours" element={<Yours />} />
+            <Route
+              path="question"
+              element={
+                <Question
+                  setQuestionOnly={setQuestionOnly}
+                  questions={questions}
+                  setQuestion={setQuestion}
+                  questionsOnly={questionsOnly}
+                
+                />
+              }
+            />
+            <Route
+              path="shared"
+              element={
+                <Shared
+                  setQuestion={setQuestion}
+                  getSubject={getSubject}
+                  handleShowProfile={handleShowProfile}
+                />
+              }
+            />
           </Route>
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
         </Routes>
