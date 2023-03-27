@@ -1,73 +1,51 @@
 import React, { useEffect, useState } from "react";
+import { couldStartTrivia } from "typescript";
 import { getCurrentQ, getCurrentQuestion, getQuestionOnly, saveCurrentQ } from "../utils";
 import Qportal from "./Qportal";
-
-//const getCurrentQFLS = localStorage.getItem("currentQ") !== undefined ? JSON.parse(localStorage.getItem("currentQ")) : []
 
 const Question = ({
   questions,
   setQuestion,
   questionsOnly,
   setQuestionOnly,
-
 }) => {
-  const [currentQ, setCurrentQ] = useState([]);
+  const [currentQ, setCurrentQ] = useState<any | null>(null);
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState([]);
 
-  //random number generattor
-  const generateRandomNum = () => {
-    console.log(arr)
+  
+  const generateRandomNum=()=>{ return Math.floor(Math.random() * 10)} 
+  //handling questions every next
+  const handleQuestion = (id) => {
+    if (arr.length == 10) {setDisable(true);return}
     let x = true
-    if (Object.keys(arr).length == 10) {
-      setDisable(true);
-      console.log(disabled)
-      console.log("array length exceed!")
-      return
-    }
-    try {
-      while(x){
-        let randomNum = Math.floor(Math.random() * 10);
+    while(x){
+        let randomNum = generateRandomNum()
         if(!arr.includes(randomNum)){
           setRandom(randomNum)
           arr.push(randomNum)
           x = false
           }
-        randomNum = Math.floor(Math.random() * 10);
+        randomNum = generateRandomNum()
       }
-    } catch (error) {
-      console.log(error)
-    }
-
-  };
-  //handling questions every next
-  const handleQuestion = (rand = 0) => {
-    handleCurrentQ(rand);
-    generateRandomNum();
-  };
-
-  //filter specific questions
-  const handleCurrentQ = (id) => {
-    const currentQuestion = questionsOnly.find((e, idx) => idx == id);
-    setCurrentQ(currentQuestion);
-    saveCurrentQ(currentQuestion)
+      const currentQuestion = questionsOnly.find((e, idx) => idx == id);
+      setCurrentQ(currentQuestion);
+      saveCurrentQ(currentQuestion)
   };
 
   useEffect(() => {
-    // console.log(currentQ)
-    handleQuestion(0)    
+    setCurrentQ(getCurrentQ())
+    handleQuestion(generateRandomNum())
     setQuestion(getCurrentQuestion())
+    setQuestionOnly(getQuestionOnly())
   }, []);
-
+  
   return (
     <>
       <div
-        className="h-fit mt-28 flex justify-center items-center border-[1px m-auto w-full border-[#700a0a]
-                       md:w-[50%]
-                      "
-      >
-        <div className="">
+        className="h-fit mt-28 flex justify-center items-center border-[.2px] 
+                   m-auto w-full shadow-md rounded-2xl border-[#00000032] md:max-w-2xl">
           <Qportal
             disabled={disabled}
             random={random}
@@ -75,8 +53,12 @@ const Question = ({
             quest={currentQ}
             questions={questions}
           ></Qportal>
-        </div>
       </div>
+      {questionsOnly.map((q,idx)=>(
+              <div key={idx}> 
+                <h1>{q.question}</h1>
+              </div>
+           ))}
     </>
   );
 };

@@ -22,7 +22,6 @@
     "jsx": "react-jsx",
     "noImplicitAny": false
   },
-  "include": [
-    "src"
-, "src/utils"  ]
+  "include": ["src", "src/utils"  ]
+  
 }

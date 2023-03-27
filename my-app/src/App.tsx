@@ -11,6 +11,8 @@ import {
   saveCurrentQuestion,
   saveQuestionOnly,
   saveUser,
+  getCurrentQ,
+  getQuestionOnly,
 } from "./utils/index";
 import Question from "./sideNav/Question";
 
@@ -21,9 +23,9 @@ function App() {
     </Router>
   );
 }
+
 const MainApp = () => {
   const [showProfile, setShowProfile] = useState(false);
-
   interface user {
     email: number;
     name: string;
@@ -47,6 +49,7 @@ const MainApp = () => {
       console.log(error);
     }
   };
+
   const Navigate = useNavigate();
   const handleShowProfile = () => {
     setShowProfile(false);
@@ -69,16 +72,11 @@ const MainApp = () => {
     }
   };
 
-
   useEffect(() => {
-    // console.log(questions)
-    // console.log(questionsOnly)
     if (!hasUser) {
       Navigate("/");
     }
-  });
- 
-
+  },[]);
 
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
@@ -104,7 +102,6 @@ const MainApp = () => {
                   questions={questions}
                   setQuestion={setQuestion}
                   questionsOnly={questionsOnly}
-                
                 />
               }
             />
