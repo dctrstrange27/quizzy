@@ -93,8 +93,8 @@ const MainApp = () => {
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
-        console.log(arr)
-        console.log(randomNum)
+        // console.log(arr)
+        // console.log(randomNum)
         x = false;
       }
       randomNum = generateRandomNum();

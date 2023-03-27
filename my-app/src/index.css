@@ -60,6 +60,16 @@ code {
     @apply bg-b2 text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105
   }
 
+  .disabledBtn{
+   @apply bg-[#0000007b] text-P_bg px-3 py-2 font-grot hover:transform-none  rounded-md
+  }
+
+  .disabledChoices{
+    @apply px-3 font-grot text-[20px] text-[#2c2b2b] text-start py-4 hover:from-[#ffffff17]
+    bg-[#0000007b]
+  }
+
+
 }
 
 

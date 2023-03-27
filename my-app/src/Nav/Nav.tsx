@@ -40,7 +40,7 @@ const Nav = ({userData,setShowProfile,handleShowProfile,showProfile}) => {
             <>
               <img
                 onClick={() => {setShowProfile(!showProfile)}} className="w-10 h-10 rounded-full duration-150 ease-in-out hover:scale-105 hover:border-[1px] hover:border-[#818181a6] " src={`${getUser() ? getUser().profile_picture : ""}`} />
-               {showProfile && <Profile/>}
+               {showProfile && <Profile  setShowP={setShowProfile} showP={showProfile} />}
             </>
           ) : (
             <Link to="/login" className="button">

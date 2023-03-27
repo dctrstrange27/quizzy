@@ -31,13 +31,13 @@ export const saveCurrentQ=(response)=>{
 
 export const getCurrentQ=()=>{
   try {
-    const current = JSON.parse(localStorage.getItem("currentQ"));
+    const current = JSON.parse(localStorage.getItem("currentQ") || []);
     if(!current){
       return false;
     }
     return current
   } catch (error) {
-    console.log(error)
+    console.log("error Papi! "+error)
   }
 }
 

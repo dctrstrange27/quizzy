@@ -6,7 +6,6 @@ const Qportal = ({ questions, quest, random, handleQuestion, disabled }) => {
   const handleSelect = () => {
     setIsSelected(true);
   };
-
   return (
     <>
       <div className="border-[1px w-full flex flex-col px-2 mx-2 my-2">
@@ -18,7 +17,7 @@ const Qportal = ({ questions, quest, random, handleQuestion, disabled }) => {
           ""
         ) : (
           <div>
-            <div className="font-grot text-2xl px-4 text-justify text-[#2c2b2b] border-[1px">
+            <div className="font-grot text-2xl px-4 py-4 text-justify text-[#2c2b2b] border-[1px">
               {quest?.question}
             </div>
             <div className="mb-8 border-[1px">
@@ -26,7 +25,7 @@ const Qportal = ({ questions, quest, random, handleQuestion, disabled }) => {
                 disabled={disabled}
                 handleQuestion={handleQuestion}
                 random={random}
-                opt={quest}
+                quest={quest}
                 isSelected={isSelected}
                 handleSelect={handleSelect}
               ></Options>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-const Profile = () => {
+const Profile = ({showP,setShowP}) => {
     return (
         <>
             <div className='absolute font-nuni bg-white5 rounded-2xl w-auto h-auto flex flex-col justify-start px-4 py-5
@@ -17,6 +17,7 @@ const Profile = () => {
                     <Link to="/login"
                         onClick={() => {
                             localStorage.setItem("userData", JSON.stringify([]));
+                            setShowP(!showP)
                         }} className="" >
                         Logout
                     </Link> 
