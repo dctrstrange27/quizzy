@@ -105,7 +105,6 @@ const MainApp = () => {
     return currentQuestion
   };
   useEffect(() => {
-    
     if (!hasUser) {
       Navigate("shared");
     }
