@@ -16,7 +16,7 @@ const Profile = () => {
                 <div className='profile'>
                     <Link to="/login"
                         onClick={() => {
-                            localStorage.clear()
+                            localStorage.setItem("userData", JSON.stringify([]));
                         }} className="" >
                         Logout
                     </Link> 

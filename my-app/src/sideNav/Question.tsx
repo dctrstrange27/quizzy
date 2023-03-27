@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { couldStartTrivia } from "typescript";
-import { getCurrentQ, getCurrentQuestion, getQuestionOnly, saveCurrentQ } from "../utils";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getCurrentQ,generateRandomNum, getCurrentQuestion, getQuestionOnly, saveCurrentQ } from "../utils";
 import Qportal from "./Qportal";
 
 const Question = ({
@@ -8,35 +8,19 @@ const Question = ({
   setQuestion,
   questionsOnly,
   setQuestionOnly,
+  setCurrentQ,
+  currentQ,
+  disabled,
+  random,
+  handleQuestion
 }) => {
-  const [currentQ, setCurrentQ] = useState<any | null>(null);
-  const [disabled, setDisable] = useState(false);
-  const [random, setRandom] = useState(0);
-  const [arr, setArr] = useState([]);
-
-  
-  const generateRandomNum=()=>{ return Math.floor(Math.random() * 10)} 
-  //handling questions every next
-  const handleQuestion = (id) => {
-    if (arr.length == 10) {setDisable(true);return}
-    let x = true
-    while(x){
-        let randomNum = generateRandomNum()
-        if(!arr.includes(randomNum)){
-          setRandom(randomNum)
-          arr.push(randomNum)
-          x = false
-          }
-        randomNum = generateRandomNum()
-      }
-      const currentQuestion = questionsOnly.find((e, idx) => idx == id);
-      setCurrentQ(currentQuestion);
-      saveCurrentQ(currentQuestion)
-  };
-
+ 
   useEffect(() => {
+    if(!getCurrentQ()){
+      handleQuestion(generateRandomNum())
+      console.log(getCurrentQ())
+    }
     setCurrentQ(getCurrentQ())
-    handleQuestion(generateRandomNum())
     setQuestion(getCurrentQuestion())
     setQuestionOnly(getQuestionOnly())
   }, []);
@@ -54,11 +38,6 @@ const Question = ({
             questions={questions}
           ></Qportal>
       </div>
-      {questionsOnly.map((q,idx)=>(
-              <div key={idx}> 
-                <h1>{q.question}</h1>
-              </div>
-           ))}
     </>
   );
 };

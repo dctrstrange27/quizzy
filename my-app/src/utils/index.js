@@ -30,10 +30,20 @@ export const saveCurrentQ=(response)=>{
 }
 
 export const getCurrentQ=()=>{
-  const current = localStorage.getItem("currentQ");
-  return current
+  try {
+    const current = JSON.parse(localStorage.getItem("currentQ"));
+    if(!current){
+      return false;
+    }
+    return current
+  } catch (error) {
+    console.log(error)
+  }
 }
 
+export const generateRandomNum = () => {
+  return Math.floor(Math.random() * 10);
+};
 
 export const updateUser = (userData) => {
   localStorage.setItem("userData", userData);
@@ -42,7 +52,7 @@ export const updateUser = (userData) => {
 
 export const getUser = () => {
   try {
-    const data = JSON.parse(localStorage.getItem("userData"));
+    const data = JSON.parse(localStorage.getItem("userData") || []);
     if (!data) {
       return false;
     }

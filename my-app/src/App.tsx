@@ -13,6 +13,8 @@ import {
   saveUser,
   getCurrentQ,
   getQuestionOnly,
+  saveCurrentQ,
+  generateRandomNum,
 } from "./utils/index";
 import Question from "./sideNav/Question";
 
@@ -57,6 +59,7 @@ const MainApp = () => {
 
   const [questions, setQuestion] = useState([]);
   const [questionsOnly, setQuestionOnly] = useState([]);
+  const [currentQ, setCurrentQ] = useState<any | null>(null);
 
   const getSubject = async (id) => {
     try {
@@ -72,11 +75,41 @@ const MainApp = () => {
     }
   };
 
-  useEffect(() => {
-    if (!hasUser) {
-      Navigate("/");
+  const [disabled, setDisable] = useState(false);
+  const [random, setRandom] = useState(0);
+  const [arr, setArr] = useState([]);
+
+ 
+  //handling questions every next
+
+  const handleQuestion = (id) => {
+    if (arr.length == 10) {
+      setDisable(true);
+      return;
     }
-  },[]);
+    let x = true;
+    while (x) {
+      let randomNum = generateRandomNum();
+      if (!arr.includes(randomNum)) {
+        setRandom(randomNum);
+        arr.push(randomNum);
+        console.log(arr)
+        console.log(randomNum)
+        x = false;
+      }
+      randomNum = generateRandomNum();
+    }
+    const currentQuestion = questionsOnly.find((e, idx) => idx == id);
+    setCurrentQ(currentQuestion);
+    saveCurrentQ(currentQuestion);
+    return currentQuestion
+  };
+  useEffect(() => {
+    
+    if (!hasUser) {
+      Navigate("shared");
+    }
+  }, []);
 
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
@@ -98,10 +131,15 @@ const MainApp = () => {
               path="question"
               element={
                 <Question
+                  disabled={disabled}
+                  random={random}
+                  handleQuestion={handleQuestion}
                   setQuestionOnly={setQuestionOnly}
                   questions={questions}
                   setQuestion={setQuestion}
                   questionsOnly={questionsOnly}
+                  currentQ={currentQ}
+                  setCurrentQ={setCurrentQ}
                 />
               }
             />
@@ -109,6 +147,7 @@ const MainApp = () => {
               path="shared"
               element={
                 <Shared
+                  handleQuestion={handleQuestion}
                   setQuestion={setQuestion}
                   getSubject={getSubject}
                   handleShowProfile={handleShowProfile}

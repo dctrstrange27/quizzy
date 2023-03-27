@@ -3,7 +3,7 @@ import { BsFillJournalBookmarkFill } from 'react-icons/bs'
 import Subject from './Subject'
 import { useState } from 'react'
 import { API } from '../utils'
-const Shared = ({ handleShowProfile, setQuestion, getSubject,   }) => {
+const Shared = ({ handleShowProfile, setQuestion, getSubject,handleQuestion  }) => {
 
   const [showSub, setShowSub] = useState(true)
   const [questions, setQuestions] = useState([]);
@@ -16,6 +16,7 @@ const Shared = ({ handleShowProfile, setQuestion, getSubject,   }) => {
       console.log(error)
     }
   }
+ 
   useEffect(() => {
     getQuestion()
   }, [])
@@ -24,6 +25,7 @@ const Shared = ({ handleShowProfile, setQuestion, getSubject,   }) => {
   return (
     <div onClick={() => {
       handleShowProfile()
+      
     }}
       className='flex-col px-6 w-full md:ml-[20%] md:max-w-xl
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem]
@@ -40,6 +42,7 @@ const Shared = ({ handleShowProfile, setQuestion, getSubject,   }) => {
         {
           questions?.map((quest, id) => (
             <Subject
+             handleQuestion={handleQuestion}
               key={id}
               getSubject={getSubject}
               quest={quest}
