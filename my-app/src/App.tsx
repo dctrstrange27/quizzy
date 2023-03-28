@@ -79,22 +79,21 @@ const MainApp = () => {
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState([]);
 
- 
-  //handling questions every next
-
-  const handleQuestion = (id) => {
-    if (arr.length == 10) {
+  function handleHideQuestions(){
+    if (arr.length == 9) {
       setDisable(true);
-      return;
     }
+  }
+  //handling questions every next
+  const handleQuestion = (id) => {
+    handleHideQuestions()
     let x = true;
     while (x) {
       let randomNum = generateRandomNum();
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
-        // console.log(arr)
-        // console.log(randomNum)
+        // console.log(random)
         x = false;
       }
       randomNum = generateRandomNum();
@@ -138,7 +137,10 @@ const MainApp = () => {
                   setQuestion={setQuestion}
                   questionsOnly={questionsOnly}
                   currentQ={currentQ}
+                  setArr={setArr}
                   setCurrentQ={setCurrentQ}
+                  handleHideQuestions={handleHideQuestions}
+                  arr={arr}
                 />
               }
             />
