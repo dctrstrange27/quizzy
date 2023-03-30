@@ -9,7 +9,7 @@ const Subject = ({ quest, getSubject,handleQuestion }) => {
       <div
         onClick={() => {
           getSubject(quest._id);
-          handleQuestion(3)
+          handleQuestion(generateRandomNum())
         }}
       >
         <header className="flex gap-2 py-2 border-r-Ofive border-[1px justify-start items-center">

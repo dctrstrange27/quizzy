@@ -17,6 +17,7 @@ import {
   generateRandomNum,
 } from "./utils/index";
 import Question from "./sideNav/Question";
+import { couldStartTrivia } from "typescript";
 
 function App() {
   return (
@@ -43,10 +44,8 @@ const MainApp = () => {
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState([]);
+  
 
-  let setRandomRange = questionsOnly?.length-1
-
-  console.log(setRandomRange)
 
   const handleLogin = async (data: user) => {
     try {
@@ -80,36 +79,35 @@ const MainApp = () => {
     }
   };
 
-  console.log("random number: "+random)
-  function handleHideQuestions(){
-    if (arr.length == questionsOnly.length-1) {
-      setDisable(true);
-    }
-  }
-  //handling questions every next
-  const handleQuestion = (id) => {
-    handleHideQuestions()
-    let x = true;
-    while (x) {
-      let randomNum = generateRandomNum(setRandomRange)
-      if (!arr.includes(randomNum)) {
-        setRandom(randomNum);
-        arr.push(randomNum);
-        // console.log(random)
-        x = false;
-      }
-      randomNum = generateRandomNum(setRandomRange);
-    }
-    const currentQuestion = questionsOnly.find((e, idx) => idx == id);
-    setCurrentQ(currentQuestion);
-    saveCurrentQ(currentQuestion);
-    return currentQuestion
-  };
   useEffect(() => {
     if (!hasUser) {
       Navigate("shared");
     }
   }, []);
+
+  function handleHideQuestions() {
+    if (arr.length == 3) {
+      setDisable(true);
+    }
+  }
+  //handling questions every next
+  const handleQuestion = (id) => {
+    handleHideQuestions();
+    let x = true;
+    while (x) {
+      let randomNum = generateRandomNum();
+      if (!arr.includes(randomNum)) {
+        setRandom(randomNum);
+        arr.push(randomNum);
+        x = false;
+      }
+      randomNum = generateRandomNum();
+    }
+    const currentQuestion = questionsOnly.find((e, idx) => idx == id);
+    setCurrentQ(currentQuestion);
+    saveCurrentQ(currentQuestion);
+    return currentQuestion;
+  };
 
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
@@ -131,7 +129,6 @@ const MainApp = () => {
               path="question"
               element={
                 <Question
-                  setRandomRange={setRandomRange}
                   disabled={disabled}
                   random={random}
                   handleQuestion={handleQuestion}

@@ -23,20 +23,22 @@ const Question = ({
   handleHideQuestions,
   arr,
   setArr,
-  setRandomRange
 }) => {
+  
   const [score, setScore] = useState(0);
   const Navigate = useNavigate()
   const [scale, setScale] = useState(10);
   const [total,setTotal] = useState(0)
+
   function incrementScore() {
     setScore(score + 1);
   }
 
   useEffect(() => {
+    console.log(getQuestionOnly().length)
     setTotal(getQuestionOnly().length)
     if (!getCurrentQ()) {
-      handleQuestion(generateRandomNum(setRandomRange));
+      handleQuestion(generateRandomNum());
     }
     setCurrentQ(getCurrentQ());
     setQuestion(getCurrentQuestion());
@@ -78,8 +80,7 @@ const Question = ({
               <button onClick={()=>{  
                 localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
-                window.location.reload();
-               
+                window.location.reload();      
                }}  className="questionB w-24">Back</button>
             </div>
           </div>
