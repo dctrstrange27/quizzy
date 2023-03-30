@@ -19,20 +19,24 @@ const Question = ({
   disabled,
   random,
   handleQuestion,
+  questionsOnly,
   handleHideQuestions,
   arr,
   setArr,
+  setRandomRange
 }) => {
   const [score, setScore] = useState(0);
   const Navigate = useNavigate()
-
+  const [scale, setScale] = useState(10);
+  const [total,setTotal] = useState(0)
   function incrementScore() {
     setScore(score + 1);
   }
 
   useEffect(() => {
+    setTotal(getQuestionOnly().length)
     if (!getCurrentQ()) {
-      handleQuestion(generateRandomNum());
+      handleQuestion(generateRandomNum(setRandomRange));
     }
     setCurrentQ(getCurrentQ());
     setQuestion(getCurrentQuestion());
@@ -43,10 +47,12 @@ const Question = ({
     <>
       <div
         className="h-fit mt-28 flex justify-center items-center border-[.2px py-4
-                   m-auto w-full shadow-md rounded-2xl border-[#00000032] md:max-w-2xl"
+                   m-auto w-full rounded-2xl border-[#00000032] md:max-w-2xl"
       >
         {!disabled ? (
           <Qportal
+            setScale={setScale}
+            scale={scale}
             disabled={disabled}
             random={random}
             handleHideQuestions={handleHideQuestions}
@@ -56,11 +62,13 @@ const Question = ({
             questions={questions}
             incrementScore={incrementScore}
             setArr={setArr}
+            total={total}
+            setTotal={setTotal}
           ></Qportal>
         ) : (
           <div>
             <h1 className=" font-extrabold text-[30px]">
-              {arr.length + 1 - score}/{arr.length + 1}
+              {arr.length - score}/{arr.length}
             </h1>
             <h1>score</h1>
             <div className="flex w-full border-[1px gap-10">

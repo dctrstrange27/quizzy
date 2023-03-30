@@ -36,6 +36,17 @@ const MainApp = () => {
 
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(true);
+  const [questions, setQuestion] = useState([]);
+  const [questionsOnly, setQuestionOnly] = useState([]);
+  const [currentQ, setCurrentQ] = useState<any | null>(null);
+  const Navigate = useNavigate();
+  const [disabled, setDisable] = useState(false);
+  const [random, setRandom] = useState(0);
+  const [arr, setArr] = useState([]);
+
+  let setRandomRange = questionsOnly?.length-1
+
+  console.log(setRandomRange)
 
   const handleLogin = async (data: user) => {
     try {
@@ -52,15 +63,9 @@ const MainApp = () => {
     }
   };
 
-  const Navigate = useNavigate();
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-
-  const [questions, setQuestion] = useState([]);
-  const [questionsOnly, setQuestionOnly] = useState([]);
-  const [currentQ, setCurrentQ] = useState<any | null>(null);
-
   const getSubject = async (id) => {
     try {
       const data = await API.post("/getQuestion", {
@@ -75,12 +80,9 @@ const MainApp = () => {
     }
   };
 
-  const [disabled, setDisable] = useState(false);
-  const [random, setRandom] = useState(0);
-  const [arr, setArr] = useState([]);
-
+  console.log("random number: "+random)
   function handleHideQuestions(){
-    if (arr.length == 9) {
+    if (arr.length == questionsOnly.length-1) {
       setDisable(true);
     }
   }
@@ -89,14 +91,14 @@ const MainApp = () => {
     handleHideQuestions()
     let x = true;
     while (x) {
-      let randomNum = generateRandomNum();
+      let randomNum = generateRandomNum(setRandomRange)
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
         // console.log(random)
         x = false;
       }
-      randomNum = generateRandomNum();
+      randomNum = generateRandomNum(setRandomRange);
     }
     const currentQuestion = questionsOnly.find((e, idx) => idx == id);
     setCurrentQ(currentQuestion);
@@ -129,6 +131,7 @@ const MainApp = () => {
               path="question"
               element={
                 <Question
+                  setRandomRange={setRandomRange}
                   disabled={disabled}
                   random={random}
                   handleQuestion={handleQuestion}

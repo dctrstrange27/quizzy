@@ -41,8 +41,8 @@ export const getCurrentQ=()=>{
   }
 }
 
-export const generateRandomNum = () => {
-  return Math.floor(Math.random() * 10);
+export const generateRandomNum = (arrLength) => {
+  return Math.floor(Math.random() * arrLength);
 };
 
 export const updateUser = (userData) => {
@@ -52,7 +52,7 @@ export const updateUser = (userData) => {
 
 export const getUser = () => {
   try {
-    const data = JSON.parse(localStorage.getItem("userData") || []);
+    const data = JSON.parse(localStorage.getItem("userData")) || [  ];
     if (!data) {
       return false;
     }

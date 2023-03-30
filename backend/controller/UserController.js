@@ -37,8 +37,19 @@ const createGoogleAccount = async (req, res) => {
     }
 }
 
+const getSubject=async(req,res)=>{
+    const getSubject = await Subject.find({})
+    res.status(200).json(getSubject)
+}
+
+const getQuestion=async(req,res)=>{
+    const {id} = req.body
+    const getOneSubj = await Subject.findOne({_id:id})
+    res.status(200).json(getOneSubj)
+}
+
 const addSubject = async (req, res) => {
-    const {subjectCode, questions } = req.body
+    const {subjectCode,questions,accessCount,addedBy,picture} = req.body
     try {
         if (!req.body) {
             res.status(400)
@@ -51,6 +62,9 @@ const addSubject = async (req, res) => {
         const newSubject = await Subject.create({
             subjectCode: `${subjectCode}`,
             questions: questions,
+            accessCount:accessCount,
+            addedBy:addedBy,
+            picture:picture
         })
         res.status(200).json(newSubject)
 
@@ -59,16 +73,6 @@ const addSubject = async (req, res) => {
     }
 }
 
-const getSubject=async(req,res)=>{
-    const getSubject = await Subject.find({})
-    res.status(200).json(getSubject)
-}
-
-const getQuestion=async(req,res)=>{
-    const {id} = req.body
-    const getOneSubj = await Subject.findOne({_id:id})
-    res.status(200).json(getOneSubj)
-}
 
 module.exports = {
     login,
