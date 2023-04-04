@@ -11,13 +11,11 @@ import {
   saveCurrentQuestion,
   saveQuestionOnly,
   saveUser,
-  getCurrentQ,
   getQuestionOnly,
   saveCurrentQ,
   generateRandomNum,
 } from "./utils/index";
 import Question from "./sideNav/Question";
-import { couldStartTrivia } from "typescript";
 
 function App() {
   return (
@@ -44,8 +42,6 @@ const MainApp = () => {
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState([]);
-  
-
 
   const handleLogin = async (data: user) => {
     try {
@@ -62,6 +58,7 @@ const MainApp = () => {
     }
   };
 
+  
   const handleShowProfile = () => {
     setShowProfile(false);
   };
@@ -84,26 +81,28 @@ const MainApp = () => {
       Navigate("shared");
     }
   }, []);
-
-  function handleHideQuestions() {
-    if (arr.length == 3) {
-      setDisable(true);
-    }
+   
+  function handleHideQuestions(){
+    setDisable(true)
   }
   //handling questions every next
-  const handleQuestion = (id) => {
-    handleHideQuestions();
+  const handleQuestion = () => {
     let x = true;
     while (x) {
-      let randomNum = generateRandomNum();
+      let randomNum = generateRandomNum(getQuestionOnly().length);
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
+        //console.log("This is what we push to array " + random );
         x = false;
       }
-      randomNum = generateRandomNum();
+      randomNum = generateRandomNum(getQuestionOnly().length);
+      if (arr.length == 3) {
+         handleHideQuestions()
+        return;
+      }
     }
-    const currentQuestion = questionsOnly.find((e, idx) => idx == id);
+    const currentQuestion = questionsOnly.find((e, idx) => idx == random);
     setCurrentQ(currentQuestion);
     saveCurrentQ(currentQuestion);
     return currentQuestion;

@@ -59,7 +59,7 @@ code {
   }
 
   .disabledBtn {
-    @apply bg-[#0000007b] text-P_bg px-3 py-2 font-grot hover:transform-none  rounded-md;
+    @apply bg-[#0000007b] cursor-pointer text-P_bg px-3 py-2 font-grot hover:transform-none  rounded-md;
   }
 
   .disabledChoices {

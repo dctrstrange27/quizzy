@@ -41,8 +41,8 @@ export const getCurrentQ=()=>{
   }
 }
 
-export const generateRandomNum = () => {
-  return Math.floor(Math.random() * 3);
+export const generateRandomNum = (len) => {
+  return Math.floor(Math.random() * len);
 };
 
 export const updateUser = (userData) => {

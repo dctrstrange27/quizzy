@@ -29,22 +29,20 @@ const Question = ({
   const Navigate = useNavigate()
   const [scale, setScale] = useState(10);
   const [total,setTotal] = useState(0)
-
   function incrementScore() {
     setScore(score + 1);
   }
-
+  
   useEffect(() => {
-    console.log(getQuestionOnly().length)
     setTotal(getQuestionOnly().length)
     if (!getCurrentQ()) {
-      handleQuestion(generateRandomNum());
+      handleQuestion(generateRandomNum(getQuestionOnly().length));
     }
     setCurrentQ(getCurrentQ());
     setQuestion(getCurrentQuestion());
     setQuestionOnly(getQuestionOnly());
   }, []);
-
+  
   return (
     <>
       <div
