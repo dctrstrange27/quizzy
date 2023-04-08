@@ -22,6 +22,7 @@ const Qportal = ({
   const handleSelect = () => {
     setIsSelected(true);
   };
+  
   function handleProgress() {
     setTotal(questions?.questions?.length)
     setScale(scale + 10);

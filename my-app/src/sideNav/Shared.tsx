@@ -16,16 +16,14 @@ const Shared = ({ handleShowProfile, setQuestion, getSubject,handleQuestion  }) 
       console.log(error)
     }
   }
- 
+
   useEffect(() => {
     getQuestion()
   }, [])
 
-
   return (
     <div onClick={() => {
-      handleShowProfile()
-      
+      handleShowProfile()      
     }}
       className='flex-col px-6 w-full md:ml-[20%] md:max-w-xl
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem]
@@ -42,7 +40,7 @@ const Shared = ({ handleShowProfile, setQuestion, getSubject,handleQuestion  }) 
         {
           questions?.map((quest, id) => (
             <Subject
-             handleQuestion={handleQuestion}
+              handleQuestion={handleQuestion}
               key={id}
               getSubject={getSubject}
               quest={quest}

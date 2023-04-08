@@ -22,6 +22,12 @@
     "jsx": "react-jsx",
     "noImplicitAny": false
   },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
   "include": ["src", "src/utils"  ]
   
 }

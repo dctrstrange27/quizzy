@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Yours from "./sideNav/Yours";
 import Shared from "./sideNav/Shared";
 import Home from "./Home/Home";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Login from "./Login/Login";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,6 +16,8 @@ import {
   generateRandomNum,
 } from "./utils/index";
 import Question from "./sideNav/Question";
+import { createContext } from "react";
+
 
 function App() {
   return (
@@ -25,19 +27,31 @@ function App() {
   );
 }
 
+
+export const HomeContext = createContext<{
+  userData:any;
+  setShowProfile:Dispatch<SetStateAction<Boolean>>;
+  showProfile:Boolean
+}>({
+  userData:[],
+  setShowProfile: () => {},
+  showProfile:false,
+})
+
+
 const MainApp = () => {
-  const [showProfile, setShowProfile] = useState(false);
   interface user {
     email: number;
     name: string;
     picture: string;
   }
-
+  
+  const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(true);
   const [questions, setQuestion] = useState([]);
   const [questionsOnly, setQuestionOnly] = useState([]);
-  const [currentQ, setCurrentQ] = useState<any | null>(null);
+  const [currentQ, setCurrentQ] = useState([]);
   const Navigate = useNavigate();
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
@@ -58,7 +72,6 @@ const MainApp = () => {
     }
   };
 
-  
   const handleShowProfile = () => {
     setShowProfile(false);
   };
@@ -115,12 +128,9 @@ const MainApp = () => {
           <Route
             path="/"
             element={
-              <Home
-                userData={userData}
-                setShowProfile={setShowProfile}
-                showProfile={showProfile}
-                handleShowProfile={handleShowProfile}
-              />
+              <HomeContext.Provider value={{userData,setShowProfile,showProfile}}>
+                <Home/>
+              </HomeContext.Provider>
             }
           >
             <Route path="yours" element={<Yours />} />

@@ -1,6 +1,10 @@
 import React from 'react'
+import { useContext } from 'react';
+import { HomeContext } from '../App';
 import { Link } from 'react-router-dom';
-const Profile = ({showP,setShowP}) => {
+const Profile = () => {
+
+  const{setShowProfile,showProfile} = useContext(HomeContext)
     return (
         <>
             <div className='absolute font-nuni bg-white5 rounded-2xl w-auto h-auto flex flex-col justify-start px-4 py-5
@@ -17,7 +21,7 @@ const Profile = ({showP,setShowP}) => {
                     <Link to="/login"
                         onClick={() => {
                             localStorage.setItem("userData", JSON.stringify([]));
-                            setShowP(!showP)
+                            setShowProfile(!showProfile)
                         }} className="" >
                         Logout
                     </Link> 
