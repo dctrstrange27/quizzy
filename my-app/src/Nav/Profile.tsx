@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const Profile = () => {
 
   const{setShowProfile,showProfile} = useContext(HomeContext)
+  
     return (
         <>
             <div className='absolute font-nuni bg-white5 rounded-2xl w-auto h-auto flex flex-col justify-start px-4 py-5

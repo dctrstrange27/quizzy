@@ -3,9 +3,8 @@ import { BsFillJournalBookmarkFill } from 'react-icons/bs'
 import Subject from './Subject'
 import { useState } from 'react'
 import { API } from '../utils'
-const Shared = ({ handleShowProfile, setQuestion, getSubject,handleQuestion  }) => {
+const Shared = ({ handleShowProfile, setArr, getSubject,handleQuestion  }) => {
 
-  const [showSub, setShowSub] = useState(true)
   const [questions, setQuestions] = useState([]);
 
   const getQuestion = async () => {
@@ -40,6 +39,7 @@ const Shared = ({ handleShowProfile, setQuestion, getSubject,handleQuestion  }) 
         {
           questions?.map((quest, id) => (
             <Subject
+              setArr={setArr}
               handleQuestion={handleQuestion}
               key={id}
               getSubject={getSubject}

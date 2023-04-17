@@ -18,9 +18,9 @@ const SideNav = () => {
         <div className="sidenav">
           <FaGlobeAmericas className="sidenavicon"></FaGlobeAmericas>
           <Link to="shared" className="nav" onClick={()=>{
-               localStorage.setItem("currentQ", JSON.stringify([]))
+              //  localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
-               window.location.reload();
+           //    window.location.reload();
           }}>
             {" "}
             Shared

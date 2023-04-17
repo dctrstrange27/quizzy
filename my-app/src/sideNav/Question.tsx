@@ -15,11 +15,9 @@ const Question = ({
   setQuestion,
   setQuestionOnly,
   setCurrentQ,
-  currentQ,
   disabled,
   random,
   handleQuestion,
-  questionsOnly,
   handleHideQuestions,
   arr,
   setArr,
@@ -42,7 +40,7 @@ const Question = ({
     setQuestion(getCurrentQuestion());
     setQuestionOnly(getQuestionOnly());
   }, []);
-  
+
   return (
     <>
       <div
@@ -55,24 +53,26 @@ const Question = ({
             scale={scale}
             disabled={disabled}
             random={random}
-            handleHideQuestions={handleHideQuestions}
             arr={arr}
+            handleHideQuestions={handleHideQuestions}
             handleQuestion={handleQuestion}
-            quest={currentQ}
+            quest={getCurrentQ()}
             questions={questions}
             incrementScore={incrementScore}
             setArr={setArr}
             total={total}
             setTotal={setTotal}
           ></Qportal>
-        ) : (
+          ) : (
           <div>
             <h1 className=" font-extrabold text-[30px]">
               {arr.length - score}/{arr.length}
             </h1>
             <h1>score</h1>
             <div className="flex w-full border-[1px gap-10">
-              <button className="questionB w-28" onClick={() => { window.location.reload();}}>
+              <button className="questionB w-28" onClick={() => {
+                window.location.reload()
+                }}> 
                 Try Again
               </button>
               <button onClick={()=>{  

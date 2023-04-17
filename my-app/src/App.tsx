@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Search } from "react-router-dom";
 import Yours from "./sideNav/Yours";
 import Shared from "./sideNav/Shared";
 import Home from "./Home/Home";
@@ -27,7 +27,6 @@ function App() {
   );
 }
 
-
 export const HomeContext = createContext<{
   userData:any;
   setShowProfile:Dispatch<SetStateAction<Boolean>>;
@@ -38,14 +37,16 @@ export const HomeContext = createContext<{
   showProfile:false,
 })
 
-
 const MainApp = () => {
   interface user {
     email: number;
     name: string;
     picture: string;
   }
-  
+  interface setArr{
+    setArr: setArr[];
+ }
+ 
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(true);
@@ -55,7 +56,7 @@ const MainApp = () => {
   const Navigate = useNavigate();
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
-  const [arr, setArr] = useState([]);
+  const [arr, setArr] = useState<setArr[]>([]);
 
   const handleLogin = async (data: user) => {
     try {
@@ -71,10 +72,10 @@ const MainApp = () => {
       console.log(error);
     }
   };
-
   const handleShowProfile = () => {
     setShowProfile(false);
   };
+
   const getSubject = async (id) => {
     try {
       const data = await API.post("/getQuestion", {
@@ -106,11 +107,12 @@ const MainApp = () => {
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
-        //console.log("This is what we push to array " + random );
+        console.log(arr)
+     //   console.log("This is what we push to array " + random );
         x = false;
       }
       randomNum = generateRandomNum(getQuestionOnly().length);
-      if (arr.length == 3) {
+      if (arr.length == getQuestionOnly().length) {
          handleHideQuestions()
         return;
       }
@@ -157,6 +159,7 @@ const MainApp = () => {
               path="shared"
               element={
                 <Shared
+                  setArr={setArr}
                   handleQuestion={handleQuestion}
                   setQuestion={setQuestion}
                   getSubject={getSubject}
