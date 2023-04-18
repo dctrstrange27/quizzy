@@ -9,7 +9,7 @@ const Login = ({handleLogin}) => {
                        rounded-lg shadow-lg '>
           <h1 className=' font-pacifico text-b1 text-4xl mb-11 tracking-wide'>Grow your mind</h1>
           <p className='font-nuni'>All our dreams can come true if we have the courage to pursue them.</p>
-          <LoginGoogle handleLogin={handleLogin} ></LoginGoogle>
+          <LoginGoogle referrerpolicy="origin" handleLogin={handleLogin} ></LoginGoogle>
         </div>
       </div>
 

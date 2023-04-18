@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Search } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Search,
+} from "react-router-dom";
 import Yours from "./sideNav/Yours";
 import Shared from "./sideNav/Shared";
 import Home from "./Home/Home";
@@ -18,7 +23,6 @@ import {
 import Question from "./sideNav/Question";
 import { createContext } from "react";
 
-
 function App() {
   return (
     <Router>
@@ -28,14 +32,14 @@ function App() {
 }
 
 export const HomeContext = createContext<{
-  userData:any;
-  setShowProfile:Dispatch<SetStateAction<Boolean>>;
-  showProfile:Boolean
+  userData: any;
+  setShowProfile: Dispatch<SetStateAction<Boolean>>;
+  showProfile: Boolean;
 }>({
-  userData:[],
+  userData: [],
   setShowProfile: () => {},
-  showProfile:false,
-})
+  showProfile: false,
+});
 
 const MainApp = () => {
   interface user {
@@ -43,10 +47,7 @@ const MainApp = () => {
     name: string;
     picture: string;
   }
-  interface setArr{
-    setArr: setArr[];
- }
- 
+
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(true);
@@ -56,7 +57,7 @@ const MainApp = () => {
   const Navigate = useNavigate();
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
-  const [arr, setArr] = useState<setArr[]>([]);
+  const [arr, setArr] = useState<any[]>([]);
 
   const handleLogin = async (data: user) => {
     try {
@@ -95,9 +96,9 @@ const MainApp = () => {
       Navigate("shared");
     }
   }, []);
-   
-  function handleHideQuestions(){
-    setDisable(true)
+
+  function handleHideQuestions() {
+    setDisable(true);
   }
   //handling questions every next
   const handleQuestion = () => {
@@ -107,13 +108,12 @@ const MainApp = () => {
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
-        console.log(arr)
-     //   console.log("This is what we push to array " + random );
+        console.log(arr);
         x = false;
       }
       randomNum = generateRandomNum(getQuestionOnly().length);
       if (arr.length == getQuestionOnly().length) {
-         handleHideQuestions()
+        handleHideQuestions();
         return;
       }
     }
@@ -130,8 +130,10 @@ const MainApp = () => {
           <Route
             path="/"
             element={
-              <HomeContext.Provider value={{userData,setShowProfile,showProfile}}>
-                <Home/>
+              <HomeContext.Provider
+                value={{ userData, setShowProfile, showProfile }}
+              >
+                <Home />
               </HomeContext.Provider>
             }
           >
