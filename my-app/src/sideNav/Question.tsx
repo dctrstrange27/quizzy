@@ -30,6 +30,7 @@ const Question = ({
   function incrementScore() {
     setScore(score + 1);
   }
+  console.log(getQuestionOnly())
   
   useEffect(() => {
     setTotal(getQuestionOnly().length)

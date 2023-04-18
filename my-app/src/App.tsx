@@ -68,7 +68,6 @@ const MainApp = () => {
       });
       setUserData(gCredentials.data);
       saveUser(gCredentials);
-      console.log(gCredentials)
       Navigate("/shared");
     } catch (error) {
       console.log(error);
@@ -93,6 +92,7 @@ const MainApp = () => {
       });
       setQuestionOnly(data.data.questions);
       saveQuestionOnly(data.data.questions);
+      console.log(data)
       saveCurrentQuestion(data.data);
       Navigate("/question");
     } catch (error) {
