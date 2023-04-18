@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import { createContext } from "react";
 import { HomeContext } from "../App";
 const Nav = () => {
+  // console.log(getUser())
   const { setShowProfile, showProfile } = useContext(HomeContext);
   return (
     <>
@@ -26,21 +27,21 @@ const Nav = () => {
             Docs
           </Link>
           <BsSun className="w-5 h-5"></BsSun>
-          {getUser() ? (
-            <>
-              <img
-                onClick={() => {
-                  setShowProfile(!showProfile);
-                }}
-                className="w-10 h-10 rounded-full duration-150 ease-in-out hover:scale-105 hover:border-[1px] hover:border-[#818181a6] "
-                src={`${getUser() ? getUser().profile_picture : ""}`}
-              />
-              {showProfile && <Profile />}
-            </>
-          ) : (
+          {getUser().length == 0 ? (
             <Link to="/login" className="button">
-              SIGN IN
-            </Link>
+            SIGN IN
+          </Link>
+          ) : (
+            <>
+            <img
+              onClick={() => {
+                setShowProfile(!showProfile);
+              }}
+              className="w-10 h-10 rounded-full duration-150 ease-in-out hover:scale-105 hover:border-[1px] hover:border-[#818181a6] "
+              src={`${getUser() ? getUser().profile_picture : ""}`}
+            />
+            {showProfile && <Profile />}
+          </>
           )}
         </div>
       </div>

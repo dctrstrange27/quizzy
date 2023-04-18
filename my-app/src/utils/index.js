@@ -52,7 +52,7 @@ export const updateUser = (userData) => {
 
 export const getUser = () => {
   try {
-    const data = JSON.parse(localStorage.getItem("userData")) || [];
+    const data = JSON.parse(localStorage.getItem("userData"));
     if (!data) {
       return false;
     }

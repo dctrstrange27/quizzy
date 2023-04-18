@@ -38,8 +38,8 @@ const createGoogleAccount = async (req, res) => {
 }
 
 const getUsers = async(req,res)=>{
-  //  const getUsers = await LoginUser.find({})
-    res.status(200).json("hello")
+    const getUsers = await LoginUser.find({})
+    res.status(200).json(getUsers)
 }
 
 const getSubject=async(req,res)=>{

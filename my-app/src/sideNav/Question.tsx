@@ -6,7 +6,6 @@ import {
   generateRandomNum,
   getCurrentQuestion,
   getQuestionOnly,
-  saveCurrentQ,
 } from "../utils";
 import Qportal from "./Qportal";
 
@@ -30,8 +29,7 @@ const Question = ({
   function incrementScore() {
     setScore(score + 1);
   }
-  console.log(getQuestionOnly())
-  
+
   useEffect(() => {
     setTotal(getQuestionOnly().length)
     if (!getCurrentQ()) {

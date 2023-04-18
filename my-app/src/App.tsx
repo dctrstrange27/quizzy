@@ -8,6 +8,7 @@ import {
 import Yours from "./sideNav/Yours";
 import Shared from "./sideNav/Shared";
 import Home from "./Home/Home";
+import PageNotFound from "./pageNotFound/PageNotFound";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Login from "./Login/Login";
 import { useNavigate } from "react-router-dom";
@@ -73,7 +74,6 @@ const MainApp = () => {
       console.log(error);
     }
   };
-  console.log(hasUser)
   useEffect(() => {
     if (hasUser) {
       Navigate("shared");
@@ -92,7 +92,6 @@ const MainApp = () => {
       });
       setQuestionOnly(data.data.questions);
       saveQuestionOnly(data.data.questions);
-      console.log(data)
       saveCurrentQuestion(data.data);
       Navigate("/question");
     } catch (error) {
@@ -124,6 +123,8 @@ const MainApp = () => {
     saveCurrentQ(currentQuestion);
     return currentQuestion;
   };
+
+
 
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
@@ -169,6 +170,7 @@ const MainApp = () => {
             />
           </Route>
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
+          <Route path="pageNotFound" element={<PageNotFound/>} />
         </Routes>
       </div>
     </div>
