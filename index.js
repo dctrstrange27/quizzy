@@ -1,9 +1,7 @@
-const { json } = require('body-parser');
 const express = require('express')
-const connectDB = require('./config/db')
+const connectDB = require('./backend/config/db')
 require('dotenv').config()
 const colors = require('colors')
-const {errorHandler} = require('./middleware/middleware')
 const cors=require("cors");
 const corsOptions ={
    origin:'*', 
@@ -17,7 +15,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors(corsOptions))
 connectDB()
 
-app.use('/api', require('./routes/user'))
+app.use('/api', require('./backend/routes/user'))
 //app.use('/api/newUser', require('./routes/user'))
 // app.use('/api/food', require('./routes/foodRoutes'))
 // app.post('/api/food',(req,res)=>{res.status(200).json({message:"set Food"})})
