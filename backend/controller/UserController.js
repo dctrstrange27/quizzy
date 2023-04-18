@@ -17,8 +17,9 @@ const login = async (req, res) => {
 }
 
 const createGoogleAccount = async (req, res) => {
-    const { email_address, name, picture} = req.body
-    const doesExist = await LoginUser.findOne({ email_address:email_address })
+    const {email_address, name, picture} = req.body
+
+    const doesExist = await LoginUser.findOne({email_address:email_address })
     if (doesExist) {
         return res.status(200).json({ userData: doesExist })
     }
@@ -27,14 +28,18 @@ const createGoogleAccount = async (req, res) => {
             const newUser = await LoginUser.create({
                 email_address: email_address,
                 name: name,
-                profile_picture: picture,
-             
+                profile_picture: picture,             
             })
             return res.status(200).json({ userData: newUser })
         } catch (error) {
             console.log(error)
         }
     }
+}
+
+const getUsers = async(req,res)=>{
+  const getUsers = await LoginUser.find({})
+    res.status(200).json(getUsers)
 }
 
 const getSubject=async(req,res)=>{
@@ -45,7 +50,7 @@ const getSubject=async(req,res)=>{
 const getQuestion=async(req,res)=>{
     const {id} = req.body
     const getOneSubj = await Subject.findOne({_id:id})
-    res.status(200).json(getOneSubj)
+    res.status(200).json("hello")
 }
 
 const addSubject = async (req, res) => {
@@ -75,6 +80,7 @@ const addSubject = async (req, res) => {
 
 
 module.exports = {
+    getUsers,
     login,
     createGoogleAccount,
     addSubject,

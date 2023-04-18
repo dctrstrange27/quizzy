@@ -50,7 +50,7 @@ const MainApp = () => {
 
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
-  const [hasUser, setHasUser] = useState(true);
+  const [hasUser, setHasUser] = useState(false);
   const [questions, setQuestion] = useState([]);
   const [questionsOnly, setQuestionOnly] = useState([]);
   const [currentQ, setCurrentQ] = useState([]);
@@ -68,11 +68,20 @@ const MainApp = () => {
       });
       setUserData(gCredentials.data);
       saveUser(gCredentials);
+      console.log(gCredentials)
       Navigate("/shared");
     } catch (error) {
       console.log(error);
     }
   };
+  console.log(hasUser)
+  useEffect(() => {
+    if (hasUser) {
+      Navigate("shared");
+    }
+  }, []);
+
+
   const handleShowProfile = () => {
     setShowProfile(false);
   };
@@ -90,13 +99,6 @@ const MainApp = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (!hasUser) {
-      Navigate("shared");
-    }
-  }, []);
-
   function handleHideQuestions() {
     setDisable(true);
   }
@@ -131,8 +133,7 @@ const MainApp = () => {
             path="/"
             element={
               <HomeContext.Provider
-                value={{ userData, setShowProfile, showProfile }}
-              >
+                value={{ userData, setShowProfile, showProfile }}>
                 <Home />
               </HomeContext.Provider>
             }
@@ -148,8 +149,6 @@ const MainApp = () => {
                   setQuestionOnly={setQuestionOnly}
                   questions={questions}
                   setQuestion={setQuestion}
-                  questionsOnly={questionsOnly}
-                  currentQ={currentQ}
                   setArr={setArr}
                   setCurrentQ={setCurrentQ}
                   handleHideQuestions={handleHideQuestions}
@@ -163,7 +162,6 @@ const MainApp = () => {
                 <Shared
                   setArr={setArr}
                   handleQuestion={handleQuestion}
-                  setQuestion={setQuestion}
                   getSubject={getSubject}
                   handleShowProfile={handleShowProfile}
                 />
