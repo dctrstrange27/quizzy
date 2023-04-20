@@ -42,7 +42,6 @@ const App = () => {
     name: string;
     picture: string;
   }
-  
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
