@@ -86,4 +86,4 @@ export const getRemembered = () => {
   return JSON.parse(localStorage.getItem("remembered"));
 };
 
-export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
+export const API = axios.create({ baseURL: "http://localhost:5000/api" });
