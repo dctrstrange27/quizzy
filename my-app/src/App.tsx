@@ -21,8 +21,10 @@ import {
   saveCurrentQ,
   generateRandomNum,
 } from "./utils/index";
-import Question from "./sideNav/Question";
 import { createContext } from "react";
+import React from "react";
+import { ImSpinner10 } from "react-icons/im";
+const Question = React.lazy(() => import("./sideNav/Question"));
 
 export const HomeContext = createContext<{
   userData: any;
@@ -34,105 +36,114 @@ export const HomeContext = createContext<{
   showProfile: false,
 });
 
-
 const App = () => {
-    interface user {
-      email: number;
-      name: string;
-      picture: string;
+  interface user {
+    email: number;
+    name: string;
+    picture: string;
+  }
+  
+  const [showProfile, setShowProfile] = useState(false);
+  const [userData, setUserData] = useState<user[]>([]);
+  const [hasUser, setHasUser] = useState(false);
+  const [questions, setQuestion] = useState([]);
+  const [questionsOnly, setQuestionOnly] = useState([]);
+  const [currentQ, setCurrentQ] = useState([]);
+  const Navigate = useNavigate();
+  const [disabled, setDisable] = useState(false);
+  const [random, setRandom] = useState(0);
+  const [arr, setArr] = useState([]);
+
+  const handleLogin = async (data: user) => {
+    try {
+      const gCredentials = await API.post("/createG", {
+        email_address: data.email,
+        name: data.name,
+        picture: data.picture,
+      });
+      setUserData(gCredentials.data);
+      saveUser(gCredentials);
+      Navigate("/shared");
+    } catch (error) {
+      console.log(error);
     }
-    const [showProfile, setShowProfile] = useState(false);
-    const [userData, setUserData] = useState<user[]>([]);
-    const [hasUser, setHasUser] = useState(false);
-    const [questions, setQuestion] = useState([]);
-    const [questionsOnly, setQuestionOnly] = useState([]);
-    const [currentQ, setCurrentQ] = useState([]);
-    const Navigate = useNavigate();
-    const [disabled, setDisable] = useState(false);
-    const [random, setRandom] = useState(0);
-    const [arr, setArr] = useState<any[]>([]);
-
-    const handleLogin = async (data: user) => {
-      try {
-        const gCredentials = await API.post("/createG", {
-          email_address: data.email,
-          name: data.name,
-          picture: data.picture,
-        });
-        setUserData(gCredentials.data);
-        saveUser(gCredentials);
-        Navigate("/shared");
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    useEffect(() => {
-      if (hasUser) {
-        Navigate("/shared");
-      }
-    }, []);
-
-    const handleShowProfile = () => {
-      setShowProfile(false);
-    };
-
-    const getSubject = async (id) => {
-      try {
-        const data = await API.post("/getQuestion", {
-          id: id,
-        });
-        setQuestionOnly(data.data.questions);
-        saveQuestionOnly(data.data.questions);
-        saveCurrentQuestion(data.data);
-        Navigate("/question");
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    function handleHideQuestions() {
-      setDisable(true);
+  };
+  useEffect(() => {
+    if (hasUser) {
+      Navigate("/shared");
     }
-    //handling questions every next
-    const handleQuestion = () => {
-      let x = true;
-      while (x) {
-        let randomNum = generateRandomNum(getQuestionOnly().length);
-        if (!arr.includes(randomNum)) {
-          setRandom(randomNum);
-          arr.push(randomNum);
-          console.log(arr);
-          x = false;
-        }
-        randomNum = generateRandomNum(getQuestionOnly().length);
-        if (arr.length == getQuestionOnly().length) {
-          handleHideQuestions();
-          return;
-        }
-      }
-      const currentQuestion = questionsOnly.find((e, idx) => idx == random);
-      setCurrentQ(currentQuestion);
-      saveCurrentQ(currentQuestion);
-      return currentQuestion;
-    };
+  }, []);
 
-    return (
-      <div className="App w-full h-full border-[20px border-r-b2">
-        <div className=" border-[5px h-full border-r-b2">
-          <Routes>
+  const handleShowProfile = () => {
+    setShowProfile(false);
+  };
+
+  const getSubject = async (id) => {
+    try {
+      const data = await API.post("/getQuestion", {
+        id: id,
+      });
+      setQuestionOnly(data.data.questions);
+      saveQuestionOnly(data.data.questions);
+      saveCurrentQuestion(data.data);
+      Navigate("/question");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function handleHideQuestions() {
+    setDisable(true);
+  }
+  //handling questions every next
+  const handleQuestion = () => {
+    let x = true;
+    while (x) {
+      let randomNum = generateRandomNum(getQuestionOnly().length);
+      if (!arr.includes(randomNum)) {
+        setRandom(randomNum);
+        arr.push(randomNum);
+        console.log(arr);
+        x = false;
+      }
+      randomNum = generateRandomNum(getQuestionOnly().length);
+      if (arr.length == getQuestionOnly().length) {
+        handleHideQuestions();
+        return;
+      }
+    }
+    const currentQuestion = questionsOnly.find((e, idx) => idx == random);
+    setCurrentQ(currentQuestion);
+    saveCurrentQ(currentQuestion);
+    return currentQuestion;
+  };
+
+  return (
+    <div className="App w-full h-full border-[20px border-r-b2">
+      <div className=" border-[5px h-full border-r-b2">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomeContext.Provider
+                value={{ userData, setShowProfile, showProfile }}
+              >
+                <Home />
+              </HomeContext.Provider>
+            }
+          >
+            <Route path="yours" element={<Yours />} />
             <Route
-              path="/"
+              path="question"
               element={
-                <HomeContext.Provider
-                  value={{ userData, setShowProfile, showProfile }}
+                <React.Suspense
+                  fallback={
+                    <div
+                      className={`w-full h-screen flex justify-center items-center`}
+                    >
+                      <ImSpinner10 className="text-b2 w-6 h-auto animate-spin  bg-transparent"></ImSpinner10>
+                    </div>
+                  }
                 >
-                  <Home />
-                </HomeContext.Provider>
-              }
-            >
-              <Route path="yours" element={<Yours />} />
-              <Route
-                path="question"
-                element={
                   <Question
                     disabled={disabled}
                     random={random}
@@ -145,26 +156,28 @@ const App = () => {
                     handleHideQuestions={handleHideQuestions}
                     arr={arr}
                   />
-                }
-              />
-              <Route
-                path="shared"
-                element={
-                  <Shared
-                    setArr={setArr}
-                    handleQuestion={handleQuestion}
-                    getSubject={getSubject}
-                    handleShowProfile={handleShowProfile}
-                  />
-                }
-              />
-            </Route>
-            <Route path="login" element={<Login handleLogin={handleLogin} />} />
-            <Route path="pageNotFound" element={<PageNotFound />} />
-          </Routes>
-        </div>
-      </div>
-    );
-  };
+                </React.Suspense>
+              }
+            ></Route>
 
-export default App
+            <Route
+              path="shared"
+              element={
+                <Shared
+                  setArr={setArr}
+                  handleQuestion={handleQuestion}
+                  getSubject={getSubject}
+                  handleShowProfile={handleShowProfile}
+                />
+              }
+            />
+          </Route>
+          <Route path="login" element={<Login handleLogin={handleLogin} />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </div>
+    </div>
+  );
+};
+
+export default App;

@@ -33,7 +33,6 @@ const Question = ({
     if (!getCurrentQ()) {
       handleQuestion(generateRandomNum(getQuestionOnly().length));
     }
-    console.log(getCurrentQ())
     setCurrentQ(getCurrentQ());
     setQuestion(getCurrentQuestion());
     setQuestionOnly(getQuestionOnly());

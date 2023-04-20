@@ -13,14 +13,14 @@ const SideNav = () => {
       <div
         className="flex md:mt-28 gap-5 
                             md:flex-col md:gap-2
-                             border-[1px"
+                             border-[1px]"
       >
         <div className="sidenav">
           <FaGlobeAmericas className="sidenavicon"></FaGlobeAmericas>
           <Link to="shared" className="nav" onClick={()=>{
               //  localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
-           //    window.location.reload();
+              // window.location.reload();
           }}>
             {" "}
             Shared

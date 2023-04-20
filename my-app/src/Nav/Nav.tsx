@@ -14,7 +14,7 @@ const Nav = () => {
     <>
       <div className="flex fixed justify-end md:px-12 md:justify-between bg-[#ffffff] shadow-lg px-2 py-3  w-full border-[1px border-[#bb3636] h-14">
         <div className="border-[1px h-full hidden md:flex items-center justify-start">
-          <Link to="/" className="nav font-normal text-b2 font-tilt text-3xl">
+          <Link to="/" onClick={()=>{console.log("hello")}} className="nav font-normal text-b2 font-tilt text-3xl">
             Quizzy
           </Link>
         </div>

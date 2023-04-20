@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Question from "./Question";
 import moment from "moment";
 import { generateRandomNum } from "../utils";
-const Subject = ({ quest,setArr, getSubject,handleQuestion }) => {
+const Subject = ({setArr,handleQuestion,getSubject,quest}) => {
   return (
     <div className="subject relative mb-7 bg-b  font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200">
       <div
@@ -23,7 +23,11 @@ const Subject = ({ quest,setArr, getSubject,handleQuestion }) => {
           >
             <path d="M7 10h4v4H7zm0-6h4v4H7zm0 12h4v4H7zm6-6h4v4h-4zm0-6h4v4h-4zm0 12h4v4h-4z"></path>
           </svg>
-          <h1 className="Author font-extrabold text-[#434242] ">Author:</h1>
+          <div className="flex gap-2">
+            <h1 className="Author font-extrabold text-[#656363]  ">Author:</h1>
+            <p className=" font-mulish font-semibold  uppercase text-[#434242]">{quest.addedBy}</p>
+          </div>
+
         </header>
         <div className="flex justify-start">
           <h2 className="font-bold text-[#434242] ">Mixed</h2>
