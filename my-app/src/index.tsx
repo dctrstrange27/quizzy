@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { HashRouter as Router } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+    <Router>
     <GoogleOAuthProvider clientId="473737215172-vvetfrobe1mvoc6d4t9ei8po9am1hllh.apps.googleusercontent.com">
     <App />
     </GoogleOAuthProvider>
+    </Router>
   </React.StrictMode>
 );
 

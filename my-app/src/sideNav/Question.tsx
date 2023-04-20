@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import {
   getCurrentQ,
   generateRandomNum,
@@ -25,16 +24,16 @@ const Question = ({
   const [score, setScore] = useState(0);
   const Navigate = useNavigate()
   const [scale, setScale] = useState(10);
-  const [total,setTotal] = useState(0)
+  const [total,setTotal] = useState(getQuestionOnly().length)
   function incrementScore() {
     setScore(score + 1);
   }
 
   useEffect(() => {
-    setTotal(getQuestionOnly().length)
     if (!getCurrentQ()) {
       handleQuestion(generateRandomNum(getQuestionOnly().length));
     }
+    console.log(getCurrentQ())
     setCurrentQ(getCurrentQ());
     setQuestion(getCurrentQuestion());
     setQuestionOnly(getQuestionOnly());
