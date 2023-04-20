@@ -45,10 +45,8 @@ const Shared = ({ handleShowProfile, setArr, getSubject, handleQuestion }) => {
       <div className="py-2 ">
         <React.Suspense
           fallback={
-            <div
-              className={`w-full flex justify-center items-center`}
-            >
-              <ImSpinner10 className="text-b2 w-6 h-auto animate-spin animate-  duration-500 bg-transparent"></ImSpinner10>
+            <div className={`w-full h-[600px] flex justify-center items-center`}>
+              <ImSpinner10 className="text-b2 w-6 h-auto animate-spin duration-[2000ms] bg-transparent"/>
             </div>
           }
         >

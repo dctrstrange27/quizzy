@@ -101,7 +101,6 @@ const App = () => {
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
-        console.log(arr);
         x = false;
       }
       randomNum = generateRandomNum(getQuestionOnly().length);
@@ -124,8 +123,7 @@ const App = () => {
             path="/"
             element={
               <HomeContext.Provider
-                value={{ userData, setShowProfile, showProfile }}
-              >
+                value={{ userData, setShowProfile, showProfile }}>
                 <Home />
               </HomeContext.Provider>
             }

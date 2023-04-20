@@ -17,7 +17,7 @@ const SideNav = () => {
       >
         <div className="sidenav">
           <FaGlobeAmericas className="sidenavicon"></FaGlobeAmericas>
-          <Link to="shared" className="nav" onClick={()=>{
+          <Link to="shared" className="nav cursor-pointer" onClick={()=>{
               //  localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
               // window.location.reload();
@@ -28,7 +28,7 @@ const SideNav = () => {
         </div>
         <div className="sidenav">
           <FaPenNib className="sidenavicon"></FaPenNib>
-          <Link to="yours" className="nav">
+          <Link to="yours" className="nav cursor-pointer">
             {" "}
             add Subject
           </Link>
