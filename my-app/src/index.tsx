@@ -8,7 +8,7 @@ import { HashRouter as Router } from 'react-router-dom';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-
+console.log(process.env.CLIENTID)
 
 root.render(
   <React.StrictMode>

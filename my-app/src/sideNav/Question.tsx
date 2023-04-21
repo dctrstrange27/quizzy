@@ -28,7 +28,6 @@ const Question = ({
   function incrementScore() {
     setScore(score + 1);
   }
-
   useEffect(() => {
     if (!getCurrentQ()) {
       handleQuestion(generateRandomNum(getQuestionOnly().length));

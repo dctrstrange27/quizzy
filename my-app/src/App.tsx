@@ -42,6 +42,7 @@ const App = () => {
     name: string;
     picture: string;
   }
+
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
@@ -52,7 +53,6 @@ const App = () => {
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState([]);
-
   const handleLogin = async (data: user) => {
     try {
       const gCredentials = await API.post("/createG", {

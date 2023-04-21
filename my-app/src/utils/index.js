@@ -31,7 +31,7 @@ export const saveCurrentQ=(response)=>{
 
 export const getCurrentQ=()=>{
   try {
-    const current = JSON.parse(localStorage?.getItem("currentQ")  || undefined );
+    const current = JSON?.parse(localStorage.getItem("currentQ")  || undefined );
     if(!current){
       return false;
     }

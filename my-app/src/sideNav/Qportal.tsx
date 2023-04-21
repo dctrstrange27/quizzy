@@ -29,11 +29,9 @@ const Qportal = ({
     return scale;
   }
 
- 
-
   return (
     <>
-      <div className="border-[1px w-full flex flex-col px-2 mx-2 my-2">
+      <div className=" border-[1px w-full flex flex-col px-2 mx-2 my-2">
         <h1 className="font-grot border-[1px py-3 text-2xl">
           {questions?.subjectCode}
         </h1>
@@ -56,23 +54,15 @@ const Qportal = ({
             </div>
             <div className="mb-8 border-[1px px-4">
               <Options
-                disabled={disabled}
                 handleQuestion={handleQuestion}
                 random={random}
                 quest={quest}
                 handleHideQuestions={handleHideQuestions}
                 arr={arr}
                 incrementScore={incrementScore}
-                setArr={setArr}
                 handleProgress={handleProgress}
-                handleSelect={handleSelect}
-                total={total}
               ></Options>
-              {/* {options?.map((opt,idx)=>(
-                  <div key={idx}>
-                    <Options opt={opt} isSelected={isSelected} handleSelect={handleSelect}></Options>
-                  </div>  
-                ))} */}
+             
             </div>
           </div>
         )}

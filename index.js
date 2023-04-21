@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors(corsOptions))
 connectDB()
-
+//console.log(process.env.CLIENTID)
 app.use('/api', require('./backend/routes/user'))
 //app.use('/api/newUser', require('./routes/user'))
 // app.use('/api/food', require('./routes/foodRoutes'))

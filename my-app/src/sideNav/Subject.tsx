@@ -5,14 +5,14 @@ import moment from "moment";
 import { generateRandomNum } from "../utils";
 const Subject = ({setArr,handleQuestion,getSubject,quest}) => {
   return (
-    <div className="subject cursor-pointer relative mb-7 bg-b  font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200">
+    <div className="subject  cursor-pointer relative mb-7 bg-b  font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200">
       <div
         onClick={() => {
           setArr([])
           getSubject(quest._id);
           handleQuestion(generateRandomNum())
         }}
-      >
+        >
         <header className="flex gap-2 py-2 border-r-Ofive border-[1px justify-start items-center">
           <svg
             viewBox="0 0 24 24"
