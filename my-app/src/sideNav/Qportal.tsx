@@ -31,7 +31,7 @@ const Qportal = ({
 
   return (
     <>
-      <div className=" border-[1px] rounded-2xl border-[#0000004b] shadow-xl p-5 w-full flex flex-col px-2 -mt-24  mx-2 my-2">
+      <div className=" border-[1px rounded-2xl border-[#0000004b] shadow-xl w-full flex flex-col px-3 -mt-24  mx-4 my-2">
         <h1 className="font-grot border-[1px py-3 text-2xl">
           {questions?.subjectCode}
         </h1>
