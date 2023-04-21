@@ -87,7 +87,7 @@ const App = () => {
       });
       setUserData(gCredentials.data);
       saveUser(gCredentials);
-      Navigate("/");
+      Navigate("/shared");
     } catch (error) {
       console.log(error);
     }
