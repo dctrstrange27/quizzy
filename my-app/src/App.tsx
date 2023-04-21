@@ -53,6 +53,7 @@ const App = () => {
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState([]);
+
   const handleLogin = async (data: user) => {
     try {
       const gCredentials = await API.post("/createG", {
@@ -67,6 +68,7 @@ const App = () => {
       console.log(error);
     }
   };
+  
   useEffect(() => {
     if (hasUser) {
       Navigate("/shared");
