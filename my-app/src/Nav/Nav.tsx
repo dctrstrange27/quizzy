@@ -27,7 +27,7 @@ const Nav = () => {
             Docs
           </Link>
           <BsSun className="w-5 h-5 cursor-pointer"></BsSun>
-          {getUser().length == 0 ? (
+          {getUser() == false ? (
             <Link to="/login" className="button cursor-pointer">
             SIGN IN
           </Link>

@@ -13,7 +13,7 @@ const LoginGoogle = ({handleLogin}) => {
     },
     onError: () => {
       console.log('Login Failed');
-    },
+    }
   });
 
   return (
