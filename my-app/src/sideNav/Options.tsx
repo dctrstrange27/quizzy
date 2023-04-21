@@ -50,7 +50,7 @@ const Options = ({
     if (arr.length == quest.length - 1) {
       handleHideQuestions();
     }
-    handleQuestion(random);
+    handleQuestion();
     setDisableCheckBtn(false);
     setkey("");
     setRes("");

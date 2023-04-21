@@ -5,7 +5,7 @@ import {
   Routes,
   Search,
 } from "react-router-dom";
-import Yours from "./sideNav/Yours";
+import AddSubject from "./sideNav/AddSubject";
 import Shared from "./sideNav/Shared";
 import Home from "./Home/Home";
 import PageNotFound from "./pageNotFound/PageNotFound";
@@ -26,17 +26,40 @@ import React from "react";
 import { ImSpinner10 } from "react-icons/im";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
+//context in Home,
 export const HomeContext = createContext<{
   userData: any;
   setShowProfile: Dispatch<SetStateAction<Boolean>>;
   showProfile: Boolean;
+  inQportal: Boolean;
+  setInQportal: Dispatch<SetStateAction<Boolean>>;
 }>({
   userData: [],
   setShowProfile: () => {},
   showProfile: false,
+  inQportal: false,
+  setInQportal: () => {},
+});
+
+//context in Shared,
+export const SharedContext = createContext<{
+  inQportal: Boolean;
+  setInQportal: Dispatch<SetStateAction<Boolean>>;
+  handleShowProfile: () => void;
+  setArr:Dispatch<SetStateAction<number[]>>;
+  getSubject:(id:string)=> void;
+  handleQuestion:() => any;
+}>({
+  inQportal: false,
+  setInQportal: () => {},
+  handleShowProfile: () => {},
+  setArr:()=>[],
+  getSubject:(id:string)=>{},
+  handleQuestion:()=>{}
 });
 
 const App = () => {
+
   interface user {
     email: number;
     name: string;
@@ -52,7 +75,8 @@ const App = () => {
   const Navigate = useNavigate();
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
-  const [arr, setArr] = useState([]);
+  const [arr, setArr] = useState<number[]>([]);
+  const [inQportal, setInQportal] = useState(false);
 
   const handleLogin = async (data: user) => {
     try {
@@ -68,7 +92,7 @@ const App = () => {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     if (hasUser) {
       Navigate("/shared");
@@ -79,7 +103,7 @@ const App = () => {
     setShowProfile(false);
   };
 
-  const getSubject = async (id) => {
+  const getSubject = async (id:string) => {
     try {
       const data = await API.post("/getQuestion", {
         id: id,
@@ -103,6 +127,7 @@ const App = () => {
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
+        console.log(arr)
         x = false;
       }
       randomNum = generateRandomNum(getQuestionOnly().length);
@@ -125,12 +150,19 @@ const App = () => {
             path="/"
             element={
               <HomeContext.Provider
-                value={{ userData, setShowProfile, showProfile }}>
+                value={{
+                  userData,
+                  setShowProfile,
+                  showProfile,
+                  inQportal,
+                  setInQportal,
+                }}
+              >
                 <Home />
               </HomeContext.Provider>
             }
           >
-            <Route path="yours" element={<Yours />} />
+            <Route path="addSubject" element={<AddSubject />} />
             <Route
               path="question"
               element={
@@ -144,6 +176,7 @@ const App = () => {
                   }
                 >
                   <Question
+                    setInQportal={setInQportal}
                     disabled={disabled}
                     random={random}
                     handleQuestion={handleQuestion}
@@ -162,12 +195,12 @@ const App = () => {
             <Route
               path="shared"
               element={
-                <Shared
-                  setArr={setArr}
-                  handleQuestion={handleQuestion}
-                  getSubject={getSubject}
-                  handleShowProfile={handleShowProfile}
-                />
+                <SharedContext.Provider
+                  value={{inQportal, setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
+                  <Shared
+                
+                  />
+                </SharedContext.Provider>
               }
             />
           </Route>

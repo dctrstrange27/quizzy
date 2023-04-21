@@ -19,22 +19,28 @@ const Question = ({
   handleHideQuestions,
   arr,
   setArr,
+  setInQportal,
 }) => {
   
   const [score, setScore] = useState(0);
   const Navigate = useNavigate()
   const [scale, setScale] = useState(10);
   const [total,setTotal] = useState(getQuestionOnly().length)
+  const [currentSubID,setCurrentSubID] =useState("")
+
+  
   function incrementScore() {
     setScore(score + 1);
   }
+
   useEffect(() => {
-    if (!getCurrentQ()) {
-      handleQuestion(generateRandomNum(getQuestionOnly().length));
-    }
-    setCurrentQ(getCurrentQ());
-    setQuestion(getCurrentQuestion());
-    setQuestionOnly(getQuestionOnly());
+      if (!getCurrentQ()) {
+        handleQuestion();
+      } 
+      setCurrentQ(getCurrentQ());
+      setQuestion(getCurrentQuestion());
+      setQuestionOnly(getQuestionOnly());
+  
   }, []);
 
   return (
@@ -67,13 +73,15 @@ const Question = ({
             <h1>score</h1>
             <div className="flex w-full border-[1px gap-10">
               <button className="questionB w-28" onClick={() => {
-                window.location.reload()
+                   window.location.reload();   
                 }}> 
                 Try Again
               </button>
               <button onClick={()=>{  
                 localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
+                // setArr([])
+                setInQportal(true)
                 window.location.reload();      
                }}  className="questionB w-24">Back</button>
             </div>

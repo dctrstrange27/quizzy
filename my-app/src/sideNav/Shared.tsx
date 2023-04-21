@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { useState } from "react";
 import { API } from "../utils";
 import { ImSpinner10 } from "react-icons/im";
+import Qportal from "./Qportal";
+import { SharedContext } from "../App";
+
 const Subject = React.lazy(() => import("./Subject"));
 
-const Shared = ({ handleShowProfile, setArr, getSubject, handleQuestion }) => {
-  const [questions, setQuestions] = useState([]);
+const Shared = () => {
 
+  const [questions, setQuestions] = useState([]);
+  const {handleShowProfile} = useContext(SharedContext)
   const getQuestion = async () => {
     try {
       const getQuestion = await API.post("/getSubject");
@@ -21,6 +25,7 @@ const Shared = ({ handleShowProfile, setArr, getSubject, handleQuestion }) => {
     getQuestion();
   }, []);
 
+
   return (
     <div
       onClick={() => {
@@ -30,18 +35,6 @@ const Shared = ({ handleShowProfile, setArr, getSubject, handleQuestion }) => {
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem]
          border-[2px border-[#700a0a] "
     >
-      <div
-        className="shared font-nuni w-full md:min-w-[35rem] md:max-w-[65rem] flex flex-col h-[20%] border-[1px px-20 mt-28 mb-5 
-                      gap-2 justify-center items-center"
-      >
-        <BsFillJournalBookmarkFill className="w-5 h-5 text-[#041b2d]" />
-        <h1 className="font-bold text-base">Reviewers</h1>
-        <p className="font-light text-sm max-w-md">
-          These are reviewers/questions that are created & shared by different
-          students to practice for their exam.{" "}
-        </p>
-        {/* sample */}
-      </div>
       <div className="py-2 ">
         <React.Suspense
           fallback={
@@ -52,10 +45,7 @@ const Shared = ({ handleShowProfile, setArr, getSubject, handleQuestion }) => {
         >
           {questions?.map((quest, id) => (
             <Subject
-              setArr={setArr}
-              handleQuestion={handleQuestion}
               key={id}
-              getSubject={getSubject}
               quest={quest}
             ></Subject>
           ))}

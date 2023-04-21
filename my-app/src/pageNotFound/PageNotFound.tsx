@@ -5,14 +5,14 @@ const PageNotFound = () => {
       return (
           <>
               <div className='font-pop w-screen h-screen flex flex-row gap-5 justify-center items-center text-[#BBBCBC]'>
-                  <BiErrorAlt className='w-32 h-32 text-[#ea4040]'>
+                  <BiErrorAlt className='w-16 h-auto text-[#ea4040]'>
                   </BiErrorAlt>
                   <div className='flex flex-col justify-center items-center'>
-                      <div className='text-[6rem] text-b1 flex gap-5'>
+                      <div className='text-[1.5rem] font-bold text-b1 flex gap-5'>
                       <h1 className=''>ERROR</h1>
                       <p>404</p>
                       </div>
-                      <h1 className='text-[1.3rem] text-b2'>Woops. Looks like this page doesn't exist.</h1>
+                      <h1 className='text-[1rem] text-b2'>Woops. Looks like this page doesn't exist.</h1>
                   </div>
                
               </div>

@@ -11,7 +11,7 @@ const SideNav = () => {
   return (
     <>
       <div
-        className="flex md:mt-28 gap-5 
+        className="flex gap-5 
                             md:flex-col md:gap-2
                              border-[1px"
       >
@@ -28,7 +28,7 @@ const SideNav = () => {
         </div>
         <div className="sidenav">
           <FaPenNib className="sidenavicon"></FaPenNib>
-          <Link to="yours" className="nav cursor-pointer">
+          <Link to="addSubject" className="nav cursor-pointer">
             {" "}
             add Subject
           </Link>
