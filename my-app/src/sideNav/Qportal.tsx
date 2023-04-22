@@ -26,6 +26,7 @@ const Qportal = ({
   function handleProgress() {
     setTotal(questions?.questions?.length)
     setScale(scale + 10);
+    console.log(scale)
     return scale;
   }
 
@@ -38,9 +39,9 @@ const Qportal = ({
         <div className="w-fit flex gap-2 items-center text-start border-[1px border-[#000]">
           <h1 className="text-[17px] font-bold">Question</h1>
           <h2 className="text-[19px] font-bold">{scale/10}/{total}</h2>
-          <div className="w-20 h-2 bg-b1 rounded-full">
+          <div   style={{ width: `${total*10}px` }} className={`h-2 bg-b1 rounded-full`}>
             <div
-              style={{ width: `${scale}%` }}
+              style={{ width: `${scale}px` }}
               className="h-2 rounded-full bg-p2"
             />
           </div>

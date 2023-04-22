@@ -24,6 +24,7 @@ import {
 import { createContext } from "react";
 import React from "react";
 import { ImSpinner10 } from "react-icons/im";
+import { createIndexSignature } from "typescript";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
@@ -121,17 +122,19 @@ const App = () => {
   }
   //handling questions every next
   const handleQuestion = () => {
-    let x = true;
-    while (x) {
-      let randomNum = generateRandomNum(getQuestionOnly().length);
+    const len = getQuestionOnly().length
+   //console.log(currentQ.question)    
+    let x = 1;
+    while (x == 1) {
+      let randomNum = generateRandomNum(len);
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
-        console.log(arr)
-        x = false;
+        x = 0;
       }
-      randomNum = generateRandomNum(getQuestionOnly().length);
-      if (arr.length == getQuestionOnly().length) {
+      randomNum = generateRandomNum(len);
+     
+      if (arr.length == len) {
         handleHideQuestions();
         return;
       }
@@ -141,6 +144,27 @@ const App = () => {
     saveCurrentQ(currentQuestion);
     return currentQuestion;
   };
+
+  // const handleQuestion = () => {
+  //   const questionOnly = getQuestionOnly();
+  //   if (arr.length === questionOnly.length) {
+  //     handleHideQuestions();
+  //     return;
+  //   }
+  //   let randomNum = generateRandomNum(questionOnly.length);
+  //   while (arr.includes(randomNum)) {
+  //     randomNum = generateRandomNum(questionOnly.length);
+  //     if(questionOnly.length == getQuestionOnly().length){
+  //       return
+  //     }
+  //   }
+  //   arr.push(randomNum);
+  //   console.log(arr)
+  //   const currentQuestion = questionOnly[randomNum];
+  //   setCurrentQ(currentQuestion);
+  //   saveCurrentQ(currentQuestion);
+  //   return currentQuestion;
+  // };
 
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
