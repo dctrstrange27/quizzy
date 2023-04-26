@@ -78,6 +78,12 @@ const addSubject = async (req, res) => {
     }
 }
 
+const checkAccessList = async(req,res)=>{
+    // const email = req.body
+    // const subject = await Subject.findOne({})
+    res.json("Hello check List!")
+}
+
 
 module.exports = {
     getUsers,
@@ -86,4 +92,5 @@ module.exports = {
     addSubject,
     getSubject,
     getQuestion,
+    checkAccessList,
 }

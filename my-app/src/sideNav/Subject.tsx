@@ -8,7 +8,6 @@ import { SharedContext } from "../App";
 const Subject = ({quest}) => {
   
   const{setArr,setInQportal,getSubject,handleQuestion} = useContext(SharedContext)
-  
   return (
     <div className="subject  cursor-pointer relative mb-7 bg-b  font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg  border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200">
       <div
@@ -31,9 +30,8 @@ const Subject = ({quest}) => {
           </svg>
           <div className="flex gap-2">
             <h1 className="Author font-extrabold text-[#656363]  ">Author:</h1>
-            <p className=" font-mulish font-semibold  uppercase text-[#434242]">{quest.addedBy}</p>
+            <p className=" font-mulish font-semibold text-[#3e6cd8]">{quest.addedBy}</p>
           </div>
-
         </header>
         <div className="flex justify-start">
           <h2 className="font-bold text-[#434242] ">Mixed</h2>
@@ -63,7 +61,7 @@ const Subject = ({quest}) => {
           {moment(quest.createdAt).format("MMMM Do YYYY")}
         </div>
         <div className="Date text-sm text-[#5f5e5e] absolute bottom-2 right-3">
-          Accessed by student 23x
+          Accessed by student {quest.usersAccessedList.length}x
         </div>
       </div>
     </div>

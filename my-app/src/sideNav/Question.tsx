@@ -28,7 +28,6 @@ const Question = ({
   const [total,setTotal] = useState(getQuestionOnly().length)
   const [currentSubID,setCurrentSubID] =useState("")
 
-  
   function incrementScore() {
     setScore(score + 1);
   }
@@ -42,6 +41,8 @@ const Question = ({
       setQuestionOnly(getQuestionOnly());
   
   }, []);
+  console.log(getCurrentQ())
+
 
   return (
     <>
