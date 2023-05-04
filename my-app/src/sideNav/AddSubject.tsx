@@ -1,11 +1,10 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { API } from "../utils";
 import { getUser } from "../utils";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
 const AddSubject = () => {
-  
-  interface subject{
+  interface subject {
     subjectCode: string;
     accessCount: number;
     addedBy: string;
@@ -14,36 +13,24 @@ const AddSubject = () => {
     questions: [];
   }
 
-
   const [question, setQuestion] = useState<subject[]>([]);
   const [subjectCode, setSubjectCode] = useState("");
-    
 
   const getSubject = (e) => {
     setSubjectCode(e.target.value);
   };
 
   const newSubject: subject = {
-    subjectCode:`${subjectCode}`,
+    subjectCode: `${subjectCode}`,
     accessCount: 0,
     addedBy: getUser().email_address,
     picture: getUser().profile_picture,
     usersAccessedList: [],
     questions: [],
   };
-  
-  const addSubject = async(data)=>{
-    try {
-      const subject = await API.post("/addsubject",{
-        subjectCode:data.subjectCode,
-        accessCount: data.accessCount,
-        addedBy: data.addedBy,
-        picture: data.picture, 
-        usersAccessedList: data.userAccessedList,
-        questions:data.question
-      })
 
-      console.log(subject.data)
+  const handleToast = () => {
+    try {
       toast.success("successfully added Data!", {
         position: "top-right",
         autoClose: 1000,
@@ -52,11 +39,11 @@ const AddSubject = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light" 
-        });
-      setSubjectCode("")
+        theme: "light",
+      });
+      setSubjectCode("");
     } catch (error) {
-       toast.error("Failed to add Data!", {
+      toast.error("Failed to add Data!", {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: true,
@@ -64,11 +51,27 @@ const AddSubject = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light" 
-        });
+        theme: "light",
+      });
     }
-  }
+  };
 
+  const addSubject = async (data) => {
+    try {
+      const subject = await API.post("/addsubject", {
+        subjectCode: data.subjectCode,
+        accessCount: data.accessCount,
+        addedBy: data.addedBy,
+        picture: data.picture,
+        usersAccessedList: data.userAccessedList,
+        questions: data.question,
+      });
+      console.log(subject.data);
+      handleToast()
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full h-[90%] border-[1px">
@@ -80,7 +83,17 @@ const AddSubject = () => {
           className="w-[100%] border-[2.5px] rounded-2xl h-11 px-4"
         ></input>
         <div className="flex justify-end  w-full border-[1px">
-          <button disabled={subjectCode.length == 0 ? true : false} onClick={()=>{addSubject(newSubject)}} className={` ${subjectCode.length == 0 ? "disabledBtn":"questionB"} questionB`}>add</button>
+          <button
+            disabled={subjectCode.length == 0 ? true : false}
+            onClick={() => {
+              addSubject(newSubject);
+            }}
+            className={` ${
+              subjectCode.length == 0 ? "disabledBtn" : "questionB"
+            } questionB`}
+          >
+            add
+          </button>
         </div>
       </div>
     </div>

@@ -18,7 +18,6 @@ const login = async (req, res) => {
 
 const createGoogleAccount = async (req, res) => {
     const { email_address, name, picture} = req.body
-
     const doesExist = await LoginUser.findOne({ email_address:email_address })
     if (doesExist) {
         return res.status(200).json({ userData: doesExist })
@@ -36,7 +35,6 @@ const createGoogleAccount = async (req, res) => {
         }
     }
 }
-
 const getUsers = async(req,res)=>{
     const getUsers = await LoginUser.find({})
     res.status(200).json(getUsers)
@@ -79,11 +77,22 @@ const addSubject = async (req, res) => {
 }
 
 const checkAccessList = async(req,res)=>{
-    // const email = req.body
-    // const subject = await Subject.findOne({})
-    res.json("Hello check List!")
+    const {_id,email} = req.body
+    //once click will get the ID
+   try {
+    const subject = await Subject.findOne({_id})
+    //check if the user if existing in users who accessed
+    res.json(subject)
+    if(subject){
+        const hasUser = await subject.find({usersAccessedList:{$in:[email]}})
+        res.json(hasUser)
+    }else{
+        return res.json("Subject doesn't Exist")
+    }
+   } catch (error) {
+    console.log(error)
+   }
 }
-
 
 module.exports = {
     getUsers,

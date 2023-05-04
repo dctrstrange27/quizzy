@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getCurrentQ,
-  generateRandomNum,
   getCurrentQuestion,
   getQuestionOnly,
 } from "../utils";
@@ -26,12 +25,10 @@ const Question = ({
   const Navigate = useNavigate()
   const [scale, setScale] = useState(10);
   const [total,setTotal] = useState(getQuestionOnly().length)
-  const [currentSubID,setCurrentSubID] =useState("")
 
   function incrementScore() {
     setScore(score + 1);
   }
-
   useEffect(() => {
       if (!getCurrentQ()) {
         handleQuestion();
@@ -39,11 +36,8 @@ const Question = ({
       setCurrentQ(getCurrentQ());
       setQuestion(getCurrentQuestion());
       setQuestionOnly(getQuestionOnly());
-  
   }, []);
   console.log(getCurrentQ())
-
-
   return (
     <>
       <div
