@@ -5,10 +5,8 @@ import SideNav from "../sideNav/SideNav";
 import { Link } from "react-router-dom";
 import { getUser } from "../utils";
 import Profile from "./Profile";
-import { createContext } from "react";
 import { HomeContext } from "../App";
 const Nav = () => {
-  // console.log(getUser())
   const { setShowProfile, showProfile,inQportal } = useContext(HomeContext);
   return (
     <>
@@ -19,7 +17,7 @@ const Nav = () => {
           </Link>
         </div>
         <div className="flex justify-center items-center px-2 py-2 gap-5 border-emerald-300 border-[1px">
-          <div className="gap-5  md:hidden ">
+          <div className="gap-5 md:hidden ">
             <SideNav></SideNav>
           </div>
           <Link to="shared" className="nav">

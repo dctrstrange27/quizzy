@@ -21,6 +21,11 @@ const Shared = () => {
     }
   };
 
+  const handleDeleteSubj=(id:number)=>{
+    setQuestions(questions.filter((q)=> q._id != id ))
+  }
+
+
   useEffect(() => {
     getQuestion();
   }, []);
@@ -47,6 +52,7 @@ const Shared = () => {
             <Subject
               key={id}
               quest={quest}
+              handleDeleteSubj={handleDeleteSubj}
             ></Subject>
           ))}
         </React.Suspense>

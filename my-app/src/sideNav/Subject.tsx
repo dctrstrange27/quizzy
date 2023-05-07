@@ -2,17 +2,72 @@ import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Question from "./Question";
 import moment from "moment";
-import { generateRandomNum } from "../utils";
+import { getUser } from "../utils";
 import { SharedContext } from "../App";
 import { MdDelete } from "react-icons/md";
+import { API } from "../utils";
+import { toast } from "react-toastify";
 
-const Subject = ({ quest }) => {
+const Subject = ({ quest,handleDeleteSubj }) => {
   const { setArr, setInQportal, getSubject, handleQuestion } =
     useContext(SharedContext);
+
+
+    const handleToast = (message) => {
+      try {
+        toast.success(message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } catch (error) {
+        toast.error(message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    };
+
+
+  const checkAccess = async(id,user) => {
+    try {
+      await API.post("/checkAccessList", {
+        _id: id,
+        email: user.email_address,
+      });
+      console.log("succesful")
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="subject cursor-pointer relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200">
       <div className="border-[1px absolute top-4 right-4 border-b1">
-        <MdDelete className="w-5 h-5  text-[#041b2d83] hover:scale-125 ease-in-out duration-300 hover:text-b1"></MdDelete>
+        <MdDelete onClick={async()=>{
+          try {
+            handleDeleteSubj(quest._id)
+            const subj =  await API.post("/deleteSubj",{
+              _id:quest._id
+            }) 
+            console.log(subj)
+            handleToast("successfully deleted!")
+          } catch (error) {
+            console.log(error)            
+          }
+          
+        }} className="w-5 h-5 text-[#041b2d83] hover:scale-125 ease-in-out duration-300 hover:text-b1"></MdDelete>
       </div>
       <div
         onClick={() => {
@@ -20,6 +75,7 @@ const Subject = ({ quest }) => {
           setInQportal(true);
           getSubject(quest._id);
           handleQuestion();
+          checkAccess(quest._id,getUser())
         }}
       >
         <header className="flex gap-2 py-2 border-r-Ofive border-[1px justify-start items-center">

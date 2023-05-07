@@ -76,16 +76,34 @@ const addSubject = async (req, res) => {
     }
 }
 
+const deleteSubj= async(req,res)=>{
+    const {_id} = req.body
+    try {
+        const subj = await Subject.findByIdAndDelete({_id})    
+        res.json({"deleted Successfully": subj})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 const checkAccessList = async(req,res)=>{
     const {_id,email} = req.body
-    //once click will get the ID
-   try {
-    const subject = await Subject.findOne({_id})
-    //check if the user if existing in users who accessed
-    res.json(subject)
+     try {
+        const subject = await Subject.findOne({_id})
     if(subject){
-        const hasUser = await subject.find({usersAccessedList:{$in:[email]}})
-        res.json(hasUser)
+        const hasUser = await subject.usersAccessedList.includes(email)
+        if(hasUser){
+        return res.json(subject)
+        }else{
+            const updatedSubject = await Subject.findOneAndUpdate(
+                { _id },
+                { $push: { usersAccessedList: email } },
+                { new: true } // Return the updated document
+              )
+              res.json(updatedSubject)
+            return res.json("users added")
+        }
     }else{
         return res.json("Subject doesn't Exist")
     }
@@ -102,4 +120,5 @@ module.exports = {
     getSubject,
     getQuestion,
     checkAccessList,
+    deleteSubj,
 }

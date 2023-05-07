@@ -32,12 +32,11 @@ code {
     @apply hover:scale-105 font-semibold text-sm font-pop tracking-wide ease-in-out duration-150
      hover:text-[#004e9a] md:text-[#000] md:hover:text-[#000] hover:font-bold md:hover:font-normal;
   }
-
+  
   .sidenav {
     @apply text-sm md:bg-[#e0dddd] md:w-full md:rounded-md md:hover:text-white5 md:pl-4 md:py-[.70rem] md:hover:scale-[100%] 
-    md:flex md:items-center md:gap-2 md:justify-start;
+           md:flex md:items-center md:gap-2 md:justify-start;
   }
-
   .sidenavicon {
     @apply hidden md:block md:text-p2;
   }
