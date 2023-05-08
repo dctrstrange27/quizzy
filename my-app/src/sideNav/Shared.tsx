@@ -25,7 +25,6 @@ const Shared = () => {
     setQuestions(questions.filter((q)=> q._id != id ))
   }
 
-
   useEffect(() => {
     getQuestion();
   }, []);
@@ -39,8 +38,8 @@ const Shared = () => {
       className="flex-col px-6 w-full md:ml-[20%] md:max-w-xl border-[1px
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem]
          border-[2px border-[#700a0a] "
-    >
-      <div className="py-2 ">
+      >
+      <div className="py-2">
         <React.Suspense
           fallback={
             <div className={`w-full h-[600px] flex justify-center items-center`}>

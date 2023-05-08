@@ -68,4 +68,7 @@ code {
   .correct{
     @apply border-[#2bf303] border-[2px] from-[#Fff] to-b2 bg-gradient-to-r
   }
+  .buttonUpdate {
+    @apply bg-b2 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
+  }
 }
