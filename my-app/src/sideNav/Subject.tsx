@@ -1,6 +1,4 @@
-import React, { useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import Question from "./Question";
+import {useContext } from "react";
 import moment from "moment";
 import { getUser } from "../utils";
 import { SharedContext } from "../App";
@@ -14,17 +12,6 @@ const Subject = ({ quest, handleDeleteSubj }) => {
 
   const handleToast = (message) => {
     try {
-      toast.success(message, {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (error) {
       toast.error(message, {
         position: "top-right",
         autoClose: 1000,
@@ -35,6 +22,8 @@ const Subject = ({ quest, handleDeleteSubj }) => {
         progress: undefined,
         theme: "light",
       });
+    } catch (error) {
+      console.log(error)
     }
   };
 
@@ -58,16 +47,16 @@ const Subject = ({ quest, handleDeleteSubj }) => {
       <div
         className={`${
           len == 0
-            ? "border-[1px rounded-sm z-50 flex flex-col justify-center -translate-x-4 -translate-y-4 items-center absolute w-full h-full"
+            ? "border-[1px z-50 rounded-sm flex flex-col justify-center -translate-x-4 -translate-y-4 items-center absolute w-full h-full"
             : "hidden"
         }`}
-      >
+        >
         <h1 className="font-tilt text-lg text-b1 p-2">No Questions</h1>
         <button className={`buttonUpdate`}>
           update
         </button>
       </div>
-      <div className="border-[1px absolute top-4 right-4 border-b1">
+      <div className="border-[1px absolute z-50 top-4 right-4 border-b1">
         <MdDelete
           onClick={async () => {
             try {
@@ -118,8 +107,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
             className="ml-2 text-sm text-[#041b2d]"
             height="1em"
             width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <g>
               <path fill="none" d="M0 0h24v24H0z"></path>
               <path d="M7 7V3a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-4v3.993c0 .556-.449 1.007-1.007 1.007H3.007A1.006 1.006 0 0 1 2 20.993l.003-12.986C2.003 7.451 2.452 7 3.01 7H7zm2 0h6.993C16.549 7 17 7.449 17 8.007V15h3V4H9v3zm-.497 11l5.656-5.657-1.414-1.414-4.242 4.243L6.38 13.05l-1.414 1.414L8.503 18z"></path>

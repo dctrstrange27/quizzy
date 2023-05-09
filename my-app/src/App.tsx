@@ -24,7 +24,6 @@ import {
 import { createContext } from "react";
 import React from "react";
 import { ImSpinner10 } from "react-icons/im";
-import { createIndexSignature } from "typescript";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
@@ -60,8 +59,7 @@ export const SharedContext = createContext<{
 });
 
 const App = () => {
-
-  interface user {
+interface user {
     email: number;
     name: string;
     picture: string;
@@ -103,7 +101,6 @@ const App = () => {
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-
   const getSubject = async (id:string) => {
     try {
       const data = await API.post("/getQuestion", {
@@ -133,7 +130,6 @@ const App = () => {
         x = 0;
       }
       randomNum = generateRandomNum(len);
-     
       if (arr.length == len) {
         handleHideQuestions();
         return;
@@ -144,28 +140,6 @@ const App = () => {
     saveCurrentQ(currentQuestion);
     return currentQuestion;
   };
-
-  // const handleQuestion = () => {
-  //   const questionOnly = getQuestionOnly();
-  //   if (arr.length === questionOnly.length) {
-  //     handleHideQuestions();
-  //     return;
-  //   }
-  //   let randomNum = generateRandomNum(questionOnly.length);
-  //   while (arr.includes(randomNum)) {
-  //     randomNum = generateRandomNum(questionOnly.length);
-  //     if(questionOnly.length == getQuestionOnly().length){
-  //       return
-  //     }
-  //   }
-  //   arr.push(randomNum);
-  //   console.log(arr)
-  //   const currentQuestion = questionOnly[randomNum];
-  //   setCurrentQ(currentQuestion);
-  //   saveCurrentQ(currentQuestion);
-  //   return currentQuestion;
-  // };
-
   return (
     <div className="App w-full h-full border-[20px border-r-b2">
       <div className=" border-[5px h-full border-r-b2">
@@ -180,13 +154,12 @@ const App = () => {
                   showProfile,
                   inQportal,
                   setInQportal,
-                }}
-              >
+                }}>
                 <Home />
               </HomeContext.Provider>
             }
           >
-            <Route path="addSubject" element={<AddSubject />} />
+            <Route path="addSubject" element={<AddSubject />}/>
             <Route
               path="question"
               element={

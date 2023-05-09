@@ -71,4 +71,24 @@ code {
   .buttonUpdate {
     @apply bg-b2 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
   }
+  .checkedBox{
+    @apply w-5 h-5 ease-in-out p-0 duration-700 text-b1 rounded-md bg-[#fff]
+  }
+  .uncheckedBox{
+    @apply w-5 h-5 text-[#fff0] border-[1px] shadow-lg border-[#0000001f] rounded-md
+  }
+
+  .TcheckedBox{
+    @apply w-5 h-5 ease-in-out p-0 duration-700 text-[#1ac742] rounded-md bg-[#fff]
+  }
+  
+  .addQuestionB {
+    @apply bg-b1 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
+  }
+
+
+
+  .optionLabel{
+    @apply font-tilt text-lg
+  }
 }

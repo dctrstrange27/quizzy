@@ -9,7 +9,6 @@ import { SharedContext } from "../App";
 const Subject = React.lazy(() => import("./Subject"));
 
 const Shared = () => {
-
   const [questions, setQuestions] = useState([]);
   const {handleShowProfile} = useContext(SharedContext)
   const getQuestion = async () => {
@@ -28,7 +27,6 @@ const Shared = () => {
   useEffect(() => {
     getQuestion();
   }, []);
-
 
   return (
     <div

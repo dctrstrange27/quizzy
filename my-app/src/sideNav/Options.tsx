@@ -42,7 +42,6 @@ const Options = ({
   const handleCheckAns = () => {
     correctAns == key  ? correct() : wrong();
     setDisableCheckBtn(true);
-
     // console.log("question type"+ questionType)
   };
 
