@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API } from "../utils";
 import { getUser } from "../utils";
-import { toast } from "react-toastify";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { FiPlus } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
+import { toastSuccess, toastFailed } from "../utils";
 
 const AddSubject = () => {
   interface subject {
@@ -15,36 +15,21 @@ const AddSubject = () => {
     usersAccessedList: [];
     questions: [];
   }
-  interface question {
-    questions: [];
-    answerKey: number;
-    options: [];
-    QuestionTypes: number;
-  }
 
-  // const [questions, setQuestions] = useState<question>([]);
+  const [question, setQuestion] = useState("");
+  const [questions, setQuestions] = useState<any>([]);
   const [subjectCode, setSubjectCode] = useState("");
   const [showAddQ, setShowAddQ] = useState(false);
-  const [check, setCheck] = useState(false);
-  const [key, setKey] = useState<number>();
-  const [identificationKey, setIdentificationKey] = useState("");
-  const [TFkey, setTFkey] = useState(undefined);
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
-  const [options, setOptions] = useState<any>([]);
+  const [options, setOptions] = useState<any>([""]);
   const [answerKey, setAnswerKey] = useState<any>("");
 
-  const uniqueId = () => {
-    return "_" + Math.random().toString(36).substr(2, 9);
-  };
-  const getSubject = (e) => {
-    setSubjectCode(e.target.value);
-  };
+  const [key, setKey] = useState<number>();
+  const [identificationKey, setIdentificationKey] = useState("");
+  const [TFkey, setTFkey] = useState(null);
+  const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
 
-  const handleQuestions = () => {
-    if (key == 0) {
-    }
-  };
-
+  //generating new Subject
   const newSubject: subject = {
     subjectCode: `${subjectCode}`,
     accessCount: 0,
@@ -53,34 +38,18 @@ const AddSubject = () => {
     usersAccessedList: [],
     questions: [],
   };
-
-  const handleToast = () => {
-    try {
-      toast.success("successfully added Data!", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      setSubjectCode("");
-    } catch (error) {
-      toast.error("Failed to add Data!", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+  //generate new unique ID
+  const uniqueId = () => {
+    return "_" + Math.random().toString(36).substr(2, 9);
+  };
+  // getting Subject Code
+  const getSubject = (e) => {
+    setSubjectCode(e.target.value);
   };
 
+  // handle Toast
+
+  //adding subject function
   const addSubject = async (data) => {
     try {
       const subject = await API.post("/addsubject", {
@@ -92,31 +61,76 @@ const AddSubject = () => {
         questions: data.question,
       });
       console.log(subject.data);
-      handleToast();
+      toastSuccess("successfully added!!");
     } catch (error) {
       console.log(error);
     }
   };
+  //handling question onchange
+  const handleQuestion = (e) => {
+    setQuestion(e.target.value);
+  };
+  // for adding question
+  const addQuestion = () => {
+    if (question === "") return toastFailed("Please add question");
 
+    if (key === 0) {
+      if (TFkey === null) return toastFailed("Please provide a answer!");
+    }
+    if (key === 2) {
+      if (identificationKey === "")
+        return toastFailed("Please provide a answer");
+    }
+    if (key === 1) {
+      if (options.length === 0) return toastFailed("Please add options");
+      if (TFkey === null) return toastFailed("Please put answer key");
+    }
+
+    toastSuccess("question added!");
+    setQuestions(() => [
+      ...questions,
+      {
+        question: question,
+        answerKey: answerKey,
+        questionType: key,
+        options: key === 1 ? options : "",
+      },
+    ]);
+    setQuestion("")
+    setOptions([]);
+    setIdentificationKey("");
+    setTFkey(undefined);
+  };
+
+  //adding choices for Multiple choice
   const addChoices = () => {
     setOptions(() => [...options, { key: uniqueId() }]);
   };
-
+  //this is for handling Indentification text box
   const handleIdentification = (e) => {
     setIdentificationKey(e.target.value);
-    console.log(identificationKey);
   };
-
+  // this is for deleting choices or options
   const deleteOneOption = (key) => {
     setOptions(options.filter((options) => options.key != key));
   };
 
+  //this is for handling onchange of each option
   const handleMultChoices = (key: string, value: string) => {
     const updatedOptions = options.map((opt) => {
-      return opt.key == key ? { ...opt, value: value } : opt;
+      return opt.key === key ? { ...opt, value: value } : opt;
     });
     setOptions(updatedOptions);
   };
+
+  // this will run again and again if meet atleast one on the dependencies
+  useEffect(() => {
+    if (key === 0) setAnswerKey(TFkey);
+    if (key === 1) setAnswerKey(multipleChoiceKey);
+    if (key === 2) setAnswerKey(identificationKey);
+    //console.log("this is the answer key: "+answerKey)
+  }, [identificationKey, TFkey, multipleChoiceKey, key]);
+
   return (
     <>
       {showAddQ ? (
@@ -132,17 +146,16 @@ const AddSubject = () => {
             ></input>
             <div className="flex justify-center w-full border-[1px">
               <button
-                disabled={subjectCode.length == 0 ? true : false}
+                disabled={subjectCode.length === 0 ? true : false}
                 onClick={() => {
-                  console.log("hello");
                   addSubject(newSubject);
                 }}
                 className={` ${
-                  subjectCode.length == 0
+                  subjectCode.length === 0
                     ? "disabledBtn px-10 py-1"
                     : "questionB px-10 py-1"
                 } questionB`}
-              >
+                >
                 next
               </button>
             </div>
@@ -150,10 +163,32 @@ const AddSubject = () => {
         </div>
       ) : (
         <>
-          <div className="addSubjCont flex justify-center h-fit border-[1px">
-            <div className="flex flex-col w-[90%] md:w-[70%] lg:w-[50%]">
+          <div className="addSubjCont flex flex-col items-center justify-center h-fit border-[1px">
+            <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
+              {questions.map((question, idx) => (
+                <div
+                  className="flex flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px] border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
+                  key={idx}
+                >
+                  <h1 className="">
+                    {idx + 1}.{question.question}
+                  </h1>
+                  <p className="pl-5">Answer key: {question.answerKey}</p>
+                  {key === 1 &&
+                     question?.options.map((option, idx) => {
+                        return (
+                          <div key={idx}>
+                            <p>{option.value}</p>
+                          </div>
+                        );
+                      })
+                    }
+                </div>
+              ))}
               <label className="text-start font-grot text-xl">Quetion</label>
               <textarea
+                value={question}
+                onChange={handleQuestion}
                 placeholder="input your question here.."
                 className="py-2 border-[2.5px] font-nsans overflow-hidden h-auto overscroll-none rounded-2xl px-4"
               ></textarea>
@@ -161,7 +196,7 @@ const AddSubject = () => {
               <div className="flex gap-2">
                 {QuestionTypes.map((q, idx: number) => (
                   <div className="flex gap-2 items-center" key={idx}>
-                    {key == idx ? (
+                    {key === idx ? (
                       <ImCheckboxChecked
                         onClick={() => {
                           setKey(idx);
@@ -178,7 +213,7 @@ const AddSubject = () => {
                     )}
                     <h1
                       className={`${
-                        key == idx ? "text-b2" : ""
+                        key === idx ? "text-b2" : ""
                       } font-grot text-lg`}
                     >
                       {q}
@@ -186,11 +221,11 @@ const AddSubject = () => {
                   </div>
                 ))}
               </div>
-              {key == 0 ? (
+              {key === 0 ? (
                 <div className="flex flex-col border-[1px px-5 text-start w-[30%]">
                   {["true", "false"].map((e, idx) => (
                     <div className="flex gap-2" key={idx}>
-                      {TFkey == e ? (
+                      {TFkey === e ? (
                         <ImCheckboxChecked
                           onClick={() => {
                             setTFkey(e);
@@ -214,18 +249,20 @@ const AddSubject = () => {
               ) : (
                 ""
               )}
-              {key == 1 ? (
+              {key === 1 ? (
                 <div className="border-[1px px-5 text-start w-[80%] md:w-[50%]">
-                  {options.map((opt) => {
+                  {options.map((opt, idx) => {
                     return (
                       <div
                         className="flex items-center w-full border-[1px gap-2 my-1"
-                        key={opt.key}
+                        key={idx}
                       >
-                        {TFkey == opt.key ? (
+                        {TFkey === opt.key ? (
                           <ImCheckboxChecked
                             onClick={() => {
                               setTFkey(opt.key);
+                              setAnswerKey(opt.value);
+                              setMultipleChoiceKey(opt.value);
                             }}
                             className="TcheckedBox"
                           />
@@ -233,18 +270,24 @@ const AddSubject = () => {
                           <ImCheckboxUnchecked
                             onClick={() => {
                               setTFkey(opt.key);
+                              setAnswerKey(opt.value);
+                              setMultipleChoiceKey(opt.value);
                             }}
                             className="uncheckedBox"
                           />
                         )}
                         <input
                           type="text"
-                          value={opt.name}
+                          value={opt.value}
                           onChange={(event) =>
                             handleMultChoices(opt.key, event.target.value)
                           }
                           placeholder="input choices here.."
-                          className="border-[2px] w-full py-1 h-8 px-2 font-nuni font-semibold rounded-lg"
+                          className={` ${
+                            TFkey === opt.key
+                              ? "border-[#479d0d] border-[3px]"
+                              : ""
+                          } border-[2px]  w-full py-1 h-8 px-2 font-nuni font-semibold rounded-lg`}
                         ></input>
                         <button className="border-[1px">
                           <MdDelete
@@ -257,7 +300,7 @@ const AddSubject = () => {
                       </div>
                     );
                   })}
-                  {options.length == 0 ? (
+                  {options.length === 0 ? (
                     <div className="w-full border-[1px bg-[#8e8e8e5c py-5 rounded-xl flex justify-center">
                       <p className="">No Question to Show!</p>
                     </div>
@@ -288,7 +331,7 @@ const AddSubject = () => {
               ) : (
                 ""
               )}
-              {key == 2 ? (
+              {key === 2 ? (
                 <div className="flex flex-col border-[1px my-4 text-start w-[50%] md:w-[60%] lg:w-[40%]">
                   <input
                     placeholder="Enter Answer here.."
@@ -301,7 +344,14 @@ const AddSubject = () => {
                 ""
               )}
               <div className="w-full flex justify-end py-4">
-                <button className="questionB w-32">Add Question</button>
+                <button
+                  className="questionB w-32"
+                  onClick={() => {
+                    addQuestion();
+                  }}
+                >
+                  Add Question
+                </button>
               </div>
               <button className="addQuestionB">Save Subject</button>
             </div>

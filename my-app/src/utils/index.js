@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const saveUser = (response) => {
   localStorage.setItem("userData", JSON.stringify(response.data.userData));
@@ -24,22 +25,22 @@ export const getQuestionOnly = () => {
   return questionsOnly;
 };
 
-export const saveCurrentQ=(response)=>{
-  localStorage.setItem("currentQ", JSON.stringify(response))
-  return response
-}
+export const saveCurrentQ = (response) => {
+  localStorage.setItem("currentQ", JSON.stringify(response));
+  return response;
+};
 
-export const getCurrentQ=()=>{
+export const getCurrentQ = () => {
   try {
-    const current = JSON?.parse(localStorage.getItem("currentQ")  || undefined );
-    if(!current){
+    const current = JSON?.parse(localStorage.getItem("currentQ") || undefined);
+    if (!current) {
       return false;
     }
-    return current
+    return current;
   } catch (error) {
-    console.log("error Papi! "+error)
+    console.log("error Papi! " + error);
   }
-}
+};
 
 export const generateRandomNum = (len) => {
   return Math.floor(Math.random() * len);
@@ -86,5 +87,30 @@ export const getRemembered = () => {
   return JSON.parse(localStorage.getItem("remembered"));
 };
 
-//export const API = axios.create({ baseURL: "http://localhost:5000/api" });
- export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
+export const toastSuccess = (message) => {
+  toast.success(message, {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+};
+export const toastFailed = (message) => {
+  toast.error(message, {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+};
+
+export const API = axios.create({ baseURL: "http://localhost:5000/api" });
+// export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
