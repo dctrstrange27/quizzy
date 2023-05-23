@@ -195,7 +195,6 @@ interface user {
                 <SharedContext.Provider
                   value={{inQportal, setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
                   <Shared
-                
                   />
                 </SharedContext.Provider>
               }

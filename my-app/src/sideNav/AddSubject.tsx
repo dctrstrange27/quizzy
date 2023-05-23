@@ -70,10 +70,14 @@ const AddSubject = () => {
   const handleQuestion = (e) => {
     setQuestion(e.target.value);
   };
+
+  useEffect(() => {
+    console.log(key);
+  }, [key]);
+
   // for adding question
   const addQuestion = () => {
     if (question === "") return toastFailed("Please add question");
-
     if (key === 0) {
       if (TFkey === null) return toastFailed("Please provide a answer!");
     }
@@ -96,7 +100,7 @@ const AddSubject = () => {
         options: key === 1 ? options : "",
       },
     ]);
-    setQuestion("")
+    setQuestion("");
     setOptions([]);
     setIdentificationKey("");
     setTFkey(undefined);
@@ -155,13 +159,14 @@ const AddSubject = () => {
                     ? "disabledBtn px-10 py-1"
                     : "questionB px-10 py-1"
                 } questionB`}
-                >
+               >
                 next
               </button>
             </div>
           </div>
         </div>
       ) : (
+        
         <>
           <div className="addSubjCont flex flex-col items-center justify-center h-fit border-[1px">
             <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
@@ -174,18 +179,19 @@ const AddSubject = () => {
                     {idx + 1}.{question.question}
                   </h1>
                   <p className="pl-5">Answer key: {question.answerKey}</p>
-                  {key === 1 &&
-                     question?.options.map((option, idx) => {
+                  {key === 1 && multipleChoiceKey.length != 0
+                    ? question?.options.map((option, idx) => {
                         return (
                           <div key={idx}>
                             <p>{option.value}</p>
                           </div>
                         );
                       })
+                    :("")
                     }
                 </div>
               ))}
-              <label className="text-start font-grot text-xl">Quetion</label>
+              <label className="text-start font-grot text-xl">Question</label>
               <textarea
                 value={question}
                 onChange={handleQuestion}
