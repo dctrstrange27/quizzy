@@ -15,19 +15,30 @@ const AddSubject = () => {
     usersAccessedList: [];
     questions: [];
   }
-
+  //generate new unique ID
+  const uniqueId = () => {
+    return "_" + Math.random().toString(36).substr(2, 9);
+  };
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState<any>([]);
   const [subjectCode, setSubjectCode] = useState("");
   const [showAddQ, setShowAddQ] = useState(false);
+
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
-  const [options, setOptions] = useState<any>([""]);
+  const [options, setOptions] = useState<any>([
+    {key: uniqueId(),
+     value:""
+  }
+  ]);
   const [answerKey, setAnswerKey] = useState<any>("");
 
   const [key, setKey] = useState<number>();
   const [identificationKey, setIdentificationKey] = useState("");
   const [TFkey, setTFkey] = useState(null);
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
+
+  useEffect(()=>{console.log(options)},[options])
+
 
   //generating new Subject
   const newSubject: subject = {
@@ -38,16 +49,12 @@ const AddSubject = () => {
     usersAccessedList: [],
     questions: [],
   };
-  //generate new unique ID
-  const uniqueId = () => {
-    return "_" + Math.random().toString(36).substr(2, 9);
-  };
+
   // getting Subject Code
   const getSubject = (e) => {
     setSubjectCode(e.target.value);
   };
 
-  // handle Toast
 
   //adding subject function
   const addSubject = async (data) => {
@@ -70,10 +77,6 @@ const AddSubject = () => {
   const handleQuestion = (e) => {
     setQuestion(e.target.value);
   };
-
-  useEffect(() => {
-    console.log(key);
-  }, [key]);
 
   // for adding question
   const addQuestion = () => {
@@ -135,6 +138,8 @@ const AddSubject = () => {
     //console.log("this is the answer key: "+answerKey)
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
+
+
   return (
     <>
       {showAddQ ? (
@@ -159,14 +164,13 @@ const AddSubject = () => {
                     ? "disabledBtn px-10 py-1"
                     : "questionB px-10 py-1"
                 } questionB`}
-               >
+              >
                 next
               </button>
             </div>
           </div>
         </div>
       ) : (
-        
         <>
           <div className="addSubjCont flex flex-col items-center justify-center h-fit border-[1px">
             <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
@@ -178,17 +182,19 @@ const AddSubject = () => {
                   <h1 className="">
                     {idx + 1}.{question.question}
                   </h1>
-                  <p className="pl-5">Answer key: {question.answerKey}</p>
-                  {key === 1 && multipleChoiceKey.length != 0
-                    ? question?.options.map((option, idx) => {
+                  <p className="pl-5">Answer key: {question?.answerKey}</p>
+                  {key == 1 && multipleChoiceKey.length != 0
+                    ? question.options?.map((option, idx) => {
                         return (
-                          <div key={idx}>
-                            <p>{option.value}</p>
-                          </div>
+                          <>
+                            {" "}
+                            <div key={idx}>
+                              <p>{option?.value}</p>
+                            </div>
+                          </>
                         );
                       })
-                    :("")
-                    }
+                    : ""}
                 </div>
               ))}
               <label className="text-start font-grot text-xl">Question</label>
@@ -256,7 +262,7 @@ const AddSubject = () => {
                 ""
               )}
               {key === 1 ? (
-                <div className="border-[1px px-5 text-start w-[80%] md:w-[50%]">
+                <div className="border-[1px] px-5 text-start w-[80%] md:w-[50%]">
                   {options.map((opt, idx) => {
                     return (
                       <div
