@@ -22,14 +22,10 @@ const AddSubject = () => {
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState<any>([]);
   const [subjectCode, setSubjectCode] = useState("");
-  const [showAddQ, setShowAddQ] = useState(false);
+  const [showAddQ, setShowAddQ] = useState(true);
 
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
-  const [options, setOptions] = useState<any>([
-    {key: uniqueId(),
-     value:""
-  }
-  ]);
+  const [options, setOptions] = useState<any>([]);
   const [answerKey, setAnswerKey] = useState<any>("");
 
   const [key, setKey] = useState<number>();
@@ -37,8 +33,7 @@ const AddSubject = () => {
   const [TFkey, setTFkey] = useState(null);
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
 
-  useEffect(()=>{console.log(options)},[options])
-
+  useEffect(()=>{console.log(questions)},[questions])
 
   //generating new Subject
   const newSubject: subject = {
@@ -57,7 +52,7 @@ const AddSubject = () => {
 
 
   //adding subject function
-  const addSubject = async (data) => {
+  const addSubject = async (data,questions) => {
     try {
       const subject = await API.post("/addsubject", {
         subjectCode: data.subjectCode,
@@ -65,7 +60,7 @@ const AddSubject = () => {
         addedBy: data.addedBy,
         picture: data.picture,
         usersAccessedList: data.userAccessedList,
-        questions: data.question,
+        questions: questions,
       });
       console.log(subject.data);
       toastSuccess("successfully added!!");
@@ -106,6 +101,7 @@ const AddSubject = () => {
     setQuestion("");
     setOptions([]);
     setIdentificationKey("");
+    setAnswerKey("")
     setTFkey(undefined);
   };
 
@@ -138,8 +134,6 @@ const AddSubject = () => {
     //console.log("this is the answer key: "+answerKey)
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
-
-
   return (
     <>
       {showAddQ ? (
@@ -157,7 +151,9 @@ const AddSubject = () => {
               <button
                 disabled={subjectCode.length === 0 ? true : false}
                 onClick={() => {
-                  addSubject(newSubject);
+                 // addSubject(newSubject);
+                  setShowAddQ(!showAddQ)    
+              
                 }}
                 className={` ${
                   subjectCode.length === 0
@@ -174,7 +170,7 @@ const AddSubject = () => {
         <>
           <div className="addSubjCont flex flex-col items-center justify-center h-fit border-[1px">
             <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
-              {questions.map((question, idx) => (
+              {/* {questions.map((question, idx) => (
                 <div
                   className="flex flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px] border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
                   key={idx}
@@ -196,7 +192,7 @@ const AddSubject = () => {
                       })
                     : ""}
                 </div>
-              ))}
+              ))} */}
               <label className="text-start font-grot text-xl">Question</label>
               <textarea
                 value={question}
@@ -274,7 +270,7 @@ const AddSubject = () => {
                             onClick={() => {
                               setTFkey(opt.key);
                               setAnswerKey(opt.value);
-                              setMultipleChoiceKey(opt.value);
+                              setMultipleChoiceKey(opt.key);
                             }}
                             className="TcheckedBox"
                           />
@@ -283,7 +279,7 @@ const AddSubject = () => {
                             onClick={() => {
                               setTFkey(opt.key);
                               setAnswerKey(opt.value);
-                              setMultipleChoiceKey(opt.value);
+                              setMultipleChoiceKey(opt.key);
                             }}
                             className="uncheckedBox"
                           />
@@ -365,7 +361,12 @@ const AddSubject = () => {
                   Add Question
                 </button>
               </div>
-              <button className="addQuestionB">Save Subject</button>
+              <button 
+              className="addQuestionB"
+                onClick={()=>{
+                  addSubject(newSubject,questions)
+                }}
+              >Save Subject</button>
             </div>
           </div>
         </>

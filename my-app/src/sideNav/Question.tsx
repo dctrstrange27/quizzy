@@ -23,8 +23,9 @@ const Question = ({
   
   const [score, setScore] = useState(0);
   const Navigate = useNavigate()
-  const [scale, setScale] = useState(10);
+  const [scale, setScale] = useState(5);
   const [total,setTotal] = useState(getQuestionOnly().length)
+
 
   function incrementScore() {
     setScore(score + 1);
@@ -37,7 +38,7 @@ const Question = ({
       setQuestion(getCurrentQuestion());
       setQuestionOnly(getQuestionOnly());
   }, []);
-  console.log(getCurrentQ())
+  // console.log(getCurrentQ())
   return (
     <>
       <div

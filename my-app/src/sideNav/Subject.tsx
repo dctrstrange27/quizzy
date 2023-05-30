@@ -7,6 +7,7 @@ import { API } from "../utils";
 import { toast } from "react-toastify";
 
 const Subject = ({ quest, handleDeleteSubj }) => {
+  
   const { setArr, setInQportal, getSubject, handleQuestion } =
     useContext(SharedContext);
 
@@ -40,6 +41,9 @@ const Subject = ({ quest, handleDeleteSubj }) => {
   };
   let len = quest.questions.length;
 
+  console.log(quest)
+
+
   return (
     <div
       className={`subject cursor-pointer relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] shadow-Light_shadow hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200`}
@@ -57,7 +61,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
         </button>
       </div>
       <div className="border-[1px absolute z-50 top-4 right-4 border-b1">
-        <MdDelete
+        {/* <MdDelete
           onClick={async () => {
             try {
               handleDeleteSubj(quest._id);
@@ -71,7 +75,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
             }
           }}
           className="w-5 h-5 text-[#041b2d83] hover:scale-125 ease-in-out duration-300 hover:text-b1"
-        ></MdDelete>
+        ></MdDelete> */}
       </div>
       <div
         onClick={() => {

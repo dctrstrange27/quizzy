@@ -65,35 +65,44 @@ const Options = ({
         setIsSelected(true);
       }
   }, [key]);
+
+
+
   return (
     <>
+
+  
       <div className="border-[1px">
-        {Object.keys(quest?.options).map((e) => (
-          <div key={e}>
-            {quest?.options[e] != 1 ? (
+        {/* {quest.options.map((opt)=>(
+          <div key={opt.key}>{opt.value}</div>
+        ))} */}
+        {quest?.options.map((e) => (
+          <div key={e.key}>
+            {quest?.questionType === 1 ? (
               <button
                 disabled={disableCheckBtn}
                 className={`choices cursor-pointer w-full ${
                   disableCheckBtn
                     ? `pointer-events-none${
-                        e == correctAns
+                        e.key == correctAns
                           ? " border-[#06ff8f] border-[2px] from-[#Fff] to-[#033465bf] bg-gradient-to-r"
                           : " border-[#b32a2a6e] bg-[#ffff] from-white5 to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                       }`
                     : `${
-                        key == e
+                        key == e.key
                           ? "from-[#fff] border-[3px] to-b2 bg-gradient-to-r "
                           : ""
                       }`
                 } `}
                 onClick={() => {
-                  setkey(e);
+                  setkey(e.key);
+                  console.log(e.key)
                   setIsSelected(false);
                 }}
               >
-                {quest?.options[e]}
+                {e.value}
                 <div className="flex items-center">
-                  {key == e ? (
+                  {key == e.key ? (
                     <ImCheckboxChecked className="w-5 h-5 ease-in-out p-0 duration-700 text-b1 rounded-md bg-[#fff]"></ImCheckboxChecked>
                   ) : (
                     <ImCheckboxUnchecked className="w-5 h-5 text-[#fff0] border-[1px] shadow-lg border-[#0000001f] rounded-md"></ImCheckboxUnchecked>
@@ -102,7 +111,7 @@ const Options = ({
               </button>
             ) : (
               <>
-                {quest?.options[e] == 1 ? (
+                {quest?.questionType == 2 ? (
                   <input
                     onChange={handleOnChange}
                     value={key}
@@ -145,7 +154,7 @@ const Options = ({
               ? "bg-[#0000007b] hover:transform-none"
               : "bg-[#154a72]"
           } `}
-        >
+         >
           {arr.length == getQuestionOnly().length - 1 ? "Finish" : "Next"}
         </button>
       </div>
