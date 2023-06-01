@@ -23,7 +23,7 @@ const Question = ({
   
   const [score, setScore] = useState(0);
   const Navigate = useNavigate()
-  const [scale, setScale] = useState(5);
+  const [scale, setScale] = useState(1);
   const [total,setTotal] = useState(getQuestionOnly().length)
 
 

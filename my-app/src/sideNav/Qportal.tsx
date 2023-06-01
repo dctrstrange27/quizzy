@@ -22,11 +22,13 @@ const Qportal = ({
   const handleSelect = () => {
     setIsSelected(true);
   };
+  const [count , setCount] =useState(1)
   
   function handleProgress() {
     setTotal(questions?.questions?.length)
-    setScale(scale + 5);
-    console.log(scale)
+    setScale(scale + 100/total);
+    setCount(count + 1)
+    // console.log(scale)
     return scale;
   }
   return (
@@ -35,15 +37,16 @@ const Qportal = ({
         <h1 className="font-grot border-[1px py-3 text-2xl">
           {questions?.subjectCode}
         </h1>
-        <div className="w-fit flex gap-2 items-center text-start border-[1px border-[#000]">
+        <div className=" flex gap-2 items-center text-start border-[1px w-full px-2 border-[#000]">
           <h1 className="text-[17px] font-bold">Question</h1>
-          <h2 className="text-[19px] font-bold">{scale/5}/{total}</h2>
-          <div   style={{ width: `${total*5}px` }} className={`h-2 bg-b1 rounded-full`}>
-            <div
-              style={{ width: `${scale}px` }}
-              className="h-2 rounded-full bg-p2"
+          <h2 className="text-[19px] font-bold">{count}/{total}</h2>
+          <div  style={{ width: `${total}%` }}  className={`h-2 w-[${total}%] bg-b1 rounded-full border-[1px`}>
+          <div
+              style={{ width: `${scale}%` }}
+              className="h-2  rounded-full bg-p2"
             />
           </div>
+          
         </div>
         {quest == undefined ? (
           ""

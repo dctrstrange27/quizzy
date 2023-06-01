@@ -1,4 +1,4 @@
-import {useContext } from "react";
+import {useContext, useState } from "react";
 import moment from "moment";
 import { getUser } from "../utils";
 import { SharedContext } from "../App";
@@ -10,6 +10,8 @@ const Subject = ({ quest, handleDeleteSubj }) => {
   
   const { setArr, setInQportal, getSubject, handleQuestion } =
     useContext(SharedContext);
+
+  const [disabledDelete, setDisable] = useState(true)
 
   const handleToast = (message) => {
     try {
@@ -41,7 +43,6 @@ const Subject = ({ quest, handleDeleteSubj }) => {
   };
   let len = quest.questions.length;
 
-  console.log(quest)
 
 
   return (
@@ -61,7 +62,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
         </button>
       </div>
       <div className="border-[1px absolute z-50 top-4 right-4 border-b1">
-        {/* <MdDelete
+        {disabledDelete &&         <MdDelete
           onClick={async () => {
             try {
               handleDeleteSubj(quest._id);
@@ -75,7 +76,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
             }
           }}
           className="w-5 h-5 text-[#041b2d83] hover:scale-125 ease-in-out duration-300 hover:text-b1"
-        ></MdDelete> */}
+        ></MdDelete>}
       </div>
       <div
         onClick={() => {

@@ -45,6 +45,8 @@ const AddSubject = () => {
     questions: [],
   };
 
+  console.log(getUser().name)
+
   // getting Subject Code
   const getSubject = (e) => {
     setSubjectCode(e.target.value);
@@ -63,7 +65,7 @@ const AddSubject = () => {
         questions: questions,
       });
       console.log(subject.data);
-      toastSuccess("successfully added!!");
+      toastSuccess("successfully added Subject!!");
     } catch (error) {
       console.log(error);
     }
@@ -133,6 +135,11 @@ const AddSubject = () => {
     if (key === 2) setAnswerKey(identificationKey);
     //console.log("this is the answer key: "+answerKey)
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
+
+
+  useEffect(()=>{
+    console.log(questions)
+  },[questions])
 
   return (
     <>
