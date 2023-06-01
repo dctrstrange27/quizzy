@@ -11,7 +11,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
   const { setArr, setInQportal, getSubject, handleQuestion } =
     useContext(SharedContext);
 
-  const [disabledDelete, setDisable] = useState(true)
+  const [disabledDelete, setDisable] = useState(false)
 
   const handleToast = (message) => {
     try {

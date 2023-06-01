@@ -64,7 +64,7 @@ const AddSubject = () => {
         usersAccessedList: data.userAccessedList,
         questions: questions,
       });
-      console.log(subject.data);
+      // console.log(subject.data);
       toastSuccess("successfully added Subject!!");
     } catch (error) {
       console.log(error);
