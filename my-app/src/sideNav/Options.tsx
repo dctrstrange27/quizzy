@@ -66,9 +66,9 @@ const Options = ({
     }
   }, [key]);
 
-  useEffect(() => {
-    console.log(key);
-  }, [key]);
+  // useEffect(() => {
+  //   console.log(key);
+  // }, [key]);
 
   return (
     <>
@@ -97,7 +97,7 @@ const Options = ({
                   } `}
                   onClick={() => {
                     setkey(e.key);
-                    console.log(e.key);
+                    // console.log(e.key);
                     setIsSelected(false);
                   }}
                 >
@@ -146,7 +146,7 @@ const Options = ({
                   } `}
                   onClick={() => {
                     setkey(i);
-                    console.log(i);
+                    // console.log(i);
                     setIsSelected(false);
                   }}
                 >

@@ -33,7 +33,7 @@ const AddSubject = () => {
   const [TFkey, setTFkey] = useState(null);
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
 
-  useEffect(()=>{console.log(questions)},[questions])
+  useEffect(()=>{console.log(questions.length)},[questions])
 
   //generating new Subject
   const newSubject: subject = {
@@ -45,7 +45,7 @@ const AddSubject = () => {
     questions: [],
   };
 
-  console.log(getUser().name)
+  // console.log(getUser().name)
 
   // getting Subject Code
   const getSubject = (e) => {
@@ -137,9 +137,7 @@ const AddSubject = () => {
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
 
-  useEffect(()=>{
-    console.log(questions)
-  },[questions])
+
 
   return (
     <>
