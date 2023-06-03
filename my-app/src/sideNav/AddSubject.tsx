@@ -263,7 +263,7 @@ const AddSubject = () => {
                 ""
               )}
               {key === 1 ? (
-                <div className="border-[1px] px-5 text-start w-[80%] md:w-[50%]">
+                <div className="border-[1px px-5 text-start w-[80%] md:w-[50%]">
                   {options.map((opt, idx) => {
                     return (
                       <div

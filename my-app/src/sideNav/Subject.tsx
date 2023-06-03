@@ -11,7 +11,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
   const { setArr, setInQportal, getSubject, handleQuestion } =
     useContext(SharedContext);
 
-  const [disabledDelete, setDisable] = useState(false)
+  const [disabledDelete, setDisable] = useState(true)
 
   const handleToast = (message) => {
     try {
@@ -42,8 +42,6 @@ const Subject = ({ quest, handleDeleteSubj }) => {
     }
   };
   let len = quest.questions.length;
-
-
 
   return (
     <div
