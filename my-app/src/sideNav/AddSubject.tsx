@@ -33,7 +33,7 @@ const AddSubject = () => {
   const [TFkey, setTFkey] = useState(null);
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
 
-  useEffect(()=>{console.log(questions.length)},[questions])
+  useEffect(()=>{console.log(questions)},[questions])
 
   //generating new Subject
   const newSubject: subject = {
@@ -46,8 +46,8 @@ const AddSubject = () => {
   };
 
   // console.log(getUser().name)
-
   // getting Subject Code
+  
   const getSubject = (e) => {
     setSubjectCode(e.target.value);
   };
@@ -56,7 +56,7 @@ const AddSubject = () => {
   //adding subject function
   const addSubject = async (data,questions) => {
     try {
-      const subject = await API.post("/addsubject", {
+       await API.post("/addsubject", {
         subjectCode: data.subjectCode,
         accessCount: data.accessCount,
         addedBy: data.addedBy,
@@ -64,10 +64,10 @@ const AddSubject = () => {
         usersAccessedList: data.userAccessedList,
         questions: questions,
       });
-      // console.log(subject.data);
-      toastSuccess("successfully added Subject!!");
-    } catch (error) {
-      console.log(error);
+      toastSuccess("successfully added Subject!!");   
+    } catch (err) {
+      toastFailed(err.response.data.messge);  
+      // console.log(err.response.data);
     }
   };
   //handling question onchange
@@ -135,9 +135,6 @@ const AddSubject = () => {
     if (key === 2) setAnswerKey(identificationKey);
     //console.log("this is the answer key: "+answerKey)
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
-
-
-
 
   return (
     <>

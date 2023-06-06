@@ -36,7 +36,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
         _id: id,
         email: user.email_address,
       });
-      console.log("succesful");
+      // console.log("succesful");
     } catch (error) {
       console.log(error);
     }

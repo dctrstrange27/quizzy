@@ -2,7 +2,7 @@ import React, { useEffect,useContext } from "react";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { useState } from "react";
 import { API } from "../utils";
-import { ImSpinner10 } from "react-icons/im";
+import { AiOutlineLoading } from "react-icons/ai";
 import Qportal from "./Qportal";
 import { SharedContext } from "../App";
 
@@ -40,8 +40,8 @@ const Shared = () => {
       <div className="py-2">
         <React.Suspense
           fallback={
-            <div className={`w-full h-[600px] flex justify-center items-center`}>
-              <ImSpinner10 className="text-b2 w-6 h-auto animate-spin duration-[2000ms] bg-transparent"/>
+            <div className={`w-full h-[200px] flex justify-center items-center`}>
+              <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin duration-[2000ms] bg-transparent"/>
             </div>
           }
         >

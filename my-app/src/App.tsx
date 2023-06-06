@@ -23,7 +23,7 @@ import {
 } from "./utils/index";
 import { createContext } from "react";
 import React from "react";
-import { ImSpinner10 } from "react-icons/im";
+import { AiOutlineLoading } from "react-icons/ai";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
@@ -166,9 +166,9 @@ interface user {
                 <React.Suspense
                   fallback={
                     <div
-                      className={`w-full h-screen flex justify-center items-center`}
+                      className={`w-full h-40 flex justify-center items-center`}
                     >
-                      <ImSpinner10 className="text-b2 w-6 h-auto animate-spin  bg-transparent"></ImSpinner10>
+                      <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
                     </div>
                   }
                 >
@@ -188,7 +188,6 @@ interface user {
                 </React.Suspense>
               }
             ></Route>
-
             <Route
               path="shared"
               element={

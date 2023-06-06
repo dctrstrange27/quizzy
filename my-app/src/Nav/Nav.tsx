@@ -7,12 +7,12 @@ import { getUser } from "../utils";
 import Profile from "./Profile";
 import { HomeContext } from "../App";
 const Nav = () => {
-  const { setShowProfile, showProfile,inQportal } = useContext(HomeContext);
+  const { setShowProfile, showProfile,setInQportal } = useContext(HomeContext);
   return (
     <>
       <div className="flex fixed justify-end md:px-12 md:justify-between bg-[#ffffff] shadow-lg px-2 py-3  w-full border-[1px border-[#bb3636] h-14">
         <div className="border-[1px cursor-pointer h-full hidden md:flex items-center justify-start">
-          <Link to="/shared" onClick={()=>{console.log("hello")}} className="nav hover:text-p2 font-normal text-b2 font-tilt text-3xl">
+          <Link to="/shared" onClick={()=>{setInQportal(false)}} className="nav hover:text-p2 font-normal text-b2 font-tilt text-3xl">
             Quizzy
           </Link>
         </div>

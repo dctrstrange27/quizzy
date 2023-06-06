@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 import { toast } from "react-toastify";
 
 export const saveUser = (response) => {
@@ -99,6 +98,7 @@ export const toastSuccess = (message) => {
     theme: "light",
   });
 };
+
 export const toastFailed = (message) => {
   toast.error(message, {
     position: "top-right",
@@ -112,5 +112,5 @@ export const toastFailed = (message) => {
   });
 };
 
- //export const API = axios.create({ baseURL: "http://localhost:5000/api" });
- export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
+//export const API = axios.create({ baseURL: "http://localhost:5000/api" });
+export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
