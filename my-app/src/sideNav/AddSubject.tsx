@@ -25,15 +25,18 @@ const AddSubject = () => {
   const [showAddQ, setShowAddQ] = useState(true);
 
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
-  const [options, setOptions] = useState<any>([]);
+  const [options, setOptions] = useState<any>([""]);
   const [answerKey, setAnswerKey] = useState<any>("");
 
   const [key, setKey] = useState<number>();
   const [identificationKey, setIdentificationKey] = useState("");
   const [TFkey, setTFkey] = useState(null);
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
+  const [anskeyVal, setAnsKeyVal] = useState("");
 
-  useEffect(()=>{console.log(questions)},[questions])
+  // useEffect(() => {
+  //   console.log(questions);
+  // }, [questions]);
 
   //generating new Subject
   const newSubject: subject = {
@@ -47,16 +50,15 @@ const AddSubject = () => {
 
   // console.log(getUser().name)
   // getting Subject Code
-  
+
   const getSubject = (e) => {
     setSubjectCode(e.target.value);
   };
 
-
   //adding subject function
-  const addSubject = async (data,questions) => {
+  const addSubject = async (data, questions) => {
     try {
-       await API.post("/addsubject", {
+      await API.post("/addsubject", {
         subjectCode: data.subjectCode,
         accessCount: data.accessCount,
         addedBy: data.addedBy,
@@ -64,9 +66,9 @@ const AddSubject = () => {
         usersAccessedList: data.userAccessedList,
         questions: questions,
       });
-      toastSuccess("successfully added Subject!!");   
+      toastSuccess("successfully added Subject!!");
     } catch (err) {
-      toastFailed(err.response.data.messge);  
+      toastFailed(err.response.data.messge);
       // console.log(err.response.data);
     }
   };
@@ -98,12 +100,13 @@ const AddSubject = () => {
         answerKey: answerKey,
         questionType: key,
         options: key === 1 ? options : "",
+        answerKeyValue: anskeyVal,
       },
     ]);
     setQuestion("");
     setOptions([]);
     setIdentificationKey("");
-    setAnswerKey("")
+    setAnswerKey("");
     setTFkey(undefined);
   };
 
@@ -132,7 +135,10 @@ const AddSubject = () => {
   useEffect(() => {
     if (key === 0) setAnswerKey(TFkey);
     if (key === 1) setAnswerKey(multipleChoiceKey);
-    if (key === 2) setAnswerKey(identificationKey);
+    if (key === 2) {
+      setAnswerKey(identificationKey);
+      setAnsKeyVal(identificationKey);
+    }
     //console.log("this is the answer key: "+answerKey)
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
@@ -153,9 +159,8 @@ const AddSubject = () => {
               <button
                 disabled={subjectCode.length === 0 ? true : false}
                 onClick={() => {
-                 // addSubject(newSubject);
-                  setShowAddQ(!showAddQ)    
-              
+                  // addSubject(newSubject);
+                  setShowAddQ(!showAddQ);
                 }}
                 className={` ${
                   subjectCode.length === 0
@@ -172,29 +177,35 @@ const AddSubject = () => {
         <>
           <div className="addSubjCont flex flex-col items-center justify-center h-fit border-[1px">
             <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
-              {/* {questions.map((question, idx) => (
-                <div
-                  className="flex flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px] border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
-                  key={idx}
-                >
-                  <h1 className="">
-                    {idx + 1}.{question.question}
-                  </h1>
-                  <p className="pl-5">Answer key: {question?.answerKey}</p>
-                  {key == 1 && multipleChoiceKey.length != 0
-                    ? question.options?.map((option, idx) => {
-                        return (
-                          <>
-                            {" "}
-                            <div key={idx}>
-                              <p>{option?.value}</p>
-                            </div>
-                          </>
-                        );
-                      })
-                    : ""}
-                </div>
-              ))} */}
+            <p className="font-grot text-xl font-semibold">{subjectCode}</p>
+                {questions.length == 0 ?  <p className="text-[#34313184]">No Questions to Show!</p>: <div className="flex flex-col gap-2 border-[1px rounded-lg shadow-md px-3 py-5 overflow-y-auto max-h-60 ">
+                {questions.map((question, idx) => (
+                  <div
+                    className="flex px-3 flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
+                    key={idx}
+                  >
+                    <h1 className="font-semibold">
+                      {idx + 1}.{question.question}
+                    </h1>
+                    {question.options === "" ? (
+                      ""
+                    ) : (
+                      <div className="border-[1px">
+                        <h1>options:</h1>
+                        {question.options.map((opt, idx) => (
+                          <div className="flex flex-col pl-14 gap-2" key={idx}>
+                            <p className=" bg-[#27282b1f] text-sm p-2 mt-1 rounded-lg">{opt.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div className="flex gap-2 items-center">
+                    <p className="text-[#3c3c3cd0]">Answer key:</p>
+                    <p className="font-bold font-nuni text-[#479d0d] text-md">{question.answerKeyValue}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>}
               <label className="text-start font-grot text-xl">Question</label>
               <textarea
                 value={question}
@@ -240,6 +251,8 @@ const AddSubject = () => {
                           onClick={() => {
                             setTFkey(e);
                             setAnswerKey(TFkey);
+                            setAnsKeyVal(e);
+                            console.log(anskeyVal);
                           }}
                           className="TcheckedBox"
                         ></ImCheckboxChecked>
@@ -248,6 +261,8 @@ const AddSubject = () => {
                           onClick={() => {
                             setTFkey(e);
                             setAnswerKey(TFkey);
+                            setAnsKeyVal(e);
+                            console.log(anskeyVal);
                           }}
                           className="uncheckedBox"
                         ></ImCheckboxUnchecked>
@@ -273,6 +288,7 @@ const AddSubject = () => {
                               setTFkey(opt.key);
                               setAnswerKey(opt.value);
                               setMultipleChoiceKey(opt.key);
+                              setAnsKeyVal(opt.value);
                             }}
                             className="TcheckedBox"
                           />
@@ -282,6 +298,7 @@ const AddSubject = () => {
                               setTFkey(opt.key);
                               setAnswerKey(opt.value);
                               setMultipleChoiceKey(opt.key);
+                              setAnsKeyVal(opt.value);
                             }}
                             className="uncheckedBox"
                           />
@@ -312,7 +329,7 @@ const AddSubject = () => {
                   })}
                   {options.length === 0 ? (
                     <div className="w-full border-[1px bg-[#8e8e8e5c py-5 rounded-xl flex justify-center">
-                      <p className="">No Question to Show!</p>
+                      <p className="text-[#34313184]">No Options to Show!</p>
                     </div>
                   ) : (
                     ""
@@ -363,12 +380,14 @@ const AddSubject = () => {
                   Add Question
                 </button>
               </div>
-              <button 
-              className="addQuestionB"
-                onClick={()=>{
-                  addSubject(newSubject,questions)
+              <button
+                className="addQuestionB"
+                onClick={() => {
+                  addSubject(newSubject, questions);
                 }}
-              >Save Subject</button>
+              >
+                Save Subject
+              </button>
             </div>
           </div>
         </>
