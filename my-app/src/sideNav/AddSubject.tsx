@@ -56,7 +56,7 @@ const AddSubject = () => {
     setSubjectCode(e.target.value);
   };
 
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
   //adding subject function
   const addSubject = async (data, questions) => {
     try {
@@ -69,7 +69,7 @@ const AddSubject = () => {
         questions: questions,
       });
       toastSuccess("successfully added Subject!!");
-      Navigate('/shared')
+      Navigate("/shared");
     } catch (err) {
       toastFailed(err.response.data.messge);
       // console.log(err.response.data);
@@ -126,6 +126,10 @@ const AddSubject = () => {
     setOptions(options.filter((options) => options.key != key));
   };
 
+  const deleteQuestion = (id) => {
+    setQuestions(questions.filter((quest, idx) => idx != id));
+  };
+
   //this is for handling onchange of each option
   const handleMultChoices = (key: string, value: string) => {
     const updatedOptions = options.map((opt) => {
@@ -146,7 +150,7 @@ const AddSubject = () => {
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
   return (
-    <>
+    <div className="h-[80vh] border-[1px overflow-y-auto">
       {showAddQ ? (
         <div className="w-full h-[70vh] border-[1px">
           <div className="flex flex-col gap-5 m-auto w-[70%] md:w-[50%] lg:w-[25%] border-[1px items-center justify-center">
@@ -178,37 +182,57 @@ const AddSubject = () => {
         </div>
       ) : (
         <>
-          <div className="addSubjCont flex flex-col items-center justify-center h-fit border-[1px">
+          <div className="addSubjCont h-auto border-[1px flex flex-col items-center border-[1px">
             <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
-            <p className="font-grot text-xl font-semibold">{subjectCode}</p>
-                {questions.length == 0 ?  <p className="text-[#34313184]">No Questions to Show!</p>: <div className="flex flex-col gap-2 border-[1px rounded-lg shadow-md px-3 py-5 overflow-y-auto max-h-60 ">
-                {questions.map((question, idx) => (
-                  <div
-                    className="flex px-3 flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
-                    key={idx}
-                  >
-                    <h1 className="font-semibold">
-                      {idx + 1}.{question.question}
-                    </h1>
-                    {question.options === "" ? (
-                      ""
-                    ) : (
-                      <div className="border-[1px">
-                        <h1>options:</h1>
-                        {question.options.map((opt, idx) => (
-                          <div className="flex flex-col pl-14 gap-2" key={idx}>
-                            <p className=" bg-[#27282b1f] text-sm p-2 mt-1 rounded-lg">{opt.value}</p>
-                          </div>
-                        ))}
+              <p className="font-grot text-xl font-semibold">{subjectCode}</p>
+              {questions.length == 0 ? (
+                <p className="text-[#34313184]">No Questions!</p>
+              ) : (
+                <div className="flex flex-col gap-2 border-[1px rounded-lg shadow-md px-3 py-5 overflow-y-auto max-h-60 ">
+                  {questions.map((question, idx) => (
+                    <div
+                      className="flex relative px-3 flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
+                      key={idx}
+                    >
+                      <h1 className="font-semibold">
+                        {idx + 1}.{question.question}
+                      </h1>
+                      {question.options === "" ? (
+                        ""
+                      ) : (
+                        <div className="border-[1px">
+                          <h1>options:</h1>
+                          {question.options.map((opt, idx) => (
+                            <div
+                              className="flex flex-col pl-14 gap-2"
+                              key={idx}
+                            >
+                              <p className=" bg-[#27282b1f] text-sm p-2 mt-1 rounded-lg">
+                                {opt.value}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex gap-2 items-center">
+                        <p className="text-[#3c3c3cd0]">Answer key:</p>
+                        <p className="font-bold font-nuni text-[#479d0d] text-md">
+                          {question.answerKeyValue}
+                        </p>
                       </div>
-                    )}
-                    <div className="flex gap-2 items-center">
-                    <p className="text-[#3c3c3cd0]">Answer key:</p>
-                    <p className="font-bold font-nuni text-[#479d0d] text-md">{question.answerKeyValue}</p>
+                      <button className="absolute right-2 top-2  border-[1px">
+                          <MdDelete
+                            onClick={() => {
+                              deleteQuestion(idx);
+                              console.log(idx)
+                            }}
+                            className="w-5 h-5 text-[#f37676] hover:scale-125 ease-out duration-200"
+                          />
+                        </button>
                     </div>
-                  </div>
-                ))}
-              </div>}
+                  ))}
+                </div>
+              )}
               <label className="text-start font-grot text-xl">Question</label>
               <textarea
                 value={question}
@@ -217,7 +241,7 @@ const AddSubject = () => {
                 className="py-2 border-[2.5px] font-nsans overflow-hidden h-auto overscroll-none rounded-2xl px-4"
               ></textarea>
               <label className="text-start font-grot text-lg">Types</label>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2">
                 {QuestionTypes.map((q, idx: number) => (
                   <div className="flex gap-2 items-center" key={idx}>
                     {key === idx ? (
@@ -257,7 +281,7 @@ const AddSubject = () => {
                             setAnsKeyVal(e);
                             console.log(anskeyVal);
                           }}
-                          className="TcheckedBox"
+                          className="TcheckedBox min-w-[20px] h-auto"
                         ></ImCheckboxChecked>
                       ) : (
                         <ImCheckboxUnchecked
@@ -267,7 +291,7 @@ const AddSubject = () => {
                             setAnsKeyVal(e);
                             console.log(anskeyVal);
                           }}
-                          className="uncheckedBox"
+                          className="uncheckedBox min-w-[20px] h-auto"
                         ></ImCheckboxUnchecked>
                       )}
                       <h1 className="uppercase font-pop font-bold">{e}</h1>
@@ -362,7 +386,7 @@ const AddSubject = () => {
                 ""
               )}
               {key === 2 ? (
-                <div className="flex flex-col border-[1px my-4 text-start w-[50%] md:w-[60%] lg:w-[40%]">
+                <div className="flex flex-col border-[1px my-4 text-start w-[100%] md:w-[80%] lg:w-[50%]">
                   <input
                     placeholder="Enter Answer here.."
                     value={identificationKey}
@@ -395,7 +419,7 @@ const AddSubject = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
