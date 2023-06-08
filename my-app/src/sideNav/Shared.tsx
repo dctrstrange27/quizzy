@@ -33,11 +33,11 @@ const Shared = () => {
       onClick={() => {
         handleShowProfile();
       }}
-      className="flex-col px-6 w-full md:ml-[20%] md:max-w-xl border-[1px
+      className="flex-col w-full md:ml-[20%] md:max-w-xl border-[1px
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem]
-         border-[2px border-[#700a0a] "
+         border-[2px border-[#700a0a]  "
       >
-      <div className="py-2">
+      <div className="py-2 border-[1px w-full  px-6">
         <React.Suspense
           fallback={
             <div className={`w-full h-[200px] flex justify-center items-center`}>

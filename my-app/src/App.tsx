@@ -141,8 +141,8 @@ interface user {
     return currentQuestion;
   };
   return (
-    <div className="App w-full h-full border-[20px border-r-b2">
-      <div className=" border-[5px h-full border-r-b2">
+    <div className="App w-full relative h-screen border-[5px border-b2">
+      <div className=" border-[5px h-screen border-[#fe8a8a]">
         <Routes>
           <Route
             path="/"
@@ -203,6 +203,10 @@ interface user {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
+      <footer className="relative py-5 w-full bottom-0 border-[2px flex justify-center">
+        <div className="absolute top-0 bg-[#28272743] w-[75%] h-[1px]"></div>
+        <p className=" font-nuni font-semibold   text-[#505050] "> © 2023 Rohan | All rights reserved.</p>
+      </footer>
     </div>
   );
 };

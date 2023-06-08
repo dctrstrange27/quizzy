@@ -145,7 +145,7 @@ const AddSubject = () => {
   return (
     <>
       {showAddQ ? (
-        <div className="w-full h-[90%] border-[1px">
+        <div className="w-full h-auto border-[1px">
           <div className="flex flex-col gap-5 m-auto w-[70%] md:w-[50%] lg:w-[25%] border-[1px items-center justify-center">
             <h1 className="text-[1.5rem] font-mulish font-bold">
               Subject Code
