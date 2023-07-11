@@ -24,6 +24,8 @@ import {
 import { createContext } from "react";
 import React from "react";
 import { AiOutlineLoading } from "react-icons/ai";
+import { loadTheme } from "./utils/theme";
+import Footer from "./sideNav/Footer";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
@@ -64,7 +66,6 @@ interface user {
     name: string;
     picture: string;
   }
-
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
@@ -141,7 +142,7 @@ interface user {
     return currentQuestion;
   };
   return (
-    <div className="App w-full relative h-screen border-[5px border-b2">
+    <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
       <div className=" border-[5px h-auto border-[#fe8a8a]">
         <Routes>
           <Route
@@ -203,10 +204,7 @@ interface user {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
-      <footer className="relative py-5 w-full bottom-0 border-[2px flex justify-center">
-        <div className="absolute top-0 bg-[#28272743] w-[75%] h-[1px]"></div>
-        <p className=" font-nuni font-semibold text-sm text-[#505050] "> © 2023 Rohan | All rights reserved.</p>
-      </footer>
+     <Footer/>
     </div>
   );
 };

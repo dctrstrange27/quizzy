@@ -42,7 +42,7 @@ const Question = ({
   return (
     <>
       <div
-        className="h-[70vh] mt-10 flex justify-center items-center border-[.2px py-4
+        className="h-[80vh] mt-10 flex justify-center items-center border-[.2px py-4
                    m-auto w-full rounded-2xl border-[#00000032] md:max-w-2xl"
       >
         {!disabled ? (

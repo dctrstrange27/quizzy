@@ -6,25 +6,26 @@ import { Link } from "react-router-dom";
 import { getUser } from "../utils";
 import Profile from "./Profile";
 import { HomeContext } from "../App";
+import ToggleTheme from "../sideNav/ToggleTheme";
 const Nav = () => {
   const { setShowProfile, showProfile,setInQportal } = useContext(HomeContext);
   return (
     <>
-      <div className="flex fixed justify-end md:px-12 md:justify-between bg-[#ffffff] shadow-lg px-2 py-3  w-full border-[1px border-[#bb3636] h-14">
+      <div className="flex fixed justify-end md:px-12 md:justify-between backdrop-blur-xl dark:bg-Dark_nav_bg bg-[#ffffff] shadow-lg px-2 py-3  w-full border-[1px border-[#bb3636] h-14">
         <div className="border-[1px cursor-pointer h-full hidden md:flex items-center justify-start">
           <Link to="/shared" onClick={()=>{setInQportal(false)}} className="nav hover:text-p2 font-normal text-b2 font-tilt text-3xl">
             Quizzy
           </Link>
         </div>
-        <div className="flex justify-center items-center px-2 py-2 gap-5 border-emerald-300 border-[1px">
+        <div className="flex justify-center dark:text-one items-center px-2 py-2 gap-5 border-emerald-300 border-[1px">
           <div className="gap-5 md:hidden ">
             <SideNav></SideNav>
           </div>
-          <Link to="shared" className="nav">
+          <Link to="shared" className="nav dark:text-one">
             {" "}
             Docs
           </Link>
-          <BsSun className="w-5 h-5 cursor-pointer"></BsSun>
+          <ToggleTheme></ToggleTheme>
           {getUser() == false ? (
             <Link to="/login" className="button cursor-pointer">
             SIGN IN

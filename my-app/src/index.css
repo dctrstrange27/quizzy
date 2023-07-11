@@ -51,7 +51,7 @@ code {
 
   .choices {
     @apply mx-2 px-2 my-2 w-full flex items-center justify-between font-bold text-[18px] tracking-normal text-[#2c2b2b] text-start py-3 hover:from-[#ffffff17]
-           hover:to-b2 bg-gradient-to-r rounded-2xl;
+           hover:to-b2 bg-gradient-to-r rounded-2xl dark:text-[#ffff] dark:border-[1px];
   }
   .questionB {
     @apply bg-b2 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;

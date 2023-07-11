@@ -33,14 +33,14 @@ const Qportal = ({
   }
   return (
     <>
-      <div className=" border-[1px rounded-2xl border-[#0000004b] shadow-xl w-full flex flex-col px-3 -mt-24  mx-4 my-2">
-        <h1 className="font-grot border-[1px py-3 text-2xl">
+      <div className=" border-[1px rounded-2xl dark:bg-[#24252681] border-[#0000004b] shadow-xl w-full flex flex-col px-3 -mt-24  mx-4 my-2">
+        <h1 className="font-grot border-[1px py-3 text-2xl dark:text-[#ffff]">
           {questions?.subjectCode}
         </h1>
-        <div className=" flex gap-2 items-center text-start border-[1px w-full px-2 border-[#000]">
+        <div className=" flex gap-2 items-center text-start border-[1px w-full px-2 border-[#000] dark:text-[#ffff]">
           <h1 className="text-[17px] font-bold">Question</h1>
           <h2 className="text-[19px] font-bold">{count}/{total}</h2>
-          <div  style={{ width: `${total}%` }}  className={`h-2 w-[${total}%] bg-b1 rounded-full border-[1px`}>
+          <div  style={{ width: `${total}%` }}  className={`h-2 w-[${total}%] bg-five rounded-full border-[1px`}>
           <div
               style={{ width: `${scale}%` }}
               className="h-2  rounded-full bg-p2"
@@ -52,7 +52,7 @@ const Qportal = ({
           ""
         ) : (
           <div>
-            <div className="font-bold tracking-normal text-[23px] text-2xl py-4 text-justify text-[#2c2b2b] border-[1px">
+            <div className="font-bold tracking-normal text-[23px] text-2xl py-4 text-justify text-[#2c2b2b] dark:text-[#ffff] border-[1px">
               {quest?.question}
             </div>
             <div className="mb-8 border-[1px px-4">

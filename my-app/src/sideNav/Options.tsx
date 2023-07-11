@@ -76,17 +76,17 @@ const Options = ({
               {quest?.questionType === 1 || quest.questionType === 0 ? (
                 <button
                   disabled={disableCheckBtn}
-                  className={`choices cursor-pointer w-full ${
+                  className={`choices cursor-pointer w-full text-five  dark:text-[#fff] ${
                     disableCheckBtn
                       ? `pointer-events-none${
                           e.key == correctAns
-                            ? " border-[#06ff8f] border-[2px] from-[#Fff] to-[#033465bf] bg-gradient-to-r"
-                            : " border-[#b32a2a6e] bg-[#ffff] from-white5 to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
+                          ? " border-[#06ff8f] border-[2px] dark:bg-[#fff0] dark:bg-none from-[#Fff] to-[#033465bf] bg-gradient-to-r"
+                          : " border-[#b32a2a6e]  from-white5 dark:bg-none to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                         }`
                       : `${
                           key == e.key
-                            ? "from-[#fff] border-[3px] to-b2 bg-gradient-to-r "
-                            : ""
+                          ? "from-[#fff] border-[3px] dark:bg-none  to-b2 bg-gradient-to-r "
+                          : " dark:bg-[#fff0] dark:border-[0px]  "
                         }`
                   } `}
                   onClick={() => {
@@ -132,17 +132,17 @@ const Options = ({
                   <div key={idx}>
                     <button
                       disabled={disableCheckBtn}
-                      className={`choices cursor-pointer w-full ${
+                      className={`choices cursor-pointer w-full  ${
                         disableCheckBtn
                           ? `pointer-events-none${
                               i == correctAns
-                                ? " border-[#06ff8f] border-[2px] from-[#Fff] to-[#033465bf] bg-gradient-to-r"
-                                : " border-[#b32a2a6e] bg-[#ffff] from-white5 to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
+                                ? " border-[#06ff8f] border-[2px] dark:bg-[#fff0] dark:bg-none from-[#Fff] to-[#033465bf] bg-gradient-to-r"
+                                : " border-[#b32a2a6e]  from-white5 dark:bg-none to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                             }`
                           : `${
                               key == i
-                                ? "from-[#fff] border-[3px] to-b2 bg-gradient-to-r "
-                                : ""
+                                ? "from-[#fff] border-[3px] dark:bg-none  to-b2 bg-gradient-to-r "
+                                : " dark:bg-[#fff0] dark:border-[0px]  "
                             }`
                       } `}
                       onClick={() => {
