@@ -85,9 +85,6 @@ code {
   .addQuestionB {
     @apply bg-b1 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
   }
-
-
-
   .optionLabel{
     @apply font-tilt text-lg
   }
