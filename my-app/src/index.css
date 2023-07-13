@@ -23,13 +23,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+:root {
+  --primary: #5f5f5f;
+  --secondary: #888;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+  border: 3px solid var(--primary);
+}
+
 
 @layer components {
   .button {
     @apply from-p2 to-b2 bg-gradient-to-r font-nuni text-sm hover:scale-105 duration-150 ease-in-out  font-bold tracking-wide px-[0.7rem] py-[0.35rem] text-[#fff] rounded-lg;
   }
   .nav {
-    @apply hover:scale-105 font-semibold text-sm font-pop tracking-wide ease-in-out duration-150
+    @apply hover:scale-105  font-semibold text-sm font-pop tracking-wide ease-in-out duration-150
      hover:text-[#004e9a] md:text-[#000] md:hover:text-[#000] hover:font-bold md:hover:font-normal;
   }
   
@@ -72,10 +98,10 @@ code {
     @apply bg-b2 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
   }
   .checkedBox{
-    @apply w-5 h-5 ease-in-out p-0 duration-700 text-b1 rounded-md bg-[#fff]
+    @apply w-5 h-5 ease-in-out p-0 duration-700 dark:bg-b1 dark:text-[#fff] text-b1 rounded-md bg-[#fff]
   }
   .uncheckedBox{
-    @apply w-5 h-5 text-[#fff0] border-[1px] shadow-lg border-[#0000001f] rounded-md
+    @apply w-5 h-5 text-[#fff0] border-[1px] shadow-lg dark:bg-b1 dark:text-[#fff] border-[#0000001f] rounded-md
   }
 
   .TcheckedBox{

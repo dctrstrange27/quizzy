@@ -35,12 +35,14 @@ export const HomeContext = createContext<{
   showProfile: Boolean;
   inQportal: Boolean;
   setInQportal: Dispatch<SetStateAction<Boolean>>;
+  setShowAddQ: Dispatch<SetStateAction<Boolean>>;
 }>({
   userData: [],
   setShowProfile: () => {},
   showProfile: false,
   inQportal: false,
   setInQportal: () => {},
+  setShowAddQ: () => {},
 });
 
 //context in Shared,
@@ -51,21 +53,28 @@ export const SharedContext = createContext<{
   setArr:Dispatch<SetStateAction<number[]>>;
   getSubject:(id:string)=> void;
   handleQuestion:() => any;
+  handleShowAddQ:() => void;
+  setShowAddQ: Dispatch<SetStateAction<Boolean>>;
+  showAddQ: Boolean;
 }>({
   inQportal: false,
   setInQportal: () => {},
   handleShowProfile: () => {},
   setArr:()=>[],
   getSubject:(id:string)=>{},
-  handleQuestion:()=>{}
+  handleQuestion:()=>{},
+  handleShowAddQ:()=>{},
+  setShowAddQ: () => {},
+  showAddQ: false,
 });
 
 const App = () => {
-interface user {
+ interface user {
     email: number;
     name: string;
     picture: string;
   }
+
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
@@ -77,6 +86,13 @@ interface user {
   const [random, setRandom] = useState(0);
   const [arr, setArr] = useState<number[]>([]);
   const [inQportal, setInQportal] = useState(false);
+  const [showAddQ, setShowAddQ] = useState(false);
+
+  const handleShowAddQ=(subject:any)=>{
+   setShowAddQ(true)
+    
+  }
+
 
   const handleLogin = async (data: user) => {
     try {
@@ -141,6 +157,7 @@ interface user {
     saveCurrentQ(currentQuestion);
     return currentQuestion;
   };
+  
   return (
     <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
       <div className=" border-[5px h-auto border-[#fe8a8a]">
@@ -155,12 +172,18 @@ interface user {
                   showProfile,
                   inQportal,
                   setInQportal,
+                  setShowAddQ,
                 }}>
                 <Home />
               </HomeContext.Provider>
             }
           >
-            <Route path="addSubject" element={<AddSubject />}/>
+            <Route path="addSubject" element={
+            <SharedContext.Provider
+                  value={{inQportal,handleShowAddQ,showAddQ,setShowAddQ,setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
+                  <AddSubject />
+                </SharedContext.Provider>
+            }/>
             <Route
               path="question"
               element={
@@ -193,9 +216,8 @@ interface user {
               path="shared"
               element={
                 <SharedContext.Provider
-                  value={{inQportal, setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
-                  <Shared
-                  />
+                  value={{inQportal,handleShowAddQ,showAddQ,setShowAddQ,setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
+                  <Shared />
                 </SharedContext.Provider>
               }
             />

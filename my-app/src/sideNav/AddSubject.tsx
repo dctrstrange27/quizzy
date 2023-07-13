@@ -6,8 +6,13 @@ import { FiPlus } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { toastSuccess, toastFailed } from "../utils";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { SharedContext } from "../App";
 
 const AddSubject = () => {
+  const { handleShowAddQ } = useContext(SharedContext);
+  const { showAddQ } = useContext(SharedContext);
+
   interface subject {
     subjectCode: string;
     accessCount: number;
@@ -23,7 +28,6 @@ const AddSubject = () => {
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState<any>([]);
   const [subjectCode, setSubjectCode] = useState("");
-  const [showAddQ, setShowAddQ] = useState(true);
 
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
   const [options, setOptions] = useState<any>([""]);
@@ -35,20 +39,15 @@ const AddSubject = () => {
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
   const [anskeyVal, setAnsKeyVal] = useState("");
 
-  // useEffect(() => {
-  //   console.log(questions);
-  // }, [questions]);
-
   //generating new Subject
   const newSubject: subject = {
     subjectCode: `${subjectCode}`,
+    usersAccessedList: [],
     accessCount: 0,
     addedBy: getUser().name,
     picture: getUser().profile_picture,
-    usersAccessedList: [],
     questions: [],
   };
-
   // console.log(getUser().name)
   // getting Subject Code
 
@@ -72,9 +71,10 @@ const AddSubject = () => {
       Navigate("/shared");
     } catch (err) {
       toastFailed(err.response.data.messge);
-      // console.log(err.response.data);
+      // console.log(e  rr.response.data);
     }
   };
+
   //handling question onchange
   const handleQuestion = (e) => {
     setQuestion(e.target.value);
@@ -137,7 +137,6 @@ const AddSubject = () => {
     });
     setOptions(updatedOptions);
   };
-
   // this will run again and again if meet atleast one on the dependencies
   useEffect(() => {
     if (key === 0) setAnswerKey(TFkey);
@@ -150,24 +149,25 @@ const AddSubject = () => {
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
   return (
-    <div className="h-[80vh] border-[1px overflow-y-auto">
-      {showAddQ ? (
+    <div className="h-[80vh] border-[1px overflow-y-auto duration-700 ease-in-out">
+      {!showAddQ ? (
         <div className="w-full h-[70vh] border-[1px">
           <div className="flex flex-col gap-5 m-auto w-[70%] md:w-[50%] lg:w-[25%] border-[1px items-center justify-center">
-            <h1 className="text-[1.5rem] font-mulish font-bold">
+            <h1 className="text-[1.5rem] font-mulish font-bold dark:text-[#ededed] text-[#181818] ">
               Subject Code
             </h1>
             <input
               value={subjectCode}
               onChange={getSubject}
-              className="w-[100%] border-[2.5px] rounded-2xl h-11 px-4"
+              className="w-[100%] border-[2.5px] dark:bg-[#ffffff01] dark:text-[#Fff] dark:focus:outline-none  dark:border-[#1d69a4f5] dark:border-[1px] rounded-2xl h-11 px-4"
             ></input>
             <div className="flex justify-center w-full border-[1px">
               <button
                 disabled={subjectCode.length === 0 ? true : false}
                 onClick={() => {
                   // addSubject(newSubject);
-                  setShowAddQ(!showAddQ);
+                  console.log("hellow");
+                  handleShowAddQ();
                 }}
                 className={` ${
                   subjectCode.length === 0
@@ -182,16 +182,27 @@ const AddSubject = () => {
         </div>
       ) : (
         <>
-          <div className="addSubjCont h-auto border-[1px flex flex-col items-center border-[1px">
+          <div className="addSubjCont h-auto border-[1px text-b1 dark:text-white5 flex flex-col items-center border-[1px">
             <div className="flex flex-col  gap-2 w-[90%] md:w-[70%] lg:w-[50%]">
-              <p className="font-grot text-xl font-semibold">{subjectCode}</p>
+              <div className="flex border-[1px]  rounded-xl dark:bg-[#ffffff01] p-2 dark:text-[#Fff] dark:outline-none  dark:border-[#1d69a4f5] dark:border-[1px] ">
+                <label className="text-start w-fit font-grot text-xl text-b1 dark:text-white5">
+                  Subject code:
+                </label>
+                <input
+                  onChange={getSubject}
+                  value={subjectCode}
+                  className="font-grot grow border-[1px w-full text-start  text-2xl font-semibold bg-[#fff0] outline-none text-b1 dark:text-white5"
+                />
+              </div>
               {questions.length == 0 ? (
-                <p className="text-[#34313184]">No Questions!</p>
+                <p className="text-[#34313184] dark:text-white5">
+                  No Questions!
+                </p>
               ) : (
                 <div className="flex flex-col gap-2 border-[1px rounded-lg shadow-md px-3 py-5 overflow-y-auto max-h-60 ">
                   {questions.map((question, idx) => (
                     <div
-                      className="flex relative px-3 flex-col bg-[#f8f8f8] shadow-sm py-1 rounded-lg border-[1px border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
+                      className="flex border-[1px relative px-3 flex-col bg-[#f8f8f8]  dark:text-white5 dark:bg-[#24252681] shadow-sm py-1 rounded-lg border-[1px border-[#0000002b] text-b1 text-start px-2 w-full h-auto"
                       key={idx}
                     >
                       <h1 className="font-semibold">
@@ -207,7 +218,7 @@ const AddSubject = () => {
                               className="flex flex-col pl-14 gap-2"
                               key={idx}
                             >
-                              <p className=" bg-[#27282b1f] text-sm p-2 mt-1 rounded-lg">
+                              <p className=" bg-[#27282b1f] dark:bg-[#242526d8]  text-sm p-2 mt-1 rounded-lg">
                                 {opt.value}
                               </p>
                             </div>
@@ -215,30 +226,34 @@ const AddSubject = () => {
                         </div>
                       )}
                       <div className="flex gap-2 items-center">
-                        <p className="text-[#3c3c3cd0]">Answer key:</p>
+                        <p className="text-[#3c3c3cd0] dark:text-white5">
+                          Answer key:
+                        </p>
                         <p className="font-bold font-nuni text-[#479d0d] text-md">
                           {question.answerKeyValue}
                         </p>
                       </div>
                       <button className="absolute right-2 top-2  border-[1px">
-                          <MdDelete
-                            onClick={() => {
-                              deleteQuestion(idx);
-                              console.log(idx)
-                            }}
-                            className="w-5 h-5 text-[#f37676] hover:scale-125 ease-out duration-200"
-                          />
-                        </button>
+                        <MdDelete
+                          onClick={() => {
+                            deleteQuestion(idx);
+                            console.log(idx);
+                          }}
+                          className="w-5 h-5 text-[#f37676] hover:scale-125 ease-out duration-200"
+                        />
+                      </button>
                     </div>
                   ))}
                 </div>
               )}
-              <label className="text-start font-grot text-xl">Question</label>
+              <label className="text-start font-grot text-xl text-b1 dark:text-white5">
+                Question
+              </label>
               <textarea
                 value={question}
                 onChange={handleQuestion}
                 placeholder="input your question here.."
-                className="py-2 border-[2.5px] font-nsans overflow-hidden h-auto overscroll-none rounded-2xl px-4"
+                className="py-2 dark:bg-[#ffffff01] dark:text-[#Fff] dark:outline-none  dark:border-[#1d69a4f5] dark:border-[1px]  border-[2.5px] font-nsans overflow-hidden h-auto overscroll-none rounded-2xl px-4"
               ></textarea>
               <label className="text-start font-grot text-lg">Types</label>
               <div className="flex flex-col gap-2">
@@ -261,8 +276,10 @@ const AddSubject = () => {
                     )}
                     <h1
                       className={`${
-                        key === idx ? "text-b2" : ""
-                      } font-grot text-lg`}
+                        key === idx
+                          ? "text-b2 dark:text-[#1d69a4]"
+                          : "text-[#1c1c1c] dark:text-[#e7e7e7]"
+                      } font-grot text-lg `}
                     >
                       {q}
                     </h1>
@@ -339,9 +356,9 @@ const AddSubject = () => {
                           placeholder="input choices here.."
                           className={` ${
                             TFkey === opt.key
-                              ? "border-[#479d0d] border-[3px]"
+                              ? "border-[#479d0d]  dark:border-[#217afff5] dark:border-[2.5px] border-[3px] "
                               : ""
-                          } border-[2px]  w-full py-1 h-8 px-2 font-nuni font-semibold rounded-lg`}
+                          } border-[2px] dark:text-[#Fff] dark:outline-none bg-[#ffffff01] dark:border-[#1d69a4f5] dark:border-[1px]   w-full py-1 h-8 px-2 font-nuni font-semibold rounded-lg`}
                         ></input>
                         <button className="border-[1px">
                           <MdDelete
@@ -356,7 +373,9 @@ const AddSubject = () => {
                   })}
                   {options.length === 0 ? (
                     <div className="w-full border-[1px bg-[#8e8e8e5c py-5 rounded-xl flex justify-center">
-                      <p className="text-[#34313184]">No Options to Show!</p>
+                      <p className="text-[#34313184] dark:text-[#dedede]">
+                        No Options to Show!
+                      </p>
                     </div>
                   ) : (
                     ""
@@ -391,7 +410,7 @@ const AddSubject = () => {
                     placeholder="Enter Answer here.."
                     value={identificationKey}
                     onChange={handleIdentification}
-                    className="px-2 border-[1px] rounded-lg h-8"
+                    className="px-2 border-[1px] rounded-lg h-8 dark:text-[#Fff] dark:outline-none bg-[#ffffff01] dark:border-[#1d69a4f5] dark:border-[1px] "
                   ></input>
                 </div>
               ) : (
@@ -410,7 +429,12 @@ const AddSubject = () => {
               <button
                 className="addQuestionB"
                 onClick={() => {
-                  addSubject(newSubject, questions);
+                  if (questions.length !== 0) {
+                    addSubject(newSubject, questions);
+                    Navigate("/Shared")
+                  } else {
+                    toastFailed("No Questions added!!");
+                  }
                 }}
               >
                 Save Subject

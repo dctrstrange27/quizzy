@@ -1,18 +1,26 @@
-import {useContext, useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import { getUser } from "../utils";
 import { SharedContext } from "../App";
 import { MdDelete } from "react-icons/md";
 import { API } from "../utils";
 import { toast } from "react-toastify";
-import {BiGridVertical} from 'react-icons/bi'
-import {MdLibraryAddCheck} from 'react-icons/md'
-const Subject = ({ quest, handleDeleteSubj }) => {
-  
-  const { setArr, setInQportal, getSubject, handleQuestion } =
-    useContext(SharedContext);
+import { BiGridVertical } from "react-icons/bi";
+import { MdLibraryAddCheck } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Nav from "../Nav/Nav";
+const Subject = ({ quest,handleDeleteSubj,handleShowAddQ }) => {
 
-  const [disabledDelete, setDisable] = useState(true)
+  const Navigate = useNavigate()
+  const {
+    setArr,
+    setInQportal,
+    getSubject,
+    handleQuestion,
+  } = useContext(SharedContext);
+  
+  const [disabledDelete, setDisable] = useState(true);
 
   const handleToast = (message) => {
     try {
@@ -27,7 +35,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
         theme: "light",
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -43,9 +51,6 @@ const Subject = ({ quest, handleDeleteSubj }) => {
     }
   };
   let len = quest.questions.length;
-
-
-
   return (
     <div
       className={`subject cursor-pointer dark:bg-[#24252681] relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] dark:border-[#ffffff3c shadow-Light_shadow hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200`}
@@ -56,28 +61,38 @@ const Subject = ({ quest, handleDeleteSubj }) => {
             ? "border-[1px z-50 rounded-sm flex flex-col justify-center -translate-x-4 -translate-y-4 items-center absolute w-full h-full"
             : "hidden"
         }`}
+      >
+        <h1 className="font-tilt border-[1px] dark:text-[#fff] text-lg p-2">
+          No Questions!
+        </h1>
+        <button
+          onClick={() => {
+            handleShowAddQ()
+            Navigate("/addSubject")
+          }}
+          className="buttonUpdate"
         >
-        <h1 className="font-tilt text-lg text-b1 p-2">No Questions</h1>
-        <button className={`buttonUpdate`}>
           update
         </button>
       </div>
       <div className="border-[1px absolute z-50 top-4 right-4 border-b1">
-        {disabledDelete && <MdDelete
-          onClick={async () => {
-            try {
-              handleDeleteSubj(quest._id);
-              const subj = await API.post("/deleteSubj", {
-                _id: quest._id,
-              });
-              console.log(subj);
-              handleToast("successfully deleted!");
-            } catch (error) {
-              console.log(error);
-            }
-          }}
-          className="w-5 h-5 text-[#041b2d83] dark:text-[#fff] hover:scale-125 ease-in-out duration-300 hover:text-b1"
-        ></MdDelete>}
+        {disabledDelete && (
+          <MdDelete
+            onClick={async () => {
+              try {
+                handleDeleteSubj(quest._id);
+                const subj = await API.post("/deleteSubj", {
+                  _id: quest._id,
+                });
+                console.log(subj);
+                handleToast("successfully deleted!");
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+            className="w-5 h-5 text-[#041b2d83] dark:text-[#fff] hover:scale-125 ease-in-out duration-300 hover:text-b1"
+          ></MdDelete>
+        )}
       </div>
       <div
         onClick={() => {
@@ -90,7 +105,7 @@ const Subject = ({ quest, handleDeleteSubj }) => {
         className={`${len == 0 ? "blur-[1.5px]" : ""}`}
       >
         <header className="flex gap-2 py-2 border-r-Ofive dark:text-[#fff] border-[1px justify-start items-center">
-         <BiGridVertical className="text-two dark:text-[#fff]" />
+          <BiGridVertical className="text-two dark:text-[#fff]" />
           <div className="flex gap-2">
             <h1 className="Author font-extrabold text-[#656363]  ">Author:</h1>
             <p className=" font-mulish font-semibold text-[#3e6cd8]">
@@ -99,14 +114,16 @@ const Subject = ({ quest, handleDeleteSubj }) => {
           </div>
         </header>
         <div className="flex justify-start gap-2">
-          <h2 className="font-bold text-[#434242]  dark:text-[#f1f1f1]">Mixed</h2>
+          <h2 className="font-bold text-[#434242]  dark:text-[#f1f1f1]">
+            Mixed
+          </h2>
           <MdLibraryAddCheck className="text-two dark:text-[#fff]" />
         </div>
         <h1 className="font-bold text-xl dark:text-[#fff] text-start py-6 text-[#373636] ">
           {quest.subjectCode}
         </h1>
-        <div className="Count px-2 py-2 flex font-nuni font-bold tracking-wide w-fit rounded-xl bg-[#041b2d]">
-          <div className="px-2 text-[#fff] rounded-lg bg-[#004e9a]">
+        <div className="Count px-2 py-2 flex font-nuni font-bold tracking-wide w-fit rounded-xl bg-[#041b2d] dark:bg-[#0a3657]">
+          <div className="px-2 text-[#fff] rounded-lg  bg-[#004e9a] dark:bg-[#056dd5]">
             {quest.questions.length}
           </div>
           <p className="px-2  text-[#fff] uppercase ">Questions</p>

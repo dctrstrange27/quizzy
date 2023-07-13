@@ -6,23 +6,18 @@ const Qportal = ({
   quest,
   random,
   handleQuestion,
-  disabled,
   handleHideQuestions,
   arr,
   incrementScore,
-  setArr,
   setScale,
   scale,
   total,
   setTotal,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
-  const [questionType,setQuestionType] = useState("")
 
-  const handleSelect = () => {
-    setIsSelected(true);
-  };
   const [count , setCount] =useState(1)
+
+  console.log(questions.questions)
   
   function handleProgress() {
     setTotal(questions?.questions?.length)

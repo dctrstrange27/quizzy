@@ -60,10 +60,10 @@ const Question = ({
             setArr={setArr}
             total={total}
             setTotal={setTotal}
-          ></Qportal>
+          ></Qportal> 
           ) : (
           <div>
-            <h1 className=" font-extrabold text-[30px]">
+            <h1 className=" font-extrabold text-[30px] text-[#000] dark:text-[#e1e1e1]">
               {arr.length - score}/{arr.length}
             </h1>
             <h1>score</h1>

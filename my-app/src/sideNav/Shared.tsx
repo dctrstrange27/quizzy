@@ -10,7 +10,11 @@ const Subject = React.lazy(() => import("./Subject"));
 
 const Shared = () => {
   const [questions, setQuestions] = useState([]);
-  const {handleShowProfile} = useContext(SharedContext)
+  const {handleShowProfile,handleShowAddQ,setShowAddQ,showAddQ} = useContext(SharedContext)
+
+
+  
+
   const getQuestion = async () => {
     try {
       const getQuestion = await API.post("/getSubject");
@@ -26,16 +30,17 @@ const Shared = () => {
 
   useEffect(() => {
     getQuestion();
+    setShowAddQ(true)
   }, []);
 
   return (
     <div
       onClick={() => {
         handleShowProfile();
-      }}
+              }}
       className="flex-col w-full md:ml-[20%] md:max-w-xl border-[1px
-        lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] h-[80vh]
-         border-[2px  border-[#700a0a]  "
+        lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] h-fit
+         border-[2px  border-[#700a0a  "
       >
       <div className="py-2 border-[1px w-full  px-6">
         <React.Suspense
@@ -46,9 +51,10 @@ const Shared = () => {
           }
         >
           {questions?.map((quest, id) => (
-            <Subject
+            <Subject 
               key={id}
               quest={quest}
+              handleShowAddQ={handleShowAddQ}
               handleDeleteSubj={handleDeleteSubj}
             ></Subject>
           ))}
