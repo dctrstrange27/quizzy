@@ -20,6 +20,10 @@ import {
   getQuestionOnly,
   saveCurrentQ,
   generateRandomNum,
+  saveCurrentSubject,
+  saveCurrentArray,
+  getCurrentSubject,
+  getCurrentArray,
 } from "./utils/index";
 import { createContext } from "react";
 import React from "react";
@@ -40,7 +44,7 @@ const App = () => {
     name: string;
     picture: string;
   }
-
+ //old
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
@@ -52,7 +56,16 @@ const App = () => {
   const [inQportal, setInQportal] = useState(false);
   const [showAddQ, setShowAddQ] = useState(false);
 
-
+  // neww
+  const [arr, setArr] = useState([]);
+  const [currentSubject, setCurrentSubject] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState([]);
+  const [subject, setSubject] = useState([]);
+  const [questionType,setQuestionType] = useState()
+  const [currentQuestion,setCurrentQuestion] = useState([])
+  const [answerKey,setAnswerKey] = useState("")
+  const [len,setLen] = useState(0)
 
   const handleShowAdd=()=>{
     setShowAddQ(false);
@@ -86,15 +99,18 @@ const App = () => {
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-  const getSubject = async (id: string) => {
+  const getSubject = async (id: string,arr:any) => {
     try {
       const data = await API.post("/getQuestion", {
         id: id,
       });
-      setQuestionOnly(data.data.questions);
-      saveQuestionOnly(data.data.questions);
-      saveCurrentQuestion(data.data);
-      Navigate("/question");
+      setCurrentSubject(data.data.questions)
+      saveCurrentSubject(data.data.questions)
+      setArr(arr)
+      saveCurrentArray(arr)
+      console.log(arr)
+      console.log(data.data.questions);
+
     } catch (error) {
       console.log(error);
     }
@@ -127,28 +143,26 @@ const App = () => {
     return currentQuestion;
   };
 
-  const [currentQuestion, setCurrentQuestion] = useState([]);
-
-  const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState([]);
-  const [arr, setArr] = useState([]);
-  const [subject, setSubject] = useState([]);
-  const [questionType,setQuestionType] = useState()
-
   const handleNext = (currentQ: any, arr: []) => {
     let random = arr?.pop();
-    const current = currentQuestion.find((quest) => quest.id === random);
+    const current = currentSubject?.find((quest) => quest.id === random);
     setQuestion(current?.question);
     setOptions(current?.options)
     setQuestionType(current?.questionType)
+    setCurrentQuestion(current?.question)
+    setAnswerKey(current?.answerKey)
   };
 
-  const handlePortal = (questions: any, len: number) => {
-    setCurrentQuestion(questions)
+  
+  const handlePortal = (questions: any, len: number,subject:any,id:any) => {
+    setCurrentSubject(questions)
+    setSubject(subject)
     setArr(shuffleRandomArray(len));
-    setSubject(questions);
+    setLen(len)
+    getSubject(id,shuffleRandomArray(len))
     Navigate("/Qportal");
   };
+ 
 
   return (
     <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
@@ -170,10 +184,14 @@ const App = () => {
           subject,
           question,
           currentQuestion,
+          currentSubject,
           handlePortal,
           arr,
           options,
           questionType,
+          answerKey,
+          len,
+          setSubject,
         }}
       >
         <div className=" border-[5px h-auto border-[#fe8a8a]">

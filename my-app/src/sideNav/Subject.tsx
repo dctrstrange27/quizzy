@@ -10,7 +10,7 @@ import { MdLibraryAddCheck } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
   const Navigate = useNavigate();
-  const { handleNext, handlePortal, arr } = useContext(GlobalContext);
+  const {getSubject, handleNext, handlePortal, arr } = useContext(GlobalContext);
 
   const [disabledDelete, setDisable] = useState(true);
 
@@ -89,13 +89,13 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
       </div>
       <div
         onClick={() => {
-          handlePortal(quest.questions, quest.questions.length);
+          handlePortal(quest.questions, quest.questions.length,quest,quest._id);
           handleNext(quest.questions, arr);
-          
+          //getSubject(quest._id);
           // setArr([]);
           // setInQportal(true);
           // handleQuestion()
-          // getSubject(quest._id);
+      
           // checkAccess(quest._id, getUser());
         }}
         className={`${len == 0 ? "blur-[1.5px]" : ""}`}

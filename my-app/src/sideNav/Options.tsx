@@ -33,20 +33,6 @@ const Options = ({
   const [disableCheckBtn, setDisableCheckBtn] = useState(false);
   const [checkAns,setCheckAns] =useState(false)
 
-  const correct = () => {
-    new Audio(correctSound).play();
-    setRes("Correct! 👍");
-  };
-  const wrong = () => {
-    incrementScore();
-    setRes("Wrong! 😥");
-    new Audio(wrongSound).play();
-  };
-  const handleCheckAns = () => {
-    correctAns == key ? correct() : wrong();
-    setDisableCheckBtn(true);
-    // console.log("question type"+ questionType)
-  };
 
   const handleOnNext = () => {
     if (arr.length == quest.length) {
@@ -125,7 +111,6 @@ const Options = ({
                 <BsArrowReturnRight></BsArrowReturnRight>
                 <p>{quest.answerKey}</p>
                 </div>
-                
                 </>}
               </div>
             ) : (

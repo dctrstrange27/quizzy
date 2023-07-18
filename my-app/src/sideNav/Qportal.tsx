@@ -18,13 +18,7 @@ const Qportal = ({
   const [count , setCount] =useState(1)
   console.log(questions.questions)
 
-  function handleProgress() {
-    setTotal(questions?.questions?.length)
-    setScale(scale + 100/total);
-    setCount(count + 1)
-    // console.log(scale)
-    return scale;
-  }
+ 
   return (
     <>
       <div className=" border-[1px rounded-2xl dark:bg-[#24252681] border-[#0000004b] shadow-xl w-full flex flex-col px-3 -mt-24  mx-4 my-2">

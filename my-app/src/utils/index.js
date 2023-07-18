@@ -19,6 +19,7 @@ export const saveQuestionOnly = (response) => {
   localStorage.setItem("questionsOnly", JSON.stringify(response));
   return response;
 };
+
 export const getQuestionOnly = () => {
   const questionsOnly = JSON.parse(localStorage.getItem("questionsOnly"));
   return questionsOnly;
@@ -40,6 +41,36 @@ export const getCurrentQ = () => {
     console.log("error Papi! " + error);
   }
 };
+
+export const saveCurrentSubject = (response) => {
+  localStorage.setItem("subject", JSON.stringify(response));
+  return response;
+};
+export const getCurrentSubject = () => {
+  const current = JSON.parse(localStorage.getItem("subject"));
+  if(!current){
+    return false
+  }
+  return current
+};
+
+export const saveCurrentArray = (response) => {
+  localStorage.setItem("array", JSON.stringify(response));
+  return response;
+};
+export const getCurrentArray = () => {
+  const current = JSON.parse(localStorage.getItem("array"));
+  return current;
+};
+
+
+
+
+
+
+
+
+
 
 
 export const generateRandomNum = (min, max) => {

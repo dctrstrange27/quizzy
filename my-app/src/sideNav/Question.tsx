@@ -28,6 +28,8 @@ const Question = ({
   function incrementScore() {
     setScore(score + 1);
   }
+
+  
   useEffect(() => {
       if (!getCurrentQ()) {
         handleQuestion();
@@ -71,8 +73,6 @@ const Question = ({
               <button onClick={()=>{  
               //  localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
-                setArr([])
-                setInQportal(true)
                }}  className="questionB w-24">Back</button>
             </div>
           </div>
