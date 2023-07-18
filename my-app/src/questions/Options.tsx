@@ -16,7 +16,7 @@ const Options = ({
   finish,
   setScore,
 }) => {
-  const {subject,options, currentQuestion, questionType, answerKey, handleNext, arr } =
+  const {subject,options, questionType, answerKey, handleNext, arr } =
     useContext(GlobalContext);
 
   const [key, setkey] = useState("");
@@ -27,6 +27,9 @@ const Options = ({
   const [showFinishButton, setShowFinishButton] = useState(false);
 
   let correctAns = answerKey;
+
+  useEffect(()=>{
+  },[])
 
   const handleOnChange = (e) => {
     setkey(e.target.value);
@@ -198,7 +201,7 @@ const Options = ({
                 disabled={!disableCheckBtn}
                 onClick={() => {
                   setCount(count + 1);
-                  handleNext(currentQuestion, arr);
+                  handleNext(arr);
                   setkey("");
                   setIsSelected(true);
                   setCheckAns(false);

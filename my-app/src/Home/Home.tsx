@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import Side from "../sideNav/Side";
-import { HomeContext } from "../App";
 const Home = () => {
 
   return (

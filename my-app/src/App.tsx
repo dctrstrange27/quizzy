@@ -37,6 +37,7 @@ import { GlobalContext } from "./utils/ContextTypes";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
+const fromLocalStorage = JSON.parse(localStorage.getItem("subject") || '[]')
 
 const App = () => {
   interface user {
@@ -44,7 +45,7 @@ const App = () => {
     name: string;
     picture: string;
   }
- //old
+  //old
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
@@ -58,18 +59,17 @@ const App = () => {
 
   // neww
   const [arr, setArr] = useState([]);
-  const [currentSubject, setCurrentSubject] = useState([]);
+  const [currentSubject, setCurrentSubject] = useState(fromLocalStorage);
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
   const [subject, setSubject] = useState([]);
-  const [questionType,setQuestionType] = useState()
-  const [currentQuestion,setCurrentQuestion] = useState([])
-  const [answerKey,setAnswerKey] = useState("")
-  const [len,setLen] = useState(0)
+  const [questionType, setQuestionType] = useState();
+  const [answerKey, setAnswerKey] = useState("");
+  const [len, setLen] = useState(0);
 
-  const handleShowAdd=()=>{
+  const handleShowAdd = () => {
     setShowAddQ(false);
-  }
+  };
 
   const handleShowAddQ = () => {
     setShowAddQ(true);
@@ -94,75 +94,72 @@ const App = () => {
     if (hasUser) {
       Navigate("/shared");
     }
+    console.log(currentSubject)
   }, []);
 
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-  const getSubject = async (id: string,arr:any) => {
+  const getSubject = async (id: string, arr: any) => {
     try {
       const data = await API.post("/getQuestion", {
         id: id,
       });
-      setCurrentSubject(data.data.questions)
-      saveCurrentSubject(data.data.questions)
-      setArr(arr)
-      saveCurrentArray(arr)
-      console.log(arr)
-      console.log(data.data.questions);
-
+      setCurrentSubject(data.data.questions);
+      saveCurrentSubject(data.data.questions);
+      setArr(arr);
+      saveCurrentArray(arr);
+      Navigate("/Qportal");
     } catch (error) {
       console.log(error);
     }
   };
-  function handleHideQuestions() {
-    setDisable(true);
-  }
+ 
   //handling questions every next
-  const handleQuestion = () => {
-    const len = getQuestionOnly().length;
-    let randomNum = generateRandomNum(1, len);
-    let x = 1;
-    while (x == 1) {
-      if (!arr.includes(randomNum)) {
-        setRandom(randomNum);
-        arr.push(randomNum);
-        x = 0;
-      }
-      randomNum = generateRandomNum(1, len);
-      if (arr.length == len) {
-        handleHideQuestions();
-        return;
-      }
-    }
-    const currentQuestion = questionsOnly.find(
-      (question) => question.id == random
-    );
-    setCurrentQ(currentQuestion);
-    saveCurrentQ(currentQuestion);
-    return currentQuestion;
-  };
+  // const handleQuestion = () => {
+  //   const len = getQuestionOnly().length;
+  //   let randomNum = generateRandomNum(1, len);
+  //   let x = 1;
+  //   while (x == 1) {
+  //     if (!arr.includes(randomNum)) {
+  //       setRandom(randomNum);
+  //       arr.push(randomNum);
+  //       x = 0;
+  //     }
+  //     randomNum = generateRandomNum(1, len);
+  //     if (arr.length == len) {
+  //       handleHideQuestions();
+  //       return;
+  //     }
+  //   }
+  //   const currentQuestion = questionsOnly.find(
+  //     (question) => question.id == random
+  //   );
+  //   setCurrentQ(currentQuestion);
+  //   saveCurrentQ(currentQuestion);
+  //   return currentQuestion;
+  // };
 
-  const handleNext = (currentQ: any, arr: []) => {
+  useEffect(()=>{
+   setCurrentSubject(getCurrentSubject())
+  },[subject])
+
+  const handleNext = (arr: []) => {
     let random = arr?.pop();
     const current = currentSubject?.find((quest) => quest.id === random);
     setQuestion(current?.question);
-    setOptions(current?.options)
-    setQuestionType(current?.questionType)
-    setCurrentQuestion(current?.question)
-    setAnswerKey(current?.answerKey)
+    setOptions(current?.options);
+    setQuestionType(current?.questionType);
+    setAnswerKey(current?.answerKey);
   };
 
-  
-  const handlePortal = (questions: any, len: number,subject:any,id:any) => {
-    setCurrentSubject(questions)
-    setSubject(subject)
+  const handlePortal = (questions: any, len: number, subject: any, id: any) => {
+    setCurrentSubject(questions);
+    setSubject(subject);
     setArr(shuffleRandomArray(len));
-    setLen(len)
-    getSubject(id,shuffleRandomArray(len))
-    Navigate("/Qportal");
+    setLen(len);
+    getSubject(id, shuffleRandomArray(len));
   };
- 
 
   return (
     <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
@@ -179,11 +176,9 @@ const App = () => {
           handleShowProfile,
           setArr,
           getSubject,
-          handleQuestion,
           handleNext,
           subject,
           question,
-          currentQuestion,
           currentSubject,
           handlePortal,
           arr,
@@ -198,34 +193,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />}>
               <Route path="addSubject" element={<AddSubject />} />
-              <Route
-                path="question"
-                element={
-                  <React.Suspense
-                    fallback={
-                      <div
-                        className={`w-full h-40 flex justify-center items-center`}
-                      >
-                        <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
-                      </div>
-                    }
-                  >
-                    <Question
-                      setInQportal={setInQportal}
-                      disabled={disabled}
-                      random={random}
-                      handleQuestion={handleQuestion}
-                      setQuestionOnly={setQuestionOnly}
-                      questions={question}
-                      setQuestion={setQuestion}
-                      setArr={setArr}
-                      setCurrentQ={setCurrentQ}
-                      handleHideQuestions={handleHideQuestions}
-                      arr={arr}
-                    />
-                  </React.Suspense>
-                }
-              ></Route>
+
               <Route path="shared" element={<Shared />} />
               <Route
                 path="Qportal"
@@ -244,7 +212,6 @@ const App = () => {
                 }
               ></Route>
             </Route>
-
             <Route path="login" element={<Login handleLogin={handleLogin} />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

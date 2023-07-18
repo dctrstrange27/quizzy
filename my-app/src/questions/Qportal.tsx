@@ -1,12 +1,11 @@
-import { ConnectionStates } from "mongoose";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../src/utils/ContextTypes";
 import { getCurrentArray, getCurrentSubject, saveCurrentArray, saveCurrentQuestion, saveCurrentSubject, shuffleRandomArray } from "../utils";
 import Options from "./Options";
 
 const Qportal = () => {
-  const { subject,setSubject,setArr, handleNext, question, currentQuestion, arr, options, len } =
+  const { subject,currentSubject,setSubject,setArr, handleNext, question, arr, options, len } =
     useContext(GlobalContext);
 
   const Navigate = useNavigate()
@@ -16,17 +15,8 @@ const Qportal = () => {
   const [score, setScore] = useState(0)
   
   useEffect(() => {
-     handleNext(subject.questions,arr)
-     setSubject(getCurrentSubject())
-     setArr(getCurrentArray())
-     //handleNext(getCurrentArray(),getCurrentArray())
-   // console.log(getCurrentSubject())
+    handleNext(arr)
   }, []);
-
-  useEffect(() => {
-    
-  }, [subject]);
-
 
   function handleProgress() {
     setScale(scale + 100 / len);

@@ -11,16 +11,14 @@ export interface GlobalContextTypes{
   handleShowProfile: () => void;
   setArr: Dispatch<SetStateAction<number[]>>;
   getSubject: (id: string,arr:any) => void;
-  handleQuestion: () => any;
   handleShowAddQ: () => void;
   handleShowAdd: () => void;
   showAddQ: Boolean;
   handlePortal: (currentQ:any,len:number,subject:any,id:any) => any;
   arr:any;
   subject: any;
-  currentQuestion: any;
   currentSubject:any; 
-  handleNext: (currentQ:any,arr:any) => void;
+  handleNext: (arr:any) => void;
   question: string;
   options:any;
   questionType:number;
@@ -39,14 +37,12 @@ export const GlobalContext = createContext<GlobalContextTypes>({
     handleShowProfile: () => {},
     setArr: () => [],
     getSubject: (id: string,arr:any) => {},
-    handleQuestion: () => {},
     handleShowAddQ: () => {},
     showAddQ: false,
     handlePortal: (currentQ:any,len:number,subject:any,id:any) => {},
-    handleNext:(currentQ:any,arr:[]) => {},
+    handleNext:(arr:[]) => {},
     arr:[],
     subject: [],
-    currentQuestion: [],
     currentSubject:[],
     question: "",
     options:[],

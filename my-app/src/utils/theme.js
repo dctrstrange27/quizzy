@@ -12,7 +12,6 @@ export const loadTheme =()=>{
     return theme
 }
 
-
 export const setTheme=(theme)=>{
  localStorage.theme = theme
     if(theme == 'light'){
