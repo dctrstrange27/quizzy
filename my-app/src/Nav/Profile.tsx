@@ -1,10 +1,11 @@
 import React from 'react'
 import { useContext } from 'react';
-import { HomeContext } from '../App';
+import { GlobalContext } from "../../src/utils/ContextTypes";
+
 import { Link } from 'react-router-dom';
 const Profile = () => {
 
-  const{setShowProfile,showProfile} = useContext(HomeContext)
+  const{setShowProfile,showProfile} = useContext(GlobalContext)
       return (
         <>
             <div className='absolute font-nuni bg-white5 rounded-2xl w-auto h-auto flex flex-col justify-start px-4 py-5

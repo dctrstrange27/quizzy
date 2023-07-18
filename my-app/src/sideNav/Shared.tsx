@@ -4,16 +4,13 @@ import { useState } from "react";
 import { API } from "../utils";
 import { AiOutlineLoading } from "react-icons/ai";
 import Qportal from "./Qportal";
-import { SharedContext } from "../App";
+import { GlobalContext } from "../../src/utils/ContextTypes";
 
 const Subject = React.lazy(() => import("./Subject"));
 
 const Shared = () => {
   const [questions, setQuestions] = useState([]);
-  const {handleShowProfile,handleShowAddQ,setShowAddQ,showAddQ} = useContext(SharedContext)
-
-
-  
+  const {handleShowProfile,handleShowAddQ,handleShowAdd} = useContext(GlobalContext)
 
   const getQuestion = async () => {
     try {
@@ -30,14 +27,14 @@ const Shared = () => {
 
   useEffect(() => {
     getQuestion();
-    setShowAddQ(true)
+    handleShowAddQ()
   }, []);
 
   return (
     <div
       onClick={() => {
         handleShowProfile();
-              }}
+      }}
       className="flex-col w-full md:ml-[20%] md:max-w-xl border-[1px
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] h-fit
          border-[2px  border-[#700a0a  "

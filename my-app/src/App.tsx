@@ -26,50 +26,16 @@ import React from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { loadTheme } from "./utils/theme";
 import Footer from "./sideNav/Footer";
+import Qportal from "../src/questions/Qportal";
+import { shuffleRandomArray } from "./utils/index";
+import { GlobalContext } from "./utils/ContextTypes";
+
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
-export const HomeContext = createContext<{
-  userData: any;
-  setShowProfile: Dispatch<SetStateAction<Boolean>>;
-  showProfile: Boolean;
-  inQportal: Boolean;
-  setInQportal: Dispatch<SetStateAction<Boolean>>;
-  setShowAddQ: Dispatch<SetStateAction<Boolean>>;
-}>({
-  userData: [],
-  setShowProfile: () => {},
-  showProfile: false,
-  inQportal: false,
-  setInQportal: () => {},
-  setShowAddQ: () => {},
-});
-
-//context in Shared,
-export const SharedContext = createContext<{
-  inQportal: Boolean;
-  setInQportal: Dispatch<SetStateAction<Boolean>>;
-  handleShowProfile: () => void;
-  setArr:Dispatch<SetStateAction<number[]>>;
-  getSubject:(id:string)=> void;
-  handleQuestion:() => any;
-  handleShowAddQ:() => void;
-  setShowAddQ: Dispatch<SetStateAction<Boolean>>;
-  showAddQ: Boolean;
-}>({
-  inQportal: false,
-  setInQportal: () => {},
-  handleShowProfile: () => {},
-  setArr:()=>[],
-  getSubject:(id:string)=>{},
-  handleQuestion:()=>{},
-  handleShowAddQ:()=>{},
-  setShowAddQ: () => {},
-  showAddQ: false,
-});
 
 const App = () => {
- interface user {
+  interface user {
     email: number;
     name: string;
     picture: string;
@@ -78,21 +44,23 @@ const App = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
   const [hasUser, setHasUser] = useState(false);
-  const [questions, setQuestion] = useState([]);
   const [questionsOnly, setQuestionOnly] = useState([]);
   const [currentQ, setCurrentQ] = useState([]);
   const Navigate = useNavigate();
   const [disabled, setDisable] = useState(false);
   const [random, setRandom] = useState(0);
-  const [arr, setArr] = useState<number[]>([]);
   const [inQportal, setInQportal] = useState(false);
   const [showAddQ, setShowAddQ] = useState(false);
 
-  const handleShowAddQ=(subject:any)=>{
-   setShowAddQ(true)
-    
+
+
+  const handleShowAdd=()=>{
+    setShowAddQ(false);
   }
 
+  const handleShowAddQ = () => {
+    setShowAddQ(true);
+  };
 
   const handleLogin = async (data: user) => {
     try {
@@ -118,7 +86,7 @@ const App = () => {
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-  const getSubject = async (id:string) => {
+  const getSubject = async (id: string) => {
     try {
       const data = await API.post("/getQuestion", {
         id: id,
@@ -136,97 +104,135 @@ const App = () => {
   }
   //handling questions every next
   const handleQuestion = () => {
-    const len = getQuestionOnly().length
-   //console.log(currentQ.question)    
+    const len = getQuestionOnly().length;
+    let randomNum = generateRandomNum(1, len);
     let x = 1;
     while (x == 1) {
-      let randomNum = generateRandomNum(len);
       if (!arr.includes(randomNum)) {
         setRandom(randomNum);
         arr.push(randomNum);
         x = 0;
       }
-      randomNum = generateRandomNum(len);
+      randomNum = generateRandomNum(1, len);
       if (arr.length == len) {
         handleHideQuestions();
         return;
       }
     }
-    const currentQuestion = questionsOnly.find((e, idx) => idx == random);
+    const currentQuestion = questionsOnly.find(
+      (question) => question.id == random
+    );
     setCurrentQ(currentQuestion);
     saveCurrentQ(currentQuestion);
     return currentQuestion;
   };
-  
+
+  const [currentQuestion, setCurrentQuestion] = useState([]);
+
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState([]);
+  const [arr, setArr] = useState([]);
+  const [subject, setSubject] = useState([]);
+  const [questionType,setQuestionType] = useState()
+
+  const handleNext = (currentQ: any, arr: []) => {
+    let random = arr?.pop();
+    const current = currentQuestion.find((quest) => quest.id === random);
+    setQuestion(current?.question);
+    setOptions(current?.options)
+    setQuestionType(current?.questionType)
+  };
+
+  const handlePortal = (questions: any, len: number) => {
+    setCurrentQuestion(questions)
+    setArr(shuffleRandomArray(len));
+    setSubject(questions);
+    Navigate("/Qportal");
+  };
+
   return (
     <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
-      <div className=" border-[5px h-auto border-[#fe8a8a]">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomeContext.Provider
-                value={{
-                  userData,
-                  setShowProfile,
-                  showProfile,
-                  inQportal,
-                  setInQportal,
-                  setShowAddQ,
-                }}>
-                <Home />
-              </HomeContext.Provider>
-            }
-          >
-            <Route path="addSubject" element={
-            <SharedContext.Provider
-                  value={{inQportal,handleShowAddQ,showAddQ,setShowAddQ,setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
-                  <AddSubject />
-                </SharedContext.Provider>
-            }/>
-            <Route
-              path="question"
-              element={
-                <React.Suspense
-                  fallback={
-                    <div
-                      className={`w-full h-40 flex justify-center items-center`}
-                    >
-                      <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
-                    </div>
-                  }
-                >
-                  <Question
-                    setInQportal={setInQportal}
-                    disabled={disabled}
-                    random={random}
-                    handleQuestion={handleQuestion}
-                    setQuestionOnly={setQuestionOnly}
-                    questions={questions}
-                    setQuestion={setQuestion}
-                    setArr={setArr}
-                    setCurrentQ={setCurrentQ}
-                    handleHideQuestions={handleHideQuestions}
-                    arr={arr}
-                  />
-                </React.Suspense>
-              }
-            ></Route>
-            <Route
-              path="shared"
-              element={
-                <SharedContext.Provider
-                  value={{inQportal,handleShowAddQ,showAddQ,setShowAddQ,setInQportal, handleShowProfile, setArr, getSubject,handleQuestion}}>
-                  <Shared />
-                </SharedContext.Provider>
-              }
-            />
-          </Route>
-          <Route path="login" element={<Login handleLogin={handleLogin} />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </div>
-     <Footer/>
+      <GlobalContext.Provider
+        value={{
+          userData,
+          setShowProfile,
+          showProfile,
+          inQportal,
+          setInQportal,
+          handleShowAdd,
+          handleShowAddQ,
+          showAddQ,
+          handleShowProfile,
+          setArr,
+          getSubject,
+          handleQuestion,
+          handleNext,
+          subject,
+          question,
+          currentQuestion,
+          handlePortal,
+          arr,
+          options,
+          questionType,
+        }}
+      >
+        <div className=" border-[5px h-auto border-[#fe8a8a]">
+          <Routes>
+            <Route path="/" element={<Home />}>
+              <Route path="addSubject" element={<AddSubject />} />
+              <Route
+                path="question"
+                element={
+                  <React.Suspense
+                    fallback={
+                      <div
+                        className={`w-full h-40 flex justify-center items-center`}
+                      >
+                        <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
+                      </div>
+                    }
+                  >
+                    <Question
+                      setInQportal={setInQportal}
+                      disabled={disabled}
+                      random={random}
+                      handleQuestion={handleQuestion}
+                      setQuestionOnly={setQuestionOnly}
+                      questions={question}
+                      setQuestion={setQuestion}
+                      setArr={setArr}
+                      setCurrentQ={setCurrentQ}
+                      handleHideQuestions={handleHideQuestions}
+                      arr={arr}
+                    />
+                  </React.Suspense>
+                }
+              ></Route>
+              <Route path="shared" element={<Shared />} />
+              <Route
+                path="Qportal"
+                element={
+                  <React.Suspense
+                    fallback={
+                      <div
+                        className={`w-full h-40 flex justify-center items-center`}
+                      >
+                        <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
+                      </div>
+                    }
+                  >
+                    <Qportal />
+                  </React.Suspense>
+                }
+              ></Route>
+            </Route>
+
+            <Route path="login" element={<Login handleLogin={handleLogin} />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
+      </GlobalContext.Provider>
+      <Footer />
     </div>
   );
 };

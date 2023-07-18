@@ -25,8 +25,6 @@ const Question = ({
   const Navigate = useNavigate()
   const [scale, setScale] = useState(1);
   const [total,setTotal] = useState(getQuestionOnly().length)
-
-
   function incrementScore() {
     setScore(score + 1);
   }
@@ -38,7 +36,6 @@ const Question = ({
       setQuestion(getCurrentQuestion());
       setQuestionOnly(getQuestionOnly());
   }, []);
-  // console.log(getCurrentQ())
   return (
     <>
       <div
@@ -49,7 +46,6 @@ const Question = ({
           <Qportal
             setScale={setScale}
             scale={scale}
-            disabled={disabled}
             random={random}
             arr={arr}
             handleHideQuestions={handleHideQuestions}
@@ -57,7 +53,6 @@ const Question = ({
             quest={getCurrentQ()}
             questions={questions}
             incrementScore={incrementScore}
-            setArr={setArr}
             total={total}
             setTotal={setTotal}
           ></Qportal> 
@@ -74,11 +69,10 @@ const Question = ({
                 Try Again
               </button>
               <button onClick={()=>{  
-                localStorage.setItem("currentQ", JSON.stringify([]))
+              //  localStorage.setItem("currentQ", JSON.stringify([]))
                 Navigate('/shared')
-                // setArr([])
+                setArr([])
                 setInQportal(true)
-                window.location.reload();      
                }}  className="questionB w-24">Back</button>
             </div>
           </div>

@@ -41,8 +41,24 @@ export const getCurrentQ = () => {
   }
 };
 
-export const generateRandomNum = (len) => {
-  return Math.floor(Math.random() * len);
+
+export const generateRandomNum = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+
+};
+
+export const shuffleRandomArray = (len) => {
+  let arr = []
+  let x = 0;
+  while (x == 0) {
+    let randomNumber =  generateRandomNum(1,len)
+    if (!arr.includes(randomNumber)) {
+          arr.push(randomNumber);
+      if (arr.length >= len) x = 1
+    }
+    randomNumber = generateRandomNum(1,len)
+  }
+  return arr
 };
 
 export const updateUser = (userData) => {
@@ -75,8 +91,8 @@ export const amIloggedIn = (navigate) => {
 export const rememberMe = (email_address, password) => {
   localStorage.setItem(
     "remembered",
+    email_address,
     JSON.stringify({
-      email_address,
       password,
     })
   );
@@ -112,5 +128,5 @@ export const toastFailed = (message) => {
   });
 };
 
-//export const API = axios.create({ baseURL: "http://localhost:5000/api" });
- export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
+export const API = axios.create({ baseURL: "http://localhost:5000/api" });
+// export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });

@@ -5,10 +5,11 @@ import SideNav from "../sideNav/SideNav";
 import { Link } from "react-router-dom";
 import { getUser } from "../utils";
 import Profile from "./Profile";
-import { HomeContext } from "../App";
+import { GlobalContext} from "../../src/utils/ContextTypes";
+
 import ToggleTheme from "../sideNav/ToggleTheme";
 const Nav = () => {
-  const { setShowProfile, showProfile,setInQportal,setShowAddQ } = useContext(HomeContext);
+  const { setShowProfile, showProfile,setInQportal,setShowAddQ } = useContext(GlobalContext);
   return (
     <>
       <div className="flex fixed z-20 opacity-80  justify-end md:px-12 md:justify-between backdrop-blur-xl dark:bg-Dark_nav_bg bg-[#ffffff] shadow-lg px-2 py-3  w-full border-[1px border-[#bb3636] h-14">

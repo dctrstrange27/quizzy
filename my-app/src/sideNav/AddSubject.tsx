@@ -7,11 +7,11 @@ import { MdDelete } from "react-icons/md";
 import { toastSuccess, toastFailed } from "../utils";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { SharedContext } from "../App";
+import { GlobalContext } from "../../src/utils/ContextTypes";
+
 
 const AddSubject = () => {
-  const { handleShowAddQ } = useContext(SharedContext);
-  const { showAddQ } = useContext(SharedContext);
+  const { handleShowAddQ,showAddQ } = useContext(GlobalContext);
 
   interface subject {
     subjectCode: string;
@@ -28,6 +28,8 @@ const AddSubject = () => {
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState<any>([]);
   const [subjectCode, setSubjectCode] = useState("");
+  const [questionID,setQuestionID] = useState(1)
+
 
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
   const [options, setOptions] = useState<any>([""]);
@@ -74,12 +76,10 @@ const AddSubject = () => {
       // console.log(e  rr.response.data);
     }
   };
-
   //handling question onchange
   const handleQuestion = (e) => {
     setQuestion(e.target.value);
   };
-
   // for adding question
   const addQuestion = () => {
     if (question === "") return toastFailed("Please add question");
@@ -96,9 +96,12 @@ const AddSubject = () => {
     }
 
     toastSuccess("question added!");
+    setQuestionID(questionID + 1)
+    console.log(questions)
     setQuestions(() => [
       ...questions,
       {
+        id:questionID,
         question: question,
         answerKey: answerKey,
         questionType: key,
@@ -296,7 +299,7 @@ const AddSubject = () => {
                             setTFkey(e);
                             setAnswerKey(TFkey);
                             setAnsKeyVal(e);
-                            console.log(anskeyVal);
+                            // console.log(anskeyVal);
                           }}
                           className="TcheckedBox min-w-[20px] h-auto"
                         ></ImCheckboxChecked>
@@ -306,7 +309,7 @@ const AddSubject = () => {
                             setTFkey(e);
                             setAnswerKey(TFkey);
                             setAnsKeyVal(e);
-                            console.log(anskeyVal);
+                            // console.log(anskeyVal);
                           }}
                           className="uncheckedBox min-w-[20px] h-auto"
                         ></ImCheckboxUnchecked>

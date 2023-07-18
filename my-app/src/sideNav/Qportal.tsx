@@ -16,9 +16,8 @@ const Qportal = ({
 }) => {
 
   const [count , setCount] =useState(1)
-
   console.log(questions.questions)
-  
+
   function handleProgress() {
     setTotal(questions?.questions?.length)
     setScale(scale + 100/total);
@@ -60,7 +59,6 @@ const Qportal = ({
                 incrementScore={incrementScore}
                 handleProgress={handleProgress}
               ></Options>
-             
             </div>
           </div>
         )}

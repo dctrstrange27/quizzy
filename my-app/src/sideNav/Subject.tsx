@@ -1,25 +1,17 @@
 import { useContext, useState } from "react";
 import moment from "moment";
 import { getUser } from "../utils";
-import { SharedContext } from "../App";
+import { GlobalContext } from "../../src/utils/ContextTypes";
 import { MdDelete } from "react-icons/md";
 import { API } from "../utils";
 import { toast } from "react-toastify";
 import { BiGridVertical } from "react-icons/bi";
 import { MdLibraryAddCheck } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import Nav from "../Nav/Nav";
-const Subject = ({ quest,handleDeleteSubj,handleShowAddQ }) => {
+const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
+  const Navigate = useNavigate();
+  const { handleNext, handlePortal, arr } = useContext(GlobalContext);
 
-  const Navigate = useNavigate()
-  const {
-    setArr,
-    setInQportal,
-    getSubject,
-    handleQuestion,
-  } = useContext(SharedContext);
-  
   const [disabledDelete, setDisable] = useState(true);
 
   const handleToast = (message) => {
@@ -51,6 +43,7 @@ const Subject = ({ quest,handleDeleteSubj,handleShowAddQ }) => {
     }
   };
   let len = quest.questions.length;
+
   return (
     <div
       className={`subject cursor-pointer dark:bg-[#24252681] relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] dark:border-[#ffffff3c shadow-Light_shadow hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200`}
@@ -67,8 +60,8 @@ const Subject = ({ quest,handleDeleteSubj,handleShowAddQ }) => {
         </h1>
         <button
           onClick={() => {
-            handleShowAddQ()
-            Navigate("/addSubject")
+            handleShowAddQ();
+            Navigate("/addSubject");
           }}
           className="buttonUpdate"
         >
@@ -96,11 +89,14 @@ const Subject = ({ quest,handleDeleteSubj,handleShowAddQ }) => {
       </div>
       <div
         onClick={() => {
-          setArr([]);
-          setInQportal(true);
-          getSubject(quest._id);
-          handleQuestion();
-          checkAccess(quest._id, getUser());
+          handlePortal(quest.questions, quest.questions.length);
+          handleNext(quest.questions, arr);
+          
+          // setArr([]);
+          // setInQportal(true);
+          // handleQuestion()
+          // getSubject(quest._id);
+          // checkAccess(quest._id, getUser());
         }}
         className={`${len == 0 ? "blur-[1.5px]" : ""}`}
       >

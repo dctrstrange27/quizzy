@@ -3,14 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaGlobeAmericas } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa";
 import { useContext } from "react";
-import { HomeContext } from "../App";
+import { GlobalContext } from "../../src/utils/ContextTypes";
+
 const SideNav = () => {
   const Navigate = useNavigate()
-  const {setShowAddQ } = useContext(HomeContext);
+  const {handleShowAdd } = useContext(GlobalContext);
   
   function clearItems() {
     localStorage.setItem("currentQ", JSON.stringify([]));
   }
+ 
+
 
   return (
     <> 
@@ -18,8 +21,7 @@ const SideNav = () => {
         <div className="sidenav">
           <FaGlobeAmericas className="sidenavicon"></FaGlobeAmericas>
           <Link to="shared" className="nav cursor-pointer" onClick={()=>{
-              setShowAddQ(false)
-              console.log("hellow")
+             handleShowAdd()
               Navigate('/shared')
           }}>
             {" "}
@@ -28,7 +30,7 @@ const SideNav = () => {
         </div>
         <div className="sidenav">
           <FaPenNib className="sidenavicon"></FaPenNib>
-          <Link to="addSubject" onClick={()=>{  setShowAddQ(false)}} className="nav cursor-pointer">
+          <Link to="addSubject" onClick={()=>{  handleShowAdd()}} className="nav cursor-pointer">
             {" "}
             add Subject
           </Link>

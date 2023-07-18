@@ -1,30 +1,22 @@
+import React, { useContext } from 'react'
+import { useState } from 'react';
 import { useEffect } from "react";
-import { useState } from "react";
 import correctSound from "../assets/correct.wav";
 import wrongSound from "../assets/wrong.mp3";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { getQuestionOnly } from "../utils";
 import {BsArrowReturnRight} from 'react-icons/bs'
-
+import { GlobalContext } from '../utils/ContextTypes';
 const Options = ({
   quest,
-  handleQuestion,
-  random,
-  handleHideQuestions,
-  incrementScore,
-  arr,
-  handleProgress,
 }) => {
-  const [questionType, setQuestionType] = useState();
+
+  const {options,currentQuestion,questionType} = useContext(GlobalContext)
+
   const [count, setCount] = useState(0);
 
   const check = () => quest.answerKey;
-  console.log(getQuestionOnly().length)
-
-  useEffect(() => {
-    check();
-    setQuestionType(quest.questiontype);
-  }, []);
+  
 
   const correctAns = check();
   const [key, setkey] = useState("");
@@ -33,49 +25,18 @@ const Options = ({
   const [disableCheckBtn, setDisableCheckBtn] = useState(false);
   const [checkAns,setCheckAns] =useState(false)
 
-  const correct = () => {
-    new Audio(correctSound).play();
-    setRes("Correct! 👍");
-  };
-  const wrong = () => {
-    incrementScore();
-    setRes("Wrong! 😥");
-    new Audio(wrongSound).play();
-  };
-  const handleCheckAns = () => {
-    correctAns == key ? correct() : wrong();
-    setDisableCheckBtn(true);
-    // console.log("question type"+ questionType)
-  };
-
-  const handleOnNext = () => {
-    if (arr.length == quest.length) {
-      handleHideQuestions();
-    }
-    handleQuestion();
-    setDisableCheckBtn(false);
-    setkey("");
-    setRes("");
-    handleProgress();
-  };
   const handleOnChange = (e) => {
     setkey(e.target.value);
   };
-  useEffect(() => {
-    if (key != "") {
-      setIsSelected(false);
-    } else {
-      setIsSelected(true);
-    }
-  }, [key]);
-  
+
+
   return (
     <>
-      <div className="border-[1px">
-        {quest.options != "" ? (
-          quest?.options.map((e) => (
+     <div className="border-[1px">
+     {options === undefined ? "" : options != "" ? (
+          options.map((e) => (
             <div key={e.key}>
-              {quest?.questionType === 1 || quest.questionType === 0 ? (
+              {questionType === 1 || questionType === 0 ? (
                 <button
                   disabled={disableCheckBtn}
                   className={`choices cursor-pointer w-full text-five  dark:text-[#fff] ${
@@ -113,7 +74,7 @@ const Options = ({
           ))
         ) : (
           <div>
-            {quest.questionType === 2 ? (
+            {questionType === 2 ? (
               <div className="border-[1px">
                 <input
                   onChange={handleOnChange}
@@ -123,9 +84,8 @@ const Options = ({
                 {checkAns &&<>
                 <div className="flex px-5 py-2 text-[#32ac2e] font-semibold items-center text- gap-2">
                 <BsArrowReturnRight></BsArrowReturnRight>
-                <p>{quest.answerKey}</p>
+                <p>{currentQuestion.answerKey}</p>
                 </div>
-                
                 </>}
               </div>
             ) : (
@@ -169,44 +129,9 @@ const Options = ({
           </div>
         )}
       </div>
-      <p className={`border-[1px px-2  font-pop ${key == correctAns ? "text-[#32ac2e]":"text-[#ac3d2e]"} font-bold`}>{res}</p>
-      <div className="border-[1px py-2 flex px-2 justify-end my-3 gap-2">
-        <button
-          disabled={isSelected}
-          className={`${isSelected ? "disabledBtn" : "questionB"}`}
-          onClick={() => {
-            handleCheckAns();
-            setDisableCheckBtn(true);
-            setIsSelected(true);
-            setCheckAns(true)
-            // console.log("key: " + key);
-            // console.log("correct ans: " + correctAns);
-          }}
-        >
-          CHECK ANSWER
-        </button>
-        <button
-          disabled={!disableCheckBtn}
-          onClick={() => {
-            handleOnNext();
-            setCount(count + 1);
-            setDisableCheckBtn(false);
-            setIsSelected(false);
-            setkey("");
-            setCheckAns(false)
-
-          }}
-          className={`questionB uppercase ${
-            !disableCheckBtn
-              ? "bg-[#0000007b] hover:transform-none"
-              : "bg-[#154a72]"
-          } `}
-        >
-          {arr.length == getQuestionOnly().length - 1 ? "Finish" : "Next"}
-        </button>
-      </div>
+    
     </>
-  );
-};
+  )
+}
 
-export default Options;
+export default Options
