@@ -1,4 +1,3 @@
-import "./App.css";
 import {
   BrowserRouter as Router,
   Route,
@@ -30,11 +29,10 @@ import React from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { loadTheme } from "./utils/theme";
 import Footer from "./sideNav/Footer";
-import Qportal from "../src/questions/Qportal";
 import { shuffleRandomArray } from "./utils/index";
 import { GlobalContext } from "./utils/ContextTypes";
 
-const Question = React.lazy(() => import("./sideNav/Question"));
+const Qportal = React.lazy(() => import("./questions/Qportal"));
 
 //context in Home,
 const App = () => {
@@ -55,8 +53,6 @@ const App = () => {
   const [inQportal, setInQportal] = useState(false);
   const [showAddQ, setShowAddQ] = useState(false);
 
-
-  
   const handleShowAdd = () => {
     setShowAddQ(false);
   };
@@ -89,112 +85,69 @@ const App = () => {
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-  // neww
-  const [arr, setArr] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState([]);
-  const [subject, setSubject] = useState([]);
-  const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState([]);
-  const [questionType, setQuestionType] = useState();
-  const [answerKey, setAnswerKey] = useState("");
+
   const [len, setLen] = useState(0);
-  const [id, setID] = useState()
 
-
-  const handleNext = (arr: []) => {
-    let random = arr?.pop();
-    const current = currentQuestion?.find((quest) => quest.id === random);
-    setQuestion(current?.question);
-    setOptions(current?.options);
-    setQuestionType(current?.questionType);
-    setAnswerKey(current?.answerKey);
-  };
-
-  // setting a subjects
-  const handlePortal = (questions: any, len: number, subject: any, id: any) => {
-    setCurrentQuestion(questions);
-    setSubject(subject);
-    setArr(shuffleRandomArray(len));
-   
-    Navigate('/Qportal')
-  };
-
-  const getSubject = async(id:any)=>{
+  const getSubject = async (id: any) => {
     try {
-      const data = await API.post("/getSubject",{
-        _id:id
-      })
-      setSubject(data.data)
-      console.log(data.data)
+      const data = await API.post("/getSubject", {
+        _id: id,
+      });
+      console.log(data.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
-
-
+  };
   return (
-    <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
-      <GlobalContext.Provider
-        value={{
-          userData,
-          setShowProfile,
-          showProfile,
-          inQportal,
-          setInQportal,
-          handleShowAdd,
-          handleShowAddQ,
-          showAddQ,
-          handleShowProfile,
-          setArr,
-          setCurrentQuestion,
-          handleNext,
-          subject,
-          question,
-          currentQuestion,
-          handlePortal,
-          arr,
-          options,
-          questionType,
-          answerKey,
-          setLen,
-          len,
-          setSubject,
-          id,
-          setID,
-          getSubject,
-        }}
-      >
-        <div className=" border-[5px h-auto border-[#fe8a8a]">
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route path="addSubject" element={<AddSubject />} />
-
-              <Route path="shared" element={<Shared />} />
+      <div className="App w-full relative h-screen duration-700 ease-in-out  bg-white5 dark:bg-five">
+        <GlobalContext.Provider
+          value={{
+            userData,
+            setShowProfile,
+            showProfile,
+            inQportal,
+            setInQportal,
+            handleShowAdd,
+            handleShowAddQ,
+            showAddQ,
+            handleShowProfile,
+            len,
+            setLen,
+            getSubject,
+          }}
+        >
+          <div className=" border-[5px h-auto border-[#fe8a8a]">
+            <Routes>
+              <Route path="/" element={<Home />}>
+                <Route path="addSubject" element={<AddSubject />} />
+                <Route path="shared" element={<Shared />} />
+                <Route
+                  path="Qportal"
+                  element={
+                    <React.Suspense
+                      fallback={
+                        <div
+                          className={`w-full h-40 flex justify-center items-center`}
+                        >
+                          <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
+                        </div>
+                      }
+                    >
+                      <Qportal />
+                    </React.Suspense>
+                  }
+                ></Route>
+              </Route>
               <Route
-                path="Qportal"
-                element={
-                  <React.Suspense
-                    fallback={
-                      <div
-                        className={`w-full h-40 flex justify-center items-center`}
-                      >
-                        <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
-                      </div>
-                    }
-                  >
-                    <Qportal />
-                  </React.Suspense>
-                }
-              ></Route>
-            </Route>
-            <Route path="login" element={<Login handleLogin={handleLogin} />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </div>
-      </GlobalContext.Provider>
-      <Footer />
-    </div>
+                path="login"
+                element={<Login handleLogin={handleLogin} />}
+              />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </div>
+        </GlobalContext.Provider>
+        <Footer />
+      </div>
   );
 };
 

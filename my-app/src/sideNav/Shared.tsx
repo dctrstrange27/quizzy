@@ -35,8 +35,8 @@ const Shared = () => {
       onClick={() => {
         handleShowProfile();
       }}
-      className="flex-col w-full md:ml-[20%] md:max-w-xl border-[1px
-        lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] h-fit
+      className="flex-col  w-full md:ml-[20%] md:max-w-xl border-[1px
+        lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] 
          border-[2px  border-[#700a0a  "
       >
       <div className="py-2 border-[1px w-full  px-6">

@@ -18,18 +18,15 @@ const Options = ({
   currentQ,
   handleNext,arr
 }) => {
-  const {subject,options, questionType, answerKey,  } =
-    useContext(GlobalContext);
+ 
 
   const [key, setkey] = useState("");
   const [res, setRes] = useState("");
   const [isSelected, setIsSelected] = useState(false);
   const [disableCheckBtn, setDisableCheckBtn] = useState(false);
   const [checkAns, setCheckAns] = useState(false);
-  const [showFinishButton, setShowFinishButton] = useState(false);
 
   let correctAns = currentQ.answerKey;
-  
   useEffect(()=>{
     console.log(currentQ)
   },[])
@@ -202,8 +199,6 @@ const Options = ({
               >
                 {arr == 0 ? "Finish":"Next"}
               </button>
-          
-          
         </div>
       </div>
     </>

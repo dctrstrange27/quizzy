@@ -10,7 +10,7 @@ import { MdLibraryAddCheck } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
   const Navigate = useNavigate();
-  const {handleNext,getSubject,setLen, setID,handlePortal, arr } = useContext(GlobalContext);
+  const {getSubject,setLen } = useContext(GlobalContext);
 
   const [disabledDelete, setDisable] = useState(true);
 
@@ -91,7 +91,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
         onClick={() => {
           Navigate('/Qportal')
           saveCurrentSubject(quest)
-          getSubject(quest._id)
+         // getSubject(quest._id)
           saveCurrentArray(shuffleRandomArray(quest.questions.length))
           checkAccess(quest._id, getUser());
          

@@ -9,9 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalContext } from "../../src/utils/ContextTypes";
 
-
 const AddSubject = () => {
-  const { handleShowAddQ,showAddQ } = useContext(GlobalContext);
+  const { handleShowAddQ, showAddQ } = useContext(GlobalContext);
 
   interface subject {
     subjectCode: string;
@@ -28,8 +27,7 @@ const AddSubject = () => {
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState<any>([]);
   const [subjectCode, setSubjectCode] = useState("");
-  const [questionID,setQuestionID] = useState(1)
-
+  const [questionID, setQuestionID] = useState(1);
 
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
   const [options, setOptions] = useState<any>([""]);
@@ -72,7 +70,6 @@ const AddSubject = () => {
       toastSuccess("successfully added Subject!!");
       window.location.reload();
       Navigate("/shared");
-     
     } catch (err) {
       toastFailed(err.response.data.messge);
       // console.log(e  rr.response.data);
@@ -98,12 +95,12 @@ const AddSubject = () => {
     }
 
     toastSuccess("question added!");
-    setQuestionID(questionID + 1)
-    console.log(questions)
+    setQuestionID(questionID + 1);
+    console.log(questions);
     setQuestions(() => [
       ...questions,
       {
-        id:questionID,
+        id: questionID,
         question: question,
         answerKey: answerKey,
         questionType: key,
@@ -436,7 +433,7 @@ const AddSubject = () => {
                 onClick={() => {
                   if (questions.length !== 0) {
                     addSubject(newSubject, questions);
-                    Navigate("/Shared")
+                    Navigate("/Shared");
                   } else {
                     toastFailed("No Questions added!!");
                   }

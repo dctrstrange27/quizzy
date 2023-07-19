@@ -110,15 +110,15 @@ export const amIloggedIn = (navigate) => {
   return loggedInUser;
 };
 
-export const rememberMe = (email_address, password) => {
-  localStorage.setItem(
-    "remembered",
-    email_address,
-    JSON.stringify({
-      password,
-    })
-  );
-};
+// export const rememberMe = (email_address, password) => {
+//   localStorage.setItem(
+//     "remembered",
+//     email_address,
+//     JSON.stringify({
+//       password,
+//     })
+//   );
+// };
 
 export const getRemembered = () => {
   return JSON.parse(localStorage.getItem("remembered"));

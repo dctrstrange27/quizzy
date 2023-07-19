@@ -40,15 +40,30 @@ const getUsers = async(req,res)=>{
     res.status(200).json(getUsers)
 }
 
+// const getSubject=async(req,res)=>{
+//     const itemID = req.body
+//     const question = await Subject.findById({itemID})
+//     if(question){
+//         return res.status(200).json(question)
+//     }
+//     return res.status(500).json("didn't found the item!")
+// }
+
 const getSubject=async(req,res)=>{
     const getSubject = await Subject.find({})
     res.status(200).json(getSubject)
 }
-
 const getQuestion=async(req,res)=>{
-    const {id} = req.body
-    const getOneSubj = await Subject.findOne({_id:id})
-    res.status(200).json(getOneSubj)
+    const {id,itemID} = req.body
+    try {
+        const getOneSubj = await Subject.findOne({_id:id})
+        if(getOneSubj){
+            return res.status(200).json(getOneSubj)          
+        }
+        return res.status(200).json("question not found!")
+    } catch (error) {
+        console.log(error)       
+    }
 }
 
 const addSubject = async (req, res) => {
