@@ -28,7 +28,7 @@ const Options = ({
   const [checkAns, setCheckAns] = useState(false);
   const [showFinishButton, setShowFinishButton] = useState(false);
 
-  let correctAns = answerKey;
+  let correctAns = currentQ.answerKey;
   
   useEffect(()=>{
     console.log(currentQ)
@@ -79,13 +79,13 @@ const Options = ({
                     disableCheckBtn
                       ? `pointer-events-none${
                           e.key == correctAns
-                            ? " border-[#06ff8f] border-[2px] dark:bg-[#fff0] dark:bg-none from-[#Fff] to-[#033465bf] bg-gradient-to-r"
-                            : " border-[#b32a2a6e]  from-white5 dark:bg-none to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
+                          ? " border-[#36D399] border-[2px] dark:border-[3px] dark:from-[#36d39911] dark:to-[#36D399]  from-[#Fff] to-[#033465bf] bg-gradient-to-r"
+                          : " border-[#b32a2a6e] dark:border-[3px] dark:from-[#91515918] dark:to-[#915157]  from-white5  to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                         }`
                       : `${
                           key == e.key
-                            ? "from-[#fff] border-[3px] dark:bg-none  to-b2 bg-gradient-to-r "
-                            : " dark:bg-[#fff0] dark:border-[0px]  "
+                          ? "from-[#fff] border-[3px]  dark:from-[#ea449233] dark:to-[#004e9a]  to-b2 bg-gradient-to-r "
+                          : " dark:bg-[#fff0] dark:border-[0px]  "
                         }`
                   } `}
                   onClick={() => {
@@ -115,13 +115,13 @@ const Options = ({
                 <input
                   onChange={handleOnChange}
                   value={key}
-                  className="w-full border-[1px] rounded-2xl h-11 px-4"
+                  className="w-[100%] border-[2.5px] dark:bg-[#ffffff01] dark:text-[#Fff] dark:focus:outline-none  dark:border-[#1d69a4f5] dark:border-[1px] rounded-2xl h-11 px-4"
                 ></input>
                 {checkAns && (
                   <>
                     <div className="flex px-5 py-2 text-[#32ac2e] font-semibold items-center text- gap-2">
                       <BsArrowReturnRight></BsArrowReturnRight>
-                      <p>{answerKey}</p>
+                      <p>{currentQ.answerKey}</p>
                     </div>
                   </>
                 )}
@@ -136,12 +136,12 @@ const Options = ({
                         disableCheckBtn
                           ? `pointer-events-none${
                               i == correctAns
-                                ? " border-[#06ff8f] border-[2px] dark:bg-[#fff0] dark:bg-none from-[#Fff] to-[#033465bf] bg-gradient-to-r"
-                                : " border-[#b32a2a6e]  from-white5 dark:bg-none to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
+                                ? " border-[#36D399] border-[2px] dark:border-[3px] dark:from-[#36d39911] dark:to-[#36D399]  from-[#Fff] to-[#033465bf] bg-gradient-to-r"
+                                : " border-[#b32a2a6e] dark:border-[3px] dark:from-[#91515918] dark:to-[#915157]  from-white5  to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                             }`
                           : `${
                               key == i
-                                ? "from-[#fff] border-[3px] dark:bg-none  to-b2 bg-gradient-to-r "
+                                ? "from-[#fff] border-[3px]  dark:from-[#ea449233] dark:to-[#004e9a]  to-b2 bg-gradient-to-r "
                                 : " dark:bg-[#fff0] dark:border-[0px]  "
                             }`
                       } `}

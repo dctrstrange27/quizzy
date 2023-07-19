@@ -75,7 +75,7 @@ const Qportal = () => {
                   <h1 className=" font-extrabold text-[30px] text-[#000] dark:text-[#e1e1e1]">
                     {score}/{len}
                   </h1>
-                  <h1>score</h1>
+                  <h1 className="font-grot border-[1px py-3 text-2xl dark:text-[#ffff]">score</h1>
                   <div className="flex w-full justify-center  border-[1px gap-10">
                     <button
                       className="questionB w-28"
