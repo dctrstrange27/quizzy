@@ -15,8 +15,10 @@ const Options = ({
   setIsFinish,
   finish,
   setScore,
+  currentQ,
+  handleNext,arr
 }) => {
-  const {subject,options, questionType, answerKey, handleNext, arr } =
+  const {subject,options, questionType, answerKey,  } =
     useContext(GlobalContext);
 
   const [key, setkey] = useState("");
@@ -27,14 +29,14 @@ const Options = ({
   const [showFinishButton, setShowFinishButton] = useState(false);
 
   let correctAns = answerKey;
-
+  
   useEffect(()=>{
+    console.log(currentQ)
   },[])
 
   const handleOnChange = (e) => {
     setkey(e.target.value);
   };
-
   const correct = () => {
     new Audio(correctSound).play();
     setRes("Correct! 👍");
@@ -64,12 +66,13 @@ const Options = ({
   return (
     <>
       <div className="border-[1px">
-        {options === undefined ? (
-          ""
-        ) : options != "" ? (
-          options.map((e) => (
+      <h1 className="font-bold tracking-normal text-[23px] text-2xl py-4 text-justify text-[#2c2b2b] dark:text-[#ffff] border-[1px">
+                      {currentQ?.question}
+                    </h1>
+        { currentQ?.options != "" ? (
+          currentQ.options.map((e) => (
             <div key={e.key}>
-              {questionType === 1 || questionType === 0 ? (
+              {currentQ.questionType === 1 || currentQ.questionType === 0 ? (
                 <button
                   disabled={disableCheckBtn}
                   className={`choices cursor-pointer w-full text-five  dark:text-[#fff] ${
@@ -107,7 +110,7 @@ const Options = ({
           ))
         ) : (
           <div>
-            {questionType === 2 ? (
+            {currentQ.questionType === 2 ? (
               <div className="border-[1px">
                 <input
                   onChange={handleOnChange}
@@ -178,36 +181,18 @@ const Options = ({
           >
             {"Check Answer"}
           </button>
-          {showFinishButton == true ? (
-            <>
-              {" "}
-              <button
-                onClick={() => {
-                  setIsFinish(true);
-                }}
-                className={`questionB mt-10 uppercase ${
-                  !disableCheckBtn
-                    ? "bg-[#0000007b] hover:transform-none"
-                    : "button"
-                } `}
-              >
-                Finish
-              </button>
-            </>
-          ) : (
-            <>
               {" "}
               <button
                 disabled={!disableCheckBtn}
                 onClick={() => {
                   setCount(count + 1);
-                  handleNext(arr);
+                  handleNext()
                   setkey("");
                   setIsSelected(true);
                   setCheckAns(false);
                   handleProgress();
                   setDisableCheckBtn(false);
-                  if(arr.length == 0) setShowFinishButton(true);
+                  if(arr == 0) setIsFinish(true);
                 }}
                 className={`questionB mt-10 uppercase ${
                   !disableCheckBtn
@@ -215,10 +200,10 @@ const Options = ({
                     : "button"
                 } `}
               >
-                Next
+                {arr == 0 ? "Finish":"Next"}
               </button>
-            </>
-          )}
+          
+          
         </div>
       </div>
     </>

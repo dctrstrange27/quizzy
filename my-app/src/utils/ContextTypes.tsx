@@ -10,21 +10,25 @@ export interface GlobalContextTypes{
   setInQportal: Dispatch<SetStateAction<Boolean>>;
   handleShowProfile: () => void;
   setArr: Dispatch<SetStateAction<number[]>>;
-  getSubject: (id: string,arr:any) => void;
   handleShowAddQ: () => void;
   handleShowAdd: () => void;
   showAddQ: Boolean;
   handlePortal: (currentQ:any,len:number,subject:any,id:any) => any;
   arr:any;
   subject: any;
-  currentSubject:any; 
-  handleNext: (arr:any) => void;
+  currentQuestion:any; 
+  handleNext: (arr:any) => any;
   question: string;
   options:any;
   questionType:number;
   answerKey:any;
   len:number;
   setSubject:any;
+  setCurrentQuestion:any;
+  id:any;
+  setID:any;
+  getSubject:(id:any)=> any;
+  setLen:any;
 }
 
 export const GlobalContext = createContext<GlobalContextTypes>({
@@ -36,19 +40,23 @@ export const GlobalContext = createContext<GlobalContextTypes>({
     handleShowAdd: () => {},
     handleShowProfile: () => {},
     setArr: () => [],
-    getSubject: (id: string,arr:any) => {},
     handleShowAddQ: () => {},
     showAddQ: false,
     handlePortal: (currentQ:any,len:number,subject:any,id:any) => {},
     handleNext:(arr:[]) => {},
     arr:[],
     subject: [],
-    currentSubject:[],
+    currentQuestion:[],
     question: "",
     options:[],
     questionType:null,
     answerKey:"",
     len:null,
     setSubject:() => {},
+    setCurrentQuestion:()=>{},
+    id:null,
+    setID:()=>{},
+    getSubject:(id:any)=>{},
+    setLen:()=>{},
   });
   

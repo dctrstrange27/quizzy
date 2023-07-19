@@ -37,8 +37,6 @@ import { GlobalContext } from "./utils/ContextTypes";
 const Question = React.lazy(() => import("./sideNav/Question"));
 
 //context in Home,
-const fromLocalStorage = JSON.parse(localStorage.getItem("subject") || '[]')
-
 const App = () => {
   interface user {
     email: number;
@@ -57,16 +55,8 @@ const App = () => {
   const [inQportal, setInQportal] = useState(false);
   const [showAddQ, setShowAddQ] = useState(false);
 
-  // neww
-  const [arr, setArr] = useState([]);
-  const [currentSubject, setCurrentSubject] = useState(fromLocalStorage);
-  const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState([]);
-  const [subject, setSubject] = useState([]);
-  const [questionType, setQuestionType] = useState();
-  const [answerKey, setAnswerKey] = useState("");
-  const [len, setLen] = useState(0);
 
+  
   const handleShowAdd = () => {
     setShowAddQ(false);
   };
@@ -94,72 +84,54 @@ const App = () => {
     if (hasUser) {
       Navigate("/shared");
     }
-    console.log(currentSubject)
   }, []);
 
   const handleShowProfile = () => {
     setShowProfile(false);
   };
-  const getSubject = async (id: string, arr: any) => {
-    try {
-      const data = await API.post("/getQuestion", {
-        id: id,
-      });
-      setCurrentSubject(data.data.questions);
-      saveCurrentSubject(data.data.questions);
-      setArr(arr);
-      saveCurrentArray(arr);
-      Navigate("/Qportal");
-    } catch (error) {
-      console.log(error);
-    }
-  };
- 
-  //handling questions every next
-  // const handleQuestion = () => {
-  //   const len = getQuestionOnly().length;
-  //   let randomNum = generateRandomNum(1, len);
-  //   let x = 1;
-  //   while (x == 1) {
-  //     if (!arr.includes(randomNum)) {
-  //       setRandom(randomNum);
-  //       arr.push(randomNum);
-  //       x = 0;
-  //     }
-  //     randomNum = generateRandomNum(1, len);
-  //     if (arr.length == len) {
-  //       handleHideQuestions();
-  //       return;
-  //     }
-  //   }
-  //   const currentQuestion = questionsOnly.find(
-  //     (question) => question.id == random
-  //   );
-  //   setCurrentQ(currentQuestion);
-  //   saveCurrentQ(currentQuestion);
-  //   return currentQuestion;
-  // };
+  // neww
+  const [arr, setArr] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState([]);
+  const [subject, setSubject] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState([]);
+  const [questionType, setQuestionType] = useState();
+  const [answerKey, setAnswerKey] = useState("");
+  const [len, setLen] = useState(0);
+  const [id, setID] = useState()
 
-  useEffect(()=>{
-   setCurrentSubject(getCurrentSubject())
-  },[subject])
 
   const handleNext = (arr: []) => {
     let random = arr?.pop();
-    const current = currentSubject?.find((quest) => quest.id === random);
+    const current = currentQuestion?.find((quest) => quest.id === random);
     setQuestion(current?.question);
     setOptions(current?.options);
     setQuestionType(current?.questionType);
     setAnswerKey(current?.answerKey);
   };
 
+  // setting a subjects
   const handlePortal = (questions: any, len: number, subject: any, id: any) => {
-    setCurrentSubject(questions);
+    setCurrentQuestion(questions);
     setSubject(subject);
     setArr(shuffleRandomArray(len));
-    setLen(len);
-    getSubject(id, shuffleRandomArray(len));
+   
+    Navigate('/Qportal')
   };
+
+  const getSubject = async(id:any)=>{
+    try {
+      const data = await API.post("/getSubject",{
+        _id:id
+      })
+      setSubject(data.data)
+      console.log(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
 
   return (
     <div className="App w-full relative h-fit duration-700 ease-in-out bg-white5 dark:bg-five border-b2">
@@ -175,18 +147,22 @@ const App = () => {
           showAddQ,
           handleShowProfile,
           setArr,
-          getSubject,
+          setCurrentQuestion,
           handleNext,
           subject,
           question,
-          currentSubject,
+          currentQuestion,
           handlePortal,
           arr,
           options,
           questionType,
           answerKey,
+          setLen,
           len,
           setSubject,
+          id,
+          setID,
+          getSubject,
         }}
       >
         <div className=" border-[5px h-auto border-[#fe8a8a]">

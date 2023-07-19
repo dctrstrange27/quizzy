@@ -70,7 +70,9 @@ const AddSubject = () => {
         questions: questions,
       });
       toastSuccess("successfully added Subject!!");
+      window.location.reload();
       Navigate("/shared");
+     
     } catch (err) {
       toastFailed(err.response.data.messge);
       // console.log(e  rr.response.data);

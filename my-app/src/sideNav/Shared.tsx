@@ -47,7 +47,7 @@ const Shared = () => {
             </div>
           }
         >
-          {questions?.map((quest, id) => (
+          {questions.map((quest, id) => (
             <Subject 
               key={id}
               quest={quest}

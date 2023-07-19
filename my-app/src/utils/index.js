@@ -64,15 +64,6 @@ export const getCurrentArray = () => {
 };
 
 
-
-
-
-
-
-
-
-
-
 export const generateRandomNum = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -159,5 +150,5 @@ export const toastFailed = (message) => {
   });
 };
 
-//export const API = axios.create({ baseURL: "http://localhost:5000/api" });
- export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });
+export const API = axios.create({ baseURL: "http://localhost:5000/api" });
+ //export const API = axios.create({ baseURL: "https://quizzy-api-0ria.onrender.com/api" });

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import moment from "moment";
-import { getUser } from "../utils";
+import { getUser, saveCurrentArray, saveCurrentSubject, shuffleRandomArray } from "../utils";
 import { GlobalContext } from "../../src/utils/ContextTypes";
 import { MdDelete } from "react-icons/md";
 import { API } from "../utils";
@@ -10,7 +10,7 @@ import { MdLibraryAddCheck } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
   const Navigate = useNavigate();
-  const {getSubject, handleNext, handlePortal, arr } = useContext(GlobalContext);
+  const {handleNext,getSubject,setLen, setID,handlePortal, arr } = useContext(GlobalContext);
 
   const [disabledDelete, setDisable] = useState(true);
 
@@ -89,14 +89,12 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
       </div>
       <div
         onClick={() => {
-          handlePortal(quest.questions, quest.questions.length,quest,quest._id);
-          handleNext(quest.questions, arr);
-          //getSubject(quest._id);
-          // setArr([]);
-          // setInQportal(true);
-          // handleQuestion()
-      
-          // checkAccess(quest._id, getUser());
+          Navigate('/Qportal')
+          saveCurrentSubject(quest)
+          getSubject(quest._id)
+          saveCurrentArray(shuffleRandomArray(quest.questions.length))
+          checkAccess(quest._id, getUser());
+         
         }}
         className={`${len == 0 ? "blur-[1.5px]" : ""}`}
       >

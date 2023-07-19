@@ -9,12 +9,12 @@ import { GlobalContext} from "../../src/utils/ContextTypes";
 
 import ToggleTheme from "../sideNav/ToggleTheme";
 const Nav = () => {
-  const { setShowProfile, showProfile,setInQportal,setShowAddQ } = useContext(GlobalContext);
+  const { setShowProfile, showProfile,setInQportal } = useContext(GlobalContext);
   return (
     <>
       <div className="flex fixed z-20 opacity-80  justify-end md:px-12 md:justify-between backdrop-blur-xl dark:bg-Dark_nav_bg bg-[#ffffff] shadow-lg px-2 py-3  w-full border-[1px border-[#bb3636] h-14">
         <div className="border-[1px cursor-pointer h-full hidden md:flex items-center justify-start">
-          <Link to="/shared" onClick={()=>{setInQportal(false);setShowAddQ(false)}} className="nav hover:text-p2 font-normal text-b2 font-tilt text-3xl">
+          <Link to="/shared" onClick={()=>{setInQportal(false)}} className="nav hover:text-p2 font-normal text-b2 font-tilt text-3xl">
             Quizzy
           </Link>
         </div>
