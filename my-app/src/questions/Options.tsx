@@ -26,10 +26,9 @@ const Options = ({
   const [disableCheckBtn, setDisableCheckBtn] = useState(false);
   const [checkAns, setCheckAns] = useState(false);
 
-  let correctAns = currentQ.answerKey;
-  useEffect(()=>{
-    console.log(currentQ)
-  },[])
+  let correctAns = currentQ?.answerKey || "";
+
+  
 
   const handleOnChange = (e) => {
     setkey(e.target.value);
@@ -67,7 +66,7 @@ const Options = ({
                       {currentQ?.question}
                     </h1>
         { currentQ?.options != "" ? (
-          currentQ.options.map((e) => (
+          currentQ?.options?.map((e) => (
             <div key={e.key}>
               {currentQ.questionType === 1 || currentQ.questionType === 0 ? (
                 <button
@@ -107,7 +106,7 @@ const Options = ({
           ))
         ) : (
           <div>
-            {currentQ.questionType === 2 ? (
+            {currentQ?.questionType === 2 ? (
               <div className="border-[1px">
                 <input
                   onChange={handleOnChange}
@@ -118,7 +117,7 @@ const Options = ({
                   <>
                     <div className="flex px-5 py-2 text-[#32ac2e] font-semibold items-center text- gap-2">
                       <BsArrowReturnRight></BsArrowReturnRight>
-                      <p>{currentQ.answerKey}</p>
+                      <p>{currentQ?.answerKey || ""}</p>
                     </div>
                   </>
                 )}

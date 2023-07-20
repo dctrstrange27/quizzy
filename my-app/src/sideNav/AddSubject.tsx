@@ -39,6 +39,9 @@ const AddSubject = () => {
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
   const [anskeyVal, setAnsKeyVal] = useState("");
 
+
+  
+
   //generating new Subject
   const newSubject: subject = {
     subjectCode: `${subjectCode}`,
@@ -82,18 +85,7 @@ const AddSubject = () => {
   // for adding question
   const addQuestion = () => {
     if (question === "") return toastFailed("Please add question");
-    if (key === 0) {
-      if (TFkey === null) return toastFailed("Please provide a answer!");
-    }
-    if (key === 2) {
-      if (identificationKey === "")
-        return toastFailed("Please provide a answer");
-    }
-    if (key === 1) {
-      if (options.length === 0) return toastFailed("Please add options");
-      if (TFkey === null) return toastFailed("Please put answer key");
-    }
-
+    if(anskeyVal === "")  return toastFailed("Please provide a answer");
     toastSuccess("question added!");
     setQuestionID(questionID + 1);
     console.log(questions);
@@ -113,7 +105,9 @@ const AddSubject = () => {
     setIdentificationKey("");
     setAnswerKey("");
     setTFkey(undefined);
+    setAnsKeyVal("")
   };
+
 
   //adding choices for Multiple choice
   const addChoices = () => {
@@ -126,6 +120,7 @@ const AddSubject = () => {
   // this is for deleting choices or options
   const deleteOneOption = (key) => {
     setOptions(options.filter((options) => options.key != key));
+    setAnsKeyVal("")
   };
 
   const deleteQuestion = (id) => {
@@ -151,7 +146,7 @@ const AddSubject = () => {
   }, [identificationKey, TFkey, multipleChoiceKey, key]);
 
   return (
-    <div className="h-[80vh] border-[1px overflow-y-auto duration-700 ease-in-out">
+    <div className="h-[80vh] border-[1px  duration-700 ease-in-out">
       {!showAddQ ? (
         <div className="w-full h-[70vh] border-[1px">
           <div className="flex flex-col gap-5 m-auto w-[70%] md:w-[50%] lg:w-[25%] border-[1px items-center justify-center">
@@ -167,8 +162,6 @@ const AddSubject = () => {
               <button
                 disabled={subjectCode.length === 0 ? true : false}
                 onClick={() => {
-                  // addSubject(newSubject);
-                  console.log("hellow");
                   handleShowAddQ();
                 }}
                 className={` ${
@@ -298,7 +291,7 @@ const AddSubject = () => {
                             setTFkey(e);
                             setAnswerKey(TFkey);
                             setAnsKeyVal(e);
-                            // console.log(anskeyVal);
+                           
                           }}
                           className="TcheckedBox min-w-[20px] h-auto"
                         ></ImCheckboxChecked>
@@ -429,6 +422,7 @@ const AddSubject = () => {
                 </button>
               </div>
               <button
+                disabled={questions.length === 0 ? true: false}
                 className="addQuestionB"
                 onClick={() => {
                   if (questions.length !== 0) {

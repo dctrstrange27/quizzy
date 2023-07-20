@@ -15,7 +15,7 @@ const Home = () => {
         >
           <BsFillJournalBookmarkFill className="w-5 h-5 " />
           <h1 className="font-bold text-base">Reviewers</h1>
-          <p className="font-light text-sm max-w-md">
+          <p className="font-light text-center text-sm max-w-md">
             These are reviewers/questions that are created & shared by different
             students to practice for their exam.{" "}
           </p>

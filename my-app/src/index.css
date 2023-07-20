@@ -24,19 +24,17 @@ code {
     monospace;
 }
 
-
-
 @layer components {
   .button {
     @apply from-p2 to-b2 bg-gradient-to-r font-nuni text-sm hover:scale-105 duration-150 ease-in-out  font-bold tracking-wide px-[0.7rem] py-[0.35rem] text-[#fff] rounded-lg;
   }
   .nav {
-    @apply hover:scale-105  font-semibold text-sm font-pop tracking-wide ease-in-out duration-150
+    @apply hover:scale-105  font-semibold dark:text-white5 dark:hover:text-white5 text-sm font-pop tracking-wide ease-in-out duration-150
      hover:text-[#004e9a] md:text-[#000] md:hover:text-[#000] hover:font-bold md:hover:font-normal;
   }
   
   .sidenav {
-    @apply text-sm md:bg-[#e0dddd] md:w-full md:rounded-md md:hover:text-white5 md:pl-4 md:py-[.70rem] md:hover:scale-[100%] 
+    @apply text-sm md:bg-[#e0dddd] dark:bg-four  md:w-full md:rounded-md md:hover:text-white5 md:pl-4 md:py-[.70rem] md:hover:scale-[100%] 
            md:flex md:items-center md:gap-2 md:justify-start;
   }
   .sidenavicon {

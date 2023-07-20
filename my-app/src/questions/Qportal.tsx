@@ -9,6 +9,7 @@ const Qportal = () => {
   const {
     len,
     setLen,
+    setInQportal,
   } = useContext(GlobalContext);
 
   const currentSubjectFromLocal =  JSON.parse(localStorage.getItem("subject") || '[]');
@@ -31,12 +32,16 @@ const Qportal = () => {
   }
 
   useEffect(() => {
+    setInQportal(prev => true)
     setCurrentSubject(currentSubject)
     setCurrentArray(currentArray)
     setLen(currentSubject.questions.length)
-    handleNext()
   }, []);
-  
+
+  useEffect(() => {
+    handleNext()
+  }, [currentArray,currentSubject]);
+
   function handleProgress() {
     setScale(scale + 100 / len);
   }
@@ -49,7 +54,7 @@ const Qportal = () => {
       className="h-[80vh] border-[1px flex justify-center xl:items-center border-[.2px py-4
       m-auto w-full rounded-2xl border-[#00000032] md:max-w-2xl"
     >
-      {!showQuestion ? (
+      {/* {!showQuestion ? (
         <div className="flex flex-col items-center">
            <h1 className="font-grot  border-[1px py-3 text-2xl dark:text-[#ffff]">
                       {currentSubject.subjectCode}
@@ -58,7 +63,7 @@ const Qportal = () => {
             start
           </button>
         </div>
-      ) : (
+      ) : ( */}
         <>
           {" "}
           <div className="border-[1px w-full">
@@ -80,6 +85,7 @@ const Qportal = () => {
                     </button>
                     <button
                       onClick={() => {
+                        setInQportal(prev => !prev)
                         Navigate("/shared");
                       }}
                       className="questionB w-24"
@@ -91,7 +97,7 @@ const Qportal = () => {
               </>
             ) : (
               <>
-                <div className="flex  flex-col rounded-2xl dark:bg-[#24252681] border-[#0000004b] shadow-xl p-5  gap-2 w-full h-fit">
+                <div className="border-[1px] min-w-[390px] flex  flex-col rounded-2xl dark:bg-[#24252681] border-[#0000004b] shadow-xl md:p-5 px-2  gap-2 w-full h-fit">
                   <div className="border-[1px">
                     <h1 className="font-grot border-[1px text-center py-3 text-2xl dark:text-[#ffff]">
                       {currentSubject.subjectCode}
@@ -102,7 +108,7 @@ const Qportal = () => {
                         {count}/{len}
                       </h2>
                       <div
-                        style={{ width: `20%` }}
+                        style={{ width: `${len}%` }}
                         className={`h-2 w-[${len}%] bg-five rounded-full border-[1px`}
                       >
                         <div
@@ -132,7 +138,7 @@ const Qportal = () => {
             )}
           </div>
         </>
-      )}
+       {/* )} */}
     </div>
   );
 };
