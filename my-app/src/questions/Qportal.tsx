@@ -51,8 +51,8 @@ const Qportal = () => {
 
   return (
     <div
-      className="h-[80vh] border-[1px flex justify-center xl:items-center border-[.2px py-4
-      m-auto w-full rounded-2xl border-[#00000032] md:max-w-2xl"
+      className="h-[80vh] border-[1px flex justify-center border-[.2px py-4
+      m-auto w-full rounded-2xl border-[#00000032] md:max-w-[60rem]"
     >
       {/* {!showQuestion ? (
         <div className="flex flex-col items-center">
@@ -97,7 +97,7 @@ const Qportal = () => {
               </>
             ) : (
               <>
-                <div className="border-[1px] min-w-[390px] flex  flex-col rounded-2xl dark:bg-[#24252681] border-[#0000004b] shadow-xl md:p-5 px-2  gap-2 w-full h-fit">
+                <div className="border-[1px min-w-[390px] flex  flex-col rounded-2xl dark:bg-[#24252681] border-[#0000004b] shadow-xl md:p-5 px-2  gap-2 w-full h-fit">
                   <div className="border-[1px">
                     <h1 className="font-grot border-[1px text-center py-3 text-2xl dark:text-[#ffff]">
                       {currentSubject.subjectCode}

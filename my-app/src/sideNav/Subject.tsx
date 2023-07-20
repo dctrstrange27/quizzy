@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { getUser, saveCurrentArray, saveCurrentSubject, shuffleRandomArray } from "../utils";
 import { GlobalContext } from "../../src/utils/ContextTypes";
@@ -30,6 +30,8 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
       console.log(error);
     }
   };
+
+  console.log(quest)
 
   const checkAccess = async (id, user) => {
     try {
@@ -91,7 +93,6 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
         onClick={() => {
           Navigate('/Qportal')
           saveCurrentSubject(quest)
-         // getSubject(quest._id)
           saveCurrentArray(shuffleRandomArray(quest.questions.length))
           checkAccess(quest._id, getUser());
           setInQportal(prev => true)
@@ -100,11 +101,12 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
       >
         <header className="flex gap-2 py-2 border-r-Ofive dark:text-[#fff] border-[1px justify-start items-center">
           <BiGridVertical className="text-two dark:text-[#fff]" />
-          <div className="flex gap-2">
+          <div className="border-[1px items-center flex gap-2">
             <h1 className="Author font-extrabold text-[#656363]  ">Author:</h1>
-            <p className=" font-mulish font-semibold text-[#3e6cd8]">
-              {quest.addedBy}
-            </p>
+            <img
+              className="w-7 h-7 cursor-pointer rounded-full duration-150 ease-in-out hover:scale-105 hover:border-[1px] hover:border-[#818181a6] "
+              src={`${quest.picture}`}
+            />
           </div>
         </header>
         <div className="flex justify-start gap-2">
