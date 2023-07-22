@@ -66,8 +66,8 @@ const Options = ({
                       {currentQ?.question}
                     </h1>
         { currentQ?.options != "" ? (
-          currentQ?.options?.map((e) => (
-            <div key={e.key}>
+          currentQ?.options?.map((e,idx) => (
+            <div key={idx}>
               {currentQ.questionType === 1 || currentQ.questionType === 0 ? (
                 <button
                   disabled={disableCheckBtn}

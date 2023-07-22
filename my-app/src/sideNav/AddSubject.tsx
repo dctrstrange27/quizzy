@@ -128,7 +128,7 @@ const AddSubject = () => {
     const updatedOptions = options.map((opt) => {
       return opt.key === key ? { ...opt, value:value } : opt;
     });
-    console.log(options)
+    // console.log(options)
     setOptions(updatedOptions);
   };
   // this will run again and again if meet atleast one on the dependencies
