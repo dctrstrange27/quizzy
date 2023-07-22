@@ -20,6 +20,7 @@ const LoginGoogle = ({handleLogin}) => {
         onSuccess={credentialResponse => {
           const gAcountCredentials = jwt_Decode(credentialResponse.credential)
               handleLogin(gAcountCredentials)
+              console.log(gAcountCredentials)
         }}
         onError={() => {
           console.log('Login Failed');

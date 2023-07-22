@@ -3,9 +3,7 @@ import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { useState } from "react";
 import { API } from "../utils";
 import { AiOutlineLoading } from "react-icons/ai";
-import Qportal from "./Qportal";
 import { GlobalContext } from "../../src/utils/ContextTypes";
-
 const Subject = React.lazy(() => import("./Subject"));
 
 const Shared = () => {
@@ -39,7 +37,7 @@ const Shared = () => {
         lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] 
          border-[2px  border-[#700a0a  "
       >
-      <div className="py-2 border-[1px w-full  px-6">
+      <div className="py-2 border-[1px w-full px-6">
         <React.Suspense
           fallback={
             <div className={`w-full h-[200px] flex justify-center items-center`}>

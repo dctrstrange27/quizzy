@@ -30,9 +30,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
       console.log(error);
     }
   };
-
-  console.log(quest)
-
+  
   const checkAccess = async (id, user) => {
     try {
       await API.post("/checkAccessList", {

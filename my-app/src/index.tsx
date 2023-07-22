@@ -10,10 +10,9 @@ import { ToastContainer} from 'react-toastify';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-
 root.render(
     <Router>
-    <GoogleOAuthProvider clientId="473737215172-vvetfrobe1mvoc6d4t9ei8po9am1hllh.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
     <App />
     <ToastContainer limit={5}/>
     </GoogleOAuthProvider>

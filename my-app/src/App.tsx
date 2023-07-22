@@ -99,55 +99,67 @@ const App = () => {
     }
   };
   return (
-      <div className="App w-full relative h-screen duration-700 ease-in-out  bg-white5 dark:bg-five">
-        <GlobalContext.Provider
-          value={{
-            userData,
-            setShowProfile,
-            showProfile,
-            inQportal,
-            setInQportal,
-            handleShowAdd,
-            handleShowAddQ,
-            showAddQ,
-            handleShowProfile,
-            len,
-            setLen,
-            getSubject,
-          }}
-        >
-          <div className=" border-[5px h-auto border-[#fe8a8a]">
-            <Routes>
-              <Route path="/" element={<Home />}>
-                <Route path="addSubject" element={<AddSubject />} />
-                <Route path="shared" element={<Shared />} />
-                <Route
-                  path="Qportal"
-                  element={
-                    <React.Suspense
-                      fallback={
-                        <div
-                          className={`w-full h-40 flex justify-center items-center`}
-                        >
-                          <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
-                        </div>
-                      }
-                    >
-                      <Qportal />
-                    </React.Suspense>
-                  }
-                ></Route>
-              </Route>
+    <div className="App w-full relative h-screen duration-700 ease-in-out  bg-white5 dark:bg-five">
+      <GlobalContext.Provider
+        value={{
+          userData,
+          setShowProfile,
+          showProfile,
+          inQportal,
+          setInQportal,
+          handleShowAdd,
+          handleShowAddQ,
+          showAddQ,
+          handleShowProfile,
+          len,
+          setLen,
+          getSubject,
+        }}
+      >
+        <div className=" border-[5px h-auto border-[#fe8a8a]">
+          <Routes>
+            <Route path="/" element={<Home />}>
+              <Route path="addSubject" element={<AddSubject />} />
               <Route
-                path="login"
-                element={<Login handleLogin={handleLogin} />}
+                path="shared"
+                element={
+                  <React.Suspense
+                    fallback={
+                      <div
+                        className={`w-full h-40 flex justify-center items-center`}
+                      >
+                        <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
+                      </div>
+                    }
+                  >
+                    <Shared />
+                  </React.Suspense>
+                }
               />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </div>
-        </GlobalContext.Provider>
-        <Footer />
-      </div>
+              <Route
+                path="Qportal"
+                element={
+                  <React.Suspense
+                    fallback={
+                      <div
+                        className={`w-full h-40 flex justify-center items-center`}
+                      >
+                        <AiOutlineLoading className="text-b2 w-6 h-auto animate-spin  bg-transparent"></AiOutlineLoading>
+                      </div>
+                    }
+                  >
+                    <Qportal />
+                  </React.Suspense>
+                }
+              ></Route>
+            </Route>
+            <Route path="login" element={<Login handleLogin={handleLogin} />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
+      </GlobalContext.Provider>
+      <Footer />
+    </div>
   );
 };
 

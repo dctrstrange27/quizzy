@@ -14,7 +14,7 @@ const ToggleTheme = () => {
         let selectedTheme = theme == "light" ? "dark": "light"
         setTheme(selectedTheme)
         setVariationTheme(selectedTheme)
-        console.log(theme)
+        // console.log(theme)
     }
 
     return (

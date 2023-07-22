@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../src/utils/ContextTypes";
 import Options from "./Options";
 
-
-
 const Qportal = () => {
   const {
     len,
@@ -51,8 +49,8 @@ const Qportal = () => {
 
   return (
     <div
-      className="h-[80vh] border-[1px flex justify-center border-[.2px py-4
-      m-auto w-full rounded-2xl border-[#00000032] md:max-w-[60rem]"
+      className="h-[80vh] border-[1px flex duration-300 ease-in-out justify-center border-[.2px py-4
+      m-auto w-full rounded-2xl border-[#00000032] xl:max-w-[60rem]  md:max-w-2xl"
     >
       {/* {!showQuestion ? (
         <div className="flex flex-col items-center">
@@ -144,3 +142,5 @@ const Qportal = () => {
 };
 
 export default Qportal;
+
+

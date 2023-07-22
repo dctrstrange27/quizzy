@@ -30,7 +30,7 @@ const AddSubject = () => {
   const [questionID, setQuestionID] = useState(1);
 
   const QuestionTypes = ["true or false", "Multiple choice", "identification"];
-  const [options, setOptions] = useState<any>([""]);
+  const [options, setOptions] = useState<any>([{value:""}]);
   const [answerKey, setAnswerKey] = useState<any>("");
 
   const [key, setKey] = useState<number>();
@@ -39,8 +39,6 @@ const AddSubject = () => {
   const [multipleChoiceKey, setMultipleChoiceKey] = useState("");
   const [anskeyVal, setAnsKeyVal] = useState("");
 
-
-  
 
   //generating new Subject
   const newSubject: subject = {
@@ -88,7 +86,6 @@ const AddSubject = () => {
     if(anskeyVal === "")  return toastFailed("Please provide a answer");
     toastSuccess("question added!");
     setQuestionID(questionID + 1);
-    console.log(questions);
     setQuestions(() => [
       ...questions,
       {
@@ -107,11 +104,10 @@ const AddSubject = () => {
     setTFkey(undefined);
     setAnsKeyVal("")
   };
-
-
+  
   //adding choices for Multiple choice
   const addChoices = () => {
-    setOptions(() => [...options, { key: uniqueId() }]);
+    setOptions(() => [...options, {value:"", key: uniqueId() }]);
   };
   //this is for handling Indentification text box
   const handleIdentification = (e) => {
@@ -128,10 +124,11 @@ const AddSubject = () => {
   };
 
   //this is for handling onchange of each option
-  const handleMultChoices = (key: string, value: string) => {
+  const handleMultChoices = (key: string, value: "") => {
     const updatedOptions = options.map((opt) => {
-      return opt.key === key ? { ...opt, value: value } : opt;
+      return opt.key === key ? { ...opt, value:value } : opt;
     });
+    console.log(options)
     setOptions(updatedOptions);
   };
   // this will run again and again if meet atleast one on the dependencies
@@ -345,7 +342,7 @@ const AddSubject = () => {
                         <input
                           type="text"
                           value={opt.value}
-                          onChange={(event) =>
+                          onChange={(event:any) =>
                             handleMultChoices(opt.key, event.target.value)
                           }
                           placeholder="input choices here.."
@@ -392,7 +389,7 @@ const AddSubject = () => {
                       }}
                       disabled={options.length > 10 ? true : false}
                     >
-                      <FiPlus className="w-7 h-7 hover:scale-125 ease-out duration-200" />
+                      <FiPlus className={` ${options.length > 10 ? "cursor-not-allowed hover:scale-none text-Tabs_bg":"cursor-pointer hover:scale-125"} w-7 h-7  ease-out duration-200`} />
                     </button>
                   </div>
                 </div>
