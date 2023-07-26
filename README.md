@@ -1,8 +1,7 @@
 # Quizzy
-A simple quiz reviewer, that allows all students create their own quiz and choose which types of quiz they preffered!
+A simple quiz reviewer that enables all students to create their quizzes and select their preferred quiz types. However, students must log in before they can take the quiz.
 ## Hosting
 This website was deployed in [**render.com**](https://render.com/).
-
 PS. free individual plan subscription.
 
  You can visit the Link/ live preview here at [Quizzy App](https://quizzy-app.onrender.com/).
@@ -24,12 +23,11 @@ PS. free individual plan subscription.
    - [Express](https://expressjs.com/)
    - [Cors](https://www.npmjs.com/package/cors)
 # Features
-- Google Login (OAuth)
-- Create own Quiz
-- Answer quiz
-- can modify delete option in specific quiz
-- Simple UI
+ - Google Login (OAuth)
+ - Create your own Quiz
+ - Answer Quizzes
+ - Modify or Delete specific quiz options
+ - Simple User Interface
 
 ### Contribute
-
-if you want to contribute to this project, message me at my portfolio [rohan-official](https://rohan-official.vercel.app/contact)
+If you would like to contribute to this project, please message me at my portfolio. [rohan-official](https://rohan-official.vercel.app/contact)
