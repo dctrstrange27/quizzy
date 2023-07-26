@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../src/utils/ContextTypes";
 
 const AddSubject = () => {
-  const { handleShowAddQ, showAddQ } = useContext(GlobalContext);
+  const { handleShowAddQ, showAddQ,setSubjects,subjects } = useContext(GlobalContext);
 
   interface subject {
     subjectCode: string;
@@ -60,7 +60,7 @@ const AddSubject = () => {
   //adding subject function
   const addSubject = async (data, questions) => {
     try {
-      await API.post("/addsubject", {
+    const subject =  await API.post("/addsubject", {
         subjectCode: data.subjectCode,
         accessCount: data.accessCount,
         addedBy: data.addedBy,
@@ -69,7 +69,8 @@ const AddSubject = () => {
         questions: questions,
       });
       toastSuccess("successfully added Subject!!");
-      window.location.reload();
+      setSubjects([...subjects, subject])
+      console.log(subjects)
       Navigate("/shared");
     } catch (err) {
       toastFailed(err.response.data.messge);

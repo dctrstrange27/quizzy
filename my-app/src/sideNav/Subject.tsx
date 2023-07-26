@@ -42,7 +42,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
       console.log(error);
     }
   };
-  let len = quest.questions.length;
+  let len = quest?.questions?.length;
 
   return (
     <div

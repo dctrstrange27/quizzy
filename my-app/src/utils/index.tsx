@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const saveUser = (response) => {
   localStorage.setItem("userData", JSON.stringify(response.data.userData));
@@ -104,10 +105,17 @@ export const signOut = () => {
   localStorage.removeItem("userData");
 };
 
-export const amIloggedIn = (navigate) => {
-  const loggedInUser = getUser();
-  if (!loggedInUser) navigate("/login");
-  return loggedInUser;
+export const hasUser = () => {
+  try {
+    const data = JSON.parse(localStorage.getItem("userData"));
+    if (!data) {
+      return false;
+    }
+    if(data == "")return false
+    return true
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // export const rememberMe = (email_address, password) => {

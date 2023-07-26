@@ -2,7 +2,6 @@
 const user = require('../models/user')
 const LoginUser = require('../models/user')
 const Subject = require('../models/Subject')
-let ObjectId = require("mongoose").Types.ObjectId;
 
 const login = async (req, res) => {
     const { email_address, password } = req.body
@@ -77,14 +76,15 @@ const addSubject = async (req, res) => {
         if (subject) {
             return res.status(400).json({ messge: "Subject Already Exist!" })
         }
-        const newSubject = await Subject.create({
+        await Subject.create({
             subjectCode: `${subjectCode}`,
             questions: questions,
             accessCount:accessCount,
             addedBy:addedBy,
             picture:picture
         })
-        res.status(200).json(newSubject)
+        const getSubject = await Subject.find({})
+        res.status(200).json(getSubject)
 
     } catch (error) {
         console.log(error)
@@ -100,7 +100,6 @@ const deleteSubj= async(req,res)=>{
         console.log(error)
     }
 }
-
 
 const checkAccessList = async(req,res)=>{
     const {_id,email} = req.body

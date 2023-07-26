@@ -13,25 +13,14 @@ import Login from "./Login/Login";
 import { useNavigate } from "react-router-dom";
 import {
   API,
-  saveCurrentQuestion,
-  saveQuestionOnly,
   saveUser,
-  getQuestionOnly,
-  saveCurrentQ,
-  generateRandomNum,
-  saveCurrentSubject,
-  saveCurrentArray,
-  getCurrentSubject,
-  getCurrentArray,
+ hasUser
 } from "./utils/index";
-import { createContext } from "react";
 import React from "react";
 import { AiOutlineLoading } from "react-icons/ai";
-import { loadTheme } from "./utils/theme";
 import Footer from "./sideNav/Footer";
-import { shuffleRandomArray } from "./utils/index";
 import { GlobalContext } from "./utils/ContextTypes";
-
+import LoginFirstModal from "./modal/LoginFirstModal";
 const Qportal = React.lazy(() => import("./questions/Qportal"));
 
 //context in Home,
@@ -42,16 +31,15 @@ const App = () => {
     picture: string;
   }
   //old
+  const [subjects, setSubjects] = useState([]);
   const [showProfile, setShowProfile] = useState(false);
   const [userData, setUserData] = useState<user[]>([]);
-  const [hasUser, setHasUser] = useState(false);
-  const [questionsOnly, setQuestionOnly] = useState([]);
-  const [currentQ, setCurrentQ] = useState([]);
   const Navigate = useNavigate();
-  const [disabled, setDisable] = useState(false);
-  const [random, setRandom] = useState(0);
   const [inQportal, setInQportal] = useState(false);
   const [showAddQ, setShowAddQ] = useState(false);
+
+  const [showModal,setShowModal] = useState(false)
+
 
   const handleShowAdd = () => {
     setShowAddQ(false);
@@ -76,11 +64,16 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    if (hasUser) {
-      Navigate("/shared");
-    }
-  }, []);
+ 
+
+  useEffect(()=>{
+    console.log(hasUser())
+    if(!hasUser()) Navigate("/Login");
+  },[])
+
+
+
+
 
   const handleShowProfile = () => {
     setShowProfile(false);
@@ -100,6 +93,7 @@ const App = () => {
   };
   return (
     <div className="App w-full relative h-screen duration-700 ease-in-out  bg-white5 dark:bg-five">
+      <LoginFirstModal hasLogin={hasUser} showModal={showModal} setShowModal={setShowModal}></LoginFirstModal>
       <GlobalContext.Provider
         value={{
           userData,
@@ -114,6 +108,8 @@ const App = () => {
           len,
           setLen,
           getSubject,
+          subjects,
+          setSubjects,
         }}
       >
         <div className=" border-[5px h-auto border-[#fe8a8a]">

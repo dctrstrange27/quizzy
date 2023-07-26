@@ -15,6 +15,8 @@ export interface GlobalContextTypes{
   len:number;
   setLen:any;
   getSubject:(id:any)=> any;
+  subjects:any;
+  setSubjects:any;
 }
 
 export const GlobalContext = createContext<GlobalContextTypes>({
@@ -30,5 +32,7 @@ export const GlobalContext = createContext<GlobalContextTypes>({
     len:null,
     setLen:()=>{},
     getSubject:(id:any)=>{},
+    setSubjects:()=>{},
+    subjects:[]
   });
   

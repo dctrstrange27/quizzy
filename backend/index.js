@@ -14,14 +14,11 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors(corsOptions))
-connectDB()
-//console.log(process.env.CLIENTID)
-app.use('/api', require('./routes/user'))
-//app.use('/api/newUser', require('./routes/user'))
-// app.use('/api/food', require('./routes/foodRoutes'))
-// app.post('/api/food',(req,res)=>{res.status(200).json({message:"set Food"})})
-//app.use(errorHandler) @  
 
+connectDB()
+
+app.use('/api', require('./routes/user'))
+ 
 try {
     app.listen(port,()=>{
         console.log(`Server is running on port ${port}`)

@@ -1,29 +1,30 @@
 import React, { useEffect,useContext } from "react";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { useState } from "react";
-import { API } from "../utils";
+import { API, hasUser } from "../utils";
 import { AiOutlineLoading } from "react-icons/ai";
 import { GlobalContext } from "../../src/utils/ContextTypes";
+import {  useNavigate } from "react-router-dom";
 const Subject = React.lazy(() => import("./Subject"));
 
 const Shared = () => {
-  const [questions, setQuestions] = useState([]);
-  const {handleShowProfile,handleShowAddQ,handleShowAdd} = useContext(GlobalContext)
-
+  const {handleShowProfile,handleShowAddQ,setSubjects,subjects} = useContext(GlobalContext)
+  const navigate = useNavigate()
   const getQuestion = async () => {
     try {
       const getQuestion = await API.post("/getSubject");
-      setQuestions(getQuestion.data);
+      setSubjects(getQuestion.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleDeleteSubj=(id:number)=>{
-    setQuestions(questions.filter((q)=> q._id != id ))
+    setSubjects(subjects.filter((q)=> q._id != id ))
   }
 
   useEffect(() => {
+    if(hasUser) navigate('/shared')
     getQuestion();
     handleShowAddQ()
   }, []);
@@ -45,7 +46,7 @@ const Shared = () => {
             </div>
           }
         >
-          {questions.map((quest, id) => (
+          {subjects.map((quest, id) => (
             <Subject 
               key={id}
               quest={quest}

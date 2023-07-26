@@ -1,6 +1,16 @@
 import React from 'react'
 import LoginGoogle from '../googleLogin/LoginGoogle'
+import { useNavigate } from 'react-router-dom';
+import { hasUser } from '../utils';
+import { useEffect } from 'react';
 const Login = ({handleLogin}) => {
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(hasUser()) navigate('/shared')
+  }, []);
+
   return (
     <>
       <div className='w-full h-screen  flex justify-center items-center'>
