@@ -32,4 +32,4 @@ PS. free individual plan subscription.
 
 ### Contribute
 
-if you want to contribute to this project, message me at portfolio [rohan-official](https://rohan-official.vercel.app/contact)
+if you want to contribute to this project, message me at my portfolio [rohan-official](https://rohan-official.vercel.app/contact)
