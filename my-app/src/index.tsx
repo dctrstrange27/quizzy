@@ -12,7 +12,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <Router>
-    <div className="client">{process.env.REACT_APP_CLIENT_ID}</div>
     <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
     <App />
     <ToastContainer limit={5}/>
