@@ -23,7 +23,6 @@ const Shared = () => {
   const handleDeleteSubj=(id:number)=>{
     setSubjects(subjects.filter((q)=> q._id != id ))
   }
-  console.log(subjects)
   useEffect(() => {
   
     if(hasUser) navigate('/shared')

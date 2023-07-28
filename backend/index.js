@@ -5,7 +5,7 @@ const colors = require('colors')
 const cors=require("cors");
 
 const corsOptions ={
-   origin:'https://quizzy-api.vercel.app', 
+   origin:'*', 
    credentials:true,        
    optionSuccessStatus:200,
 }

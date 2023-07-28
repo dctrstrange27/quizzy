@@ -67,7 +67,6 @@ const App = () => {
  
 
   useEffect(()=>{
-    console.log(hasUser())
     if(!hasUser()) Navigate("/Login");
   },[])
 
