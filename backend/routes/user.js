@@ -3,7 +3,7 @@ const routes = exp.Router()
 const {login,createGoogleAccount,addSubject,getSubject,getQuestion,getUsers,checkAccessList,deleteSubj} = require('../controller/UserController')
 
 routes.route('/').post(login)
-routes.route('/getUsers').post(getUsers)
+routes.route('/getUsers').get(getUsers)
 routes.route('/createG').post(createGoogleAccount)
 routes.route('/addsubject').post(addSubject)
 routes.route('/getSubject').get(getSubject)
