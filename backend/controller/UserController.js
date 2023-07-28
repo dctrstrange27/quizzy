@@ -36,7 +36,7 @@ const createGoogleAccount = async (req, res) => {
 }
 const getUsers = async(req,res)=>{
     const getUsers = await LoginUser.find({})
-    res.status(200).json(getUsers)
+    return res.status(200).json(getUsers)
 }
 
 // const getSubject=async(req,res)=>{
@@ -50,7 +50,7 @@ const getUsers = async(req,res)=>{
 
 const getSubject=async(req,res)=>{
     const getSubject = await Subject.find({})
-    res.status(200).json(getSubject)
+   return res.status(200).json(getSubject)
 }
 
 const getQuestion=async(req,res)=>{
@@ -85,7 +85,7 @@ const addSubject = async (req, res) => {
             picture:picture
         })
         const getSubject = await Subject.find({})
-        res.status(200).json(getSubject)
+       return res.status(200).json(getSubject)
 
     } catch (error) {
         console.log(error)
@@ -96,7 +96,7 @@ const deleteSubj= async(req,res)=>{
     const {_id} = req.body
     try {
         const subj = await Subject.findByIdAndDelete({_id})    
-        res.json({"deleted Successfully": subj})
+       return res.json({"deleted Successfully": subj})
     } catch (error) {
         console.log(error)
     }
