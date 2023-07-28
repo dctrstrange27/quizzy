@@ -1,10 +1,9 @@
 # Quizzy
 A simple quiz reviewer that enables all students to create their quizzes and select their preferred quiz types. However, students must log in before they can take the quiz.
 ## Hosting
-This website was deployed in [**render.com**](https://render.com/).
-PS. free individual plan subscription.
+This website was deployed in [**vercel.com**](https://vercel.com/).
 
- You can visit the Link/ live preview here at [Quizzy App](https://quizzy-app.onrender.com/).
+You can visit the Link/ live preview here at [Quizzy App](https://quizzy-beige.vercel.app/).
 
 # Technologies
 ### MERN STACK
