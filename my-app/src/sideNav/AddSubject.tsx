@@ -70,7 +70,6 @@ const AddSubject = () => {
       });
       toastSuccess("successfully added Subject!!");
       setSubjects([...subjects, subject])
-      console.log(subjects)
       Navigate("/shared");
     } catch (err) {
       toastFailed(err.response.data.messge);
@@ -230,7 +229,6 @@ const AddSubject = () => {
                         <MdDelete
                           onClick={() => {
                             deleteQuestion(idx);
-                            console.log(idx);
                           }}
                           className="w-5 h-5 text-[#f37676] hover:scale-125 ease-out duration-200"
                         />

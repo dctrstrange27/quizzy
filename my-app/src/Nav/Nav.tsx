@@ -22,10 +22,6 @@ const Nav = () => {
           <div className="gap-5 md:hidden ">
             <SideNav></SideNav>
           </div>
-          <Link to="shared" className="nav dark:text-one">
-            {" "}
-            Docs
-          </Link>
           <ToggleTheme></ToggleTheme>
           {getUser() == false ? (
             <Link to="/login" className="button cursor-pointer">
