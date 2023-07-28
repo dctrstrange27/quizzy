@@ -425,7 +425,6 @@ const AddSubject = () => {
                 onClick={() => {
                   if (questions.length !== 0) {
                     addSubject(newSubject, questions);
-                    Navigate("/Shared");
                   } else {
                     toastFailed("No Questions added!!");
                   }

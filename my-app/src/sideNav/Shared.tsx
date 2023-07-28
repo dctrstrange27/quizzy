@@ -10,9 +10,10 @@ const Subject = React.lazy(() => import("./Subject"));
 const Shared = () => {
   const {handleShowProfile,handleShowAddQ,setSubjects,subjects} = useContext(GlobalContext)
   const navigate = useNavigate()
+
   const getQuestion = async () => {
     try {
-      const getQuestion = await API.post("/getSubject");
+      const getQuestion = await API.get("/getSubject");
       setSubjects(getQuestion.data);
     } catch (error) {
       console.log(error);
@@ -22,12 +23,14 @@ const Shared = () => {
   const handleDeleteSubj=(id:number)=>{
     setSubjects(subjects.filter((q)=> q._id != id ))
   }
-
+  console.log(subjects)
   useEffect(() => {
+  
     if(hasUser) navigate('/shared')
     getQuestion();
     handleShowAddQ()
   }, []);
+
 
   return (
     <div
@@ -46,7 +49,7 @@ const Shared = () => {
             </div>
           }
         >
-          {subjects.map((quest, id) => (
+          {subjects?.map((quest, id) => (
             <Subject 
               key={id}
               quest={quest}

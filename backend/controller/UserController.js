@@ -52,6 +52,7 @@ const getSubject=async(req,res)=>{
     const getSubject = await Subject.find({})
     res.status(200).json(getSubject)
 }
+
 const getQuestion=async(req,res)=>{
     const {id,itemID} = req.body
     try {

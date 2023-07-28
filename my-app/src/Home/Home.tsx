@@ -3,11 +3,13 @@ import { Outlet } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import Side from "../sideNav/Side";
+import { GlobalContext } from "../utils/ContextTypes";
 const Home = () => {
-
+  const {subjects} = useContext(GlobalContext)
+  const len =subjects?.length
   return (
     <>
-        <div className="Home relative  bg-b border-[5px h-screen border-r-Ofive">
+        <div className={`Home ${len <= 3 ? "h-screen":"h-fit"} relative bg-b border-[5px  border-r-Ofive`}>
           <Nav></Nav>
         <div
           className="px-14 flex flex-col items-center gap-2 pt-20 py-5 w-full border-[1px

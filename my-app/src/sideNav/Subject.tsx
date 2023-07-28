@@ -16,7 +16,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
 
   const handleToast = (message) => {
     try {
-      toast.error(message, {
+      toast.success(message, {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: true,
@@ -43,7 +43,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
     }
   };
   let len = quest?.questions?.length;
-
+  let accessLen = quest.usersAccessedList?.length
   return (
     <div
       className={`subject cursor-pointer dark:bg-[#24252681] relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] dark:border-[#ffffff3c shadow-Light_shadow hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200`}
@@ -118,7 +118,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
         </h1>
         <div className="Count px-2 py-2 flex font-nuni font-bold tracking-wide w-fit rounded-xl bg-[#041b2d] dark:bg-[#0a3657]">
           <div className="px-2 text-[#fff] rounded-lg  bg-[#004e9a] dark:bg-[#056dd5]">
-            {quest.questions.length}
+            {len}
           </div>
           <p className="px-2  text-[#fff] uppercase ">Questions</p>
         </div>
@@ -126,7 +126,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
           {moment(quest.createdAt).format("MMMM Do YYYY")}
         </div>
         <div className="Date text-sm text-[#5f5e5e] absolute bottom-2 right-3">
-          Accessed by student {quest.usersAccessedList.length}x
+          Accessed by student {accessLen}x
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ const Side = () => {
   const {inQportal } = useContext(GlobalContext);
   return (
    <>
-      {!inQportal && <div className='Side bg-p fixed hidden md:flex h-fit px-4 w-[20%] -mt-24 border-[5px flex-col'>
+      {!inQportal && <div className='Side bg-p border-[1px fixed hidden md:flex h-fit px-4 w-[20%] -mt-24 border-[5px flex-col'>
       <SideNav></SideNav>
       </div>}
     
