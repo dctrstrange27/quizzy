@@ -19,7 +19,7 @@ connectDB()
 
 app.use('/api', require('./routes/user'))
 app.get('/', (req,res)=>{
-    res.send("hello world!")
+    res.send("hello world!!")
 })
 try {
     app.listen(port,()=>{
