@@ -42,7 +42,7 @@ const Options = ({
     new Audio(wrongSound).play();
   };
   const handleCheckAns = () => {
-    if (correctAns == key) {
+    if (correctAns === key) {
       correct();
       setScore((prev: any) => prev + 1);
     } else {
@@ -52,7 +52,7 @@ const Options = ({
   };
 
   useEffect(() => {
-    if (key == "") {
+    if (key === "") {
       setIsSelected(false);
     } else {
       setIsSelected(true);
@@ -68,18 +68,18 @@ const Options = ({
         { currentQ?.options != "" ? (
           currentQ?.options?.map((e,idx) => (
             <div key={idx}>
-              {currentQ.questionType === 1 || currentQ.questionType === 0 ? (
+              {currentQ.questionType ===  1 || currentQ.questionType ===  0 ? (
                 <button
                   disabled={disableCheckBtn}
                   className={`choices cursor-pointer w-full text-five  dark:text-[#fff] ${
                     disableCheckBtn
                       ? `pointer-events-none${
-                          e.key == correctAns
+                          e.key === correctAns
                           ? " border-[#36D399] border-[2px] dark:border-[3px] dark:from-[#36d39911] dark:to-[#36D399]  from-[#Fff] to-[#033465bf] bg-gradient-to-r"
                           : " border-[#b32a2a6e] dark:border-[3px] dark:from-[#91515918] dark:to-[#915157]  from-white5  to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                         }`
                       : `${
-                          key == e.key
+                          key === e.key
                           ? "from-[#fff] border-[3px]  dark:from-[#ea449233] dark:to-[#004e9a]  to-b2 bg-gradient-to-r "
                           : " dark:bg-[#fff0] dark:border-[0px]  "
                         }`
@@ -92,7 +92,7 @@ const Options = ({
                 >
                   {e.value}
                   <div className="flex items-center">
-                    {key == e.key ? (
+                    {key === e.key ? (
                       <ImCheckboxChecked className="w-5 h-5 ease-in-out p-0 duration-700 text-b1 rounded-md bg-[#fff]"></ImCheckboxChecked>
                     ) : (
                       <ImCheckboxUnchecked className="w-5 h-5 text-[#fff0] border-[1px] shadow-lg border-[#0000001f] rounded-md"></ImCheckboxUnchecked>
@@ -106,7 +106,7 @@ const Options = ({
           ))
         ) : (
           <div>
-            {currentQ?.questionType === 2 ? (
+            {currentQ?.questionType ===  2 ? (
               <div className="border-[1px">
                 <input
                   onChange={handleOnChange}
@@ -131,12 +131,12 @@ const Options = ({
                       className={`choices cursor-pointer w-full  ${
                         disableCheckBtn
                           ? `pointer-events-none${
-                              i == correctAns
+                              i === correctAns
                                 ? " border-[#36D399] border-[2px] dark:border-[3px] dark:from-[#36d39911] dark:to-[#36D399]  from-[#Fff] to-[#033465bf] bg-gradient-to-r"
                                 : " border-[#b32a2a6e] dark:border-[3px] dark:from-[#91515918] dark:to-[#915157]  from-white5  to-[#e73b3b7e] bg-gradient-to-r border-[3px]"
                             }`
                           : `${
-                              key == i
+                              key === i
                                 ? "from-[#fff] border-[3px]  dark:from-[#ea449233] dark:to-[#004e9a]  to-b2 bg-gradient-to-r "
                                 : " dark:bg-[#fff0] dark:border-[0px]  "
                             }`
@@ -149,7 +149,7 @@ const Options = ({
                     >
                       {i}
                       <div className="flex items-center">
-                        {key == i ? (
+                        {key === i ? (
                           <ImCheckboxChecked className="w-5 h-5 ease-in-out p-0 duration-700 text-b1 rounded-md bg-[#fff]"></ImCheckboxChecked>
                         ) : (
                           <ImCheckboxUnchecked className="w-5 h-5 text-[#fff0] border-[1px] shadow-lg border-[#0000001f] rounded-md"></ImCheckboxUnchecked>
@@ -188,7 +188,7 @@ const Options = ({
                   setCheckAns(false);
                   handleProgress();
                   setDisableCheckBtn(false);
-                  if(arr == 0) setIsFinish(true);
+                  if(arr === 0) setIsFinish(true);
                 }}
                 className={`questionB mt-10 uppercase ${
                   !disableCheckBtn
@@ -196,7 +196,7 @@ const Options = ({
                     : "button"
                 } `}
               >
-                {arr == 0 ? "Finish":"Next"}
+                {arr === 0 ? "Finish":"Next"}
               </button>
         </div>
       </div>

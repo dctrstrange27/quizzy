@@ -37,10 +37,9 @@ const Shared = () => {
         handleShowProfile();
       }}
       className="flex-col  w-full md:ml-[20%] md:max-w-xl border-[1px
-        lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] 
-         border-[2px  border-[#700a0a  "
+        lg:max-w-[50rem] 2xl:max-w-[70rem] 3xl:max-w-[70rem] border-[20px  "
       >
-      <div className="py-2 border-[1px w-full px-6">
+      <div className="py-2 bg-p w-full px-6">
         <React.Suspense
           fallback={
             <div className={`w-full h-[200px] flex justify-center items-center`}>

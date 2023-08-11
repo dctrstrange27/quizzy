@@ -91,7 +91,7 @@ const App = () => {
     }
   };
   return (
-    <div className="App w-full relative duration-700 ease-in-out  bg-white5 dark:bg-five">
+    <div className="App w-full relative duration-700 ease-in-out  bg-[#fafafa] dark:bg-five">
       <LoginFirstModal hasLogin={hasUser} showModal={showModal} setShowModal={setShowModal}></LoginFirstModal>
       <GlobalContext.Provider
         value={{

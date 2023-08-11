@@ -46,7 +46,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
   let accessLen = quest.usersAccessedList?.length
   return (
     <div
-      className={`subject cursor-pointer dark:bg-[#24252681] relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] dark:border-[#ffffff3c shadow-Light_shadow hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200`}
+      className={`subject cursor-pointer dark:bg-[#24252681] bg-white5 relative mb-7 bg-b font-nuni text-sm px-4 py-4 h-60 border-[1px] dark:border-[#ffffff3c shadow-Light_shadow shadow-md hover:shadow-lg border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200`}
     >
       <div
         className={`${

@@ -9,7 +9,7 @@ const Home = () => {
   const len =subjects?.length
   return (
     <>
-        <div className={`Home ${len <= 3 ? "h-screen":"h-fit"} relative bg-b border-[5px  border-r-Ofive`}>
+        <div className={`Home ${len <= 2 ? "h-[100vh]":"fit"} relative bg-b border-[5px  border-r-Ofive`}>
           <Nav></Nav>
         <div
           className="px-14 flex flex-col items-center gap-2 pt-20 py-5 w-full border-[1px
