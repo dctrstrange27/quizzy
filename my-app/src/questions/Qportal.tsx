@@ -64,7 +64,7 @@ const Qportal = () => {
       ) : ( */}
         <>
           {" "}
-          <div className="border-[1px] w-full">
+          <div className="w-full">
             {finish == true ? (
               <>
                 <div className="border-[1px flex flex-col items-center">
