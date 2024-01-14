@@ -12,7 +12,7 @@ const Subject = ({ quest, handleDeleteSubj, handleShowAddQ }) => {
   const Navigate = useNavigate();
   const {getSubject,setLen,setInQportal } = useContext(GlobalContext);
 
-  const [disabledDelete, setDisable] = useState(true);
+  const [disabledDelete, setDisable] = useState(false);
 
   const handleToast = (message) => {
     try {
