@@ -91,7 +91,8 @@ const App = () => {
     }
   };
   return (
-    <div className="App w-full relative duration-700 ease-in-out  bg-[#fafafa] dark:bg-five">
+   <div>
+     <div className="App w-full h-fit  relative duration-700 ease-in-out  bg-[#fafafa] dark:bg-five">
       <LoginFirstModal hasLogin={hasUser} showModal={showModal} setShowModal={setShowModal}></LoginFirstModal>
       <GlobalContext.Provider
         value={{
@@ -111,7 +112,7 @@ const App = () => {
           setSubjects,
         }}
       >
-        <div className=" border-[5px h-fit border-[#fe8a8a]">
+        <div className=" h-fit border-[#fe8a8a]">
           <Routes>
             <Route path="/" element={<Home />}>
               <Route path="addSubject" element={<AddSubject />} />
@@ -153,8 +154,8 @@ const App = () => {
           </Routes>
         </div>
       </GlobalContext.Provider>
-      <Footer />
     </div>
+   </div>
   );
 };
 
