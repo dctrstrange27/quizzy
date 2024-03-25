@@ -1,5 +1,5 @@
-const exp = require('express')
-const routes = exp.Router()
+const express = require('express')
+const routes = express.Router()
 const {login,createGoogleAccount,addSubject,getSubject,getQuestion,getUsers,checkAccessList,deleteSubj} = require('../controller/UserController')
 
 routes.route('/').post(login)
