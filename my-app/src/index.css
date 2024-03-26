@@ -1,91 +1,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&family=Poppins:wght@100;200;300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Nunito+Sans:wght@300;400;600&family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@400;700;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@900&family=Pacifico&display=swap");
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-@layer components {
-  .button {
-    @apply from-p2 to-b2 bg-gradient-to-r font-nuni text-sm hover:scale-105 duration-150 ease-in-out  font-bold tracking-wide px-[0.7rem] py-[0.35rem] text-[#fff] rounded-lg;
-  }
-  .nav {
-    @apply hover:scale-105  font-semibold dark:text-white5 dark:hover:text-white5 text-sm font-pop tracking-wide ease-in-out duration-150
-     hover:text-[#004e9a] md:text-[#000] md:hover:text-[#000] hover:font-bold md:hover:font-normal;
-  }
-  
-  .sidenav {
-    @apply text-sm md:bg-[#e0dddd] dark:bg-four  md:w-full md:rounded-md md:hover:text-white5 md:pl-4 md:py-[.70rem] md:hover:scale-[100%] 
-           md:flex md:items-center md:gap-2 md:justify-start;
-  }
-  .sidenavicon {
-    @apply hidden md:block md:text-p2;
-  }
-  .profile {
-    @apply text-sm flex gap-5 hover:bg-[#d3e1ee9b] px-3 rounded-lg py-2;
-  }
+#html5qr-code-full-region{
+    border : 0px !important;
+    @apply flex-1
+}
 
-  .subject {
-    @apply relative mb-7 border-[1px] font-nuni text-sm px-4 py-4 h-60  shadow-Light_shadow hover:shadow-lg  
-    border-[#1e1e1e3e] rounded-lg hover:scale-105 ease-in-out duration-200;
-  }
+#html5qr-code-full-region__scan_region{
+    @apply flex justify-center
+}
 
-  .choices {
-    @apply mx-2 px-2 my-2 w-full flex items-center justify-between font-bold text-[18px] tracking-normal text-[#2c2b2b] text-start py-3 hover:from-[#ffffff17]
-           hover:to-b2 bg-gradient-to-r rounded-2xl dark:text-[#ffff] dark:border-[1px];
-  }
-  .questionB {
-    @apply bg-b2 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
-  }
+.thin-scroll::-webkit-scrollbar {
+    width: 0.4rem;
+}
 
-  .disabledBtn {
-    @apply bg-[#0000007b] cursor-pointer text-P_bg px-3 py-2 font-grot hover:transform-none  rounded-md;
-  }
+.thin-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent shadow-sm;
+}
 
-  .disabledChoices {
-    @apply px-3 font-grot text-[20px] text-[#2c2b2b] text-start py-4 hover:from-[#ffffff17]
-    bg-[#0000007b];
-  } 
-  .correct{
-    @apply border-[#2bf303] border-[2px] from-[#Fff] to-b2 bg-gradient-to-r
-  }
-  .buttonUpdate {
-    @apply bg-b2 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
-  }
-  .checkedBox{
-    @apply w-5 h-5 ease-in-out p-0 duration-700 dark:bg-b1 dark:text-[#fff] text-b1 rounded-md bg-[#fff]
-  }
-  .uncheckedBox{
-    @apply w-5 h-5 text-[#fff0] border-[1px] shadow-lg dark:bg-b1 dark:text-[#fff] border-[#0000001f] rounded-md
-  }
-
-  .TcheckedBox{
-    @apply w-5 h-5 ease-in-out p-0 duration-700 text-[#1ac742] rounded-md bg-[#fff]
-  }
-  
-  .addQuestionB {
-    @apply bg-b1 cursor-pointer text-P_bg px-3 py-2 font-bold font-grot text-lg tracking-wide duration-100 ease-in-out rounded-md hover:scale-105;
-  }
-  .optionLabel{
-    @apply font-tilt text-lg
-  }
+.thin-scroll::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-600;
 }

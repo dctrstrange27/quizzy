@@ -14,13 +14,19 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "types": "module",
+    "types": ["node","vite/client"],
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "parserOptions": {
     "ecmaVersion": 6,
@@ -28,6 +34,6 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "include": ["src", "src/utils"  ]
+  "include": ["src", "src/utils", "src/@"  ]
   
 }

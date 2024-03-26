@@ -1,77 +1,72 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,tsx}"],
-  darkMode: 'class',
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
+  prefix: "",
   theme: {
-    screens: {
-      "sss": '360px',
-      "ss": '578px',
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px',
-      '3xl': '1920px',
-    },
-    colors: {
-      //light theme
-      b1:"#041B2D",
-      b2:"#004e9a",
-      b3:"428cd4",  
-      p1:"#ff9cda",
-      p2:"#ea4492",
-
-      //gray
-      five: "#18191a",
-      four: "#232425",
-      three: "#242526",
-      two: "#242526",
-      one: "#77797d",
-      //orange
-      Ofive: "#ff7900",
-      Ofour: "#d56300",
-      Othree: "#9b4800",
-      Otwo: "#512600",
-      Oone: "#77797d",
-      //white
-      white5: "#fff",
-
-      //black 
-      black5: "#000",
-
-      P_bg: "#f7f9fb",
-      Light_normal: '#383838',
-      Light_shadow: '#2626262c',
-      Dark_nav_bg: "#242526",
-      Light_nav_bg: "#e9e7e7",
-      Tabs_bg: "#abadb2",
-      Aside_icon: "#8a340b",
-      product_bg: "#f2f0eee6",
-      product_lbl_bg: "#fffafad3",
-      dark_del_btn: "#C90915",
-      light_del_btn: "#de5a63",
-
-    },
-
-    extend: {
-      fontFamily: {
-        dm_mono: "'DM Mono', monospace",
-        pop: "'Poppins', sans-serif",
-        nuni: "'Nunito', sans-serif",
-        nsans: "'Nunito Sans', sans-serif",
-        mulish: "'Mulish', sans-serif",
-        pacifico: 'Pacifico',
-        tilt: 'Tilt Warp',
-        grot: 'Darker Grotesque'
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
       },
-      backgroundImage: {
-        'dark-text-logo': "url('./img/dark-text-logo.png')",
-        'light-text-logo': "url('./img/light-text-logo.png')",
-        'light-tab-bg': "url('./img/light-tab-bg.png')",
-        'dark-tab-bg': "url('./img/dark-tab-bg.png')",
-        'sigup-pic': "url('./img/picture.jpg')",
-      }
-
+    },
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
     },
   },
-  
+  plugins: [require("tailwindcss-animate")],
 }
